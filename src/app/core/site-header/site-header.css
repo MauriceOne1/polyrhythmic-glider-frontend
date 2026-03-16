@@ -1,0 +1,30 @@
+.header {
+    width: min(1100px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 20px 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.nav {
+    display: flex;
+    gap: 16px;
+}
+
+.nav a {
+    text-decoration: none;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.nav a:hover {
+    opacity: 1;
+}
