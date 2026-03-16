@@ -1,7 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
 
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  margin: 0;
+}
 
 :host {
   display: block;
