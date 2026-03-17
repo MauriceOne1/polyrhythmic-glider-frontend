@@ -1,0 +1,78 @@
+<section class="snake-page">
+  <div class="snake-copy">
+    <p class="eyebrow">Experimental</p>
+    <h1>Snake</h1>
+    <p class="description">
+      Classic grid movement, one food at a time, simple scorekeeping, and a
+      clean restart loop.
+    </p>
+  </div>
+
+  <div class="snake-card">
+    <div class="status-bar">
+      <div class="status-item">
+        <span class="label">Score</span>
+        <strong>{{ state().score }}</strong>
+      </div>
+
+      <div class="status-item">
+        <span class="label">Status</span>
+        <strong>{{ statusLabel() }}</strong>
+      </div>
+    </div>
+
+    <div
+      class="board"
+      [style.gridTemplateColumns]="'repeat(' + boardColumns + ', 1fr)'"
+      [style.gridTemplateRows]="'repeat(' + boardRows + ', 1fr)'"
+      aria-label="Snake board"
+    >
+      @for (cell of boardCells(); track cell.id) {
+        <div
+          class="board-cell"
+          [class.is-food]="cell.kind === 'food'"
+          [class.is-snake-head]="cell.kind === 'snake-head'"
+          [class.is-snake-body]="cell.kind === 'snake-body'"
+        ></div>
+      }
+    </div>
+
+    <div class="actions">
+      <button type="button" (click)="handlePrimaryAction()">
+        {{ primaryActionLabel() }}
+      </button>
+      <button type="button" class="secondary" (click)="restart()">Restart</button>
+    </div>
+
+    <p class="instructions">
+      Use arrow keys or WASD to move. Press Space to pause and R to restart.
+    </p>
+
+    <div class="touch-controls" aria-label="Snake controls">
+      <button type="button" class="control up" (click)="queueDirection('up')">
+        Up
+      </button>
+      <button
+        type="button"
+        class="control left"
+        (click)="queueDirection('left')"
+      >
+        Left
+      </button>
+      <button
+        type="button"
+        class="control down"
+        (click)="queueDirection('down')"
+      >
+        Down
+      </button>
+      <button
+        type="button"
+        class="control right"
+        (click)="queueDirection('right')"
+      >
+        Right
+      </button>
+    </div>
+  </div>
+</section>

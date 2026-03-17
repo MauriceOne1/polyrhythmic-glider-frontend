@@ -1,0 +1,184 @@
+:host {
+  display: block;
+  min-height: calc(100vh - 88px);
+}
+
+.snake-page {
+  min-height: inherit;
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  padding: 48px 0 64px;
+}
+
+.snake-copy {
+  position: sticky;
+  top: 112px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 0.95;
+}
+
+.description {
+  margin: 0;
+  max-width: 28rem;
+  line-height: 1.6;
+  color: rgba(245, 245, 245, 0.78);
+}
+
+.snake-card {
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background: rgba(11, 11, 15, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.status-bar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.status-item {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.65;
+}
+
+.board {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.board-cell {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.board-cell.is-snake-body {
+  background: rgba(163, 230, 53, 0.75);
+}
+
+.board-cell.is-snake-head {
+  background: rgba(190, 242, 100, 1);
+}
+
+.board-cell.is-food {
+  background: rgba(248, 113, 113, 0.95);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: #f5f5f5;
+  color: #0b0b0f;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: #f5f5f5;
+}
+
+.instructions {
+  margin: 16px 0 0;
+  color: rgba(245, 245, 245, 0.72);
+  line-height: 1.5;
+}
+
+.touch-controls {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 72px));
+  grid-template-areas:
+    '. up .'
+    'left down right';
+  gap: 10px;
+  justify-content: start;
+}
+
+.control {
+  min-height: 48px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f5f5f5;
+}
+
+.control.up {
+  grid-area: up;
+}
+
+.control.left {
+  grid-area: left;
+}
+
+.control.down {
+  grid-area: down;
+}
+
+.control.right {
+  grid-area: right;
+}
+
+@media (max-width: 900px) {
+  .snake-page {
+    grid-template-columns: 1fr;
+    padding-top: 24px;
+  }
+
+  .snake-copy {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .snake-card {
+    padding: 16px;
+  }
+
+  .board {
+    gap: 3px;
+    padding: 8px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+}
