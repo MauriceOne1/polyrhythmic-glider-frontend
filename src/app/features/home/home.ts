@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Footer } from '../../core/footer/footer';
 import { Contact } from '../contact/contact';
 import { Hero } from '../hero/hero';
 import { About } from '../about/about';
+import { Footer } from '../../core/layout/footer/footer';
 
 @Component({
   selector: 'app-home',
