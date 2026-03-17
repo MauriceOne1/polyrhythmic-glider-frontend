@@ -1,8 +1,25 @@
-<app-background></app-background>
+<app-background #bg></app-background>
+
+<div class="audio-controls">
+  <button class="audio-button" (click)="bg.toggleAudio()">
+    {{ bg.isPlaying ? 'Pause' : 'Play' }}
+  </button>
+
+  <input
+    class="global-volume-slider"
+    type="range"
+    min="0"
+    max="0.2"
+    step="0.005"
+    [value]="bg.volume"
+    (input)="bg.setVolume($any($event.target).value)"
+  />
+</div>
+
 <div class="app-shell">
   <app-site-header></app-site-header>
+
   <main class="main-content">
     <router-outlet></router-outlet>
   </main>
-  <app-site-footer></app-site-footer>
 </div>

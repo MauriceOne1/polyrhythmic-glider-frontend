@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { AboutSection } from '../about-section/about-section';
 import { HeroSection } from '../hero-section/hero-section';
 import { ContactSection } from "../contact-section/contact-section";
+import { SiteFooter } from "../../../core/site-footer/site-footer";
 
 @Component({
   selector: 'app-home-page',
-  imports: [CommonModule, AboutSection, HeroSection, ContactSection],
+  imports: [CommonModule, AboutSection, HeroSection, ContactSection, SiteFooter],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })

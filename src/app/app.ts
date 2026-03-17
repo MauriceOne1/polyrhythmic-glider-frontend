@@ -6,7 +6,7 @@ import { Background } from './core/background/background';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SiteHeader, SiteFooter, Background],
+  imports: [RouterOutlet, SiteHeader, Background],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

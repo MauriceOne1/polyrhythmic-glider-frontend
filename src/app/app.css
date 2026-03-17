@@ -14,3 +14,46 @@
   width: min(1100px, calc(100% - 32px));
   margin: 0 auto;
 }
+
+.audio-controls {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(10, 10, 14, 0.55);
+  backdrop-filter: blur(12px);
+
+  opacity: 0.18;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.audio-controls:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.audio-button {
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+  min-width: 42px;
+}
+
+.audio-button:hover {
+  opacity: 0.8;
+}
+
+.global-volume-slider {
+  width: 110px;
+}
