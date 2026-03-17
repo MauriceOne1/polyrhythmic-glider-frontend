@@ -21,3 +21,15 @@ body {
   width: min(1100px, calc(100% - 32px));
   margin: 0 auto;
 }
+
+.typing-active::after {
+  content: "_";
+  margin-left: 4px;
+  color: rgba(180,220,255,0.8);
+  animation: cursor-blink 1s infinite;
+}
+
+@keyframes cursor-blink {
+  0%,50%,100% { opacity: 1; }
+  25%,75% { opacity: 0; }
+}
