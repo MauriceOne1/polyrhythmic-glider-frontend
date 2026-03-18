@@ -1,31 +1,42 @@
 <app-section-shell
   kicker="Contatti"
+  wideHeader
   title="Costruiamo qualcosa insieme."
   description="Polyrhythmic Glider e uno spazio in continua evoluzione dedicato a musica elettronica, ricerca sonora, sperimentazione analogica e strumenti digitali. Se vuoi collaborare o proporre un progetto, qui trovi una base piu chiara e testabile."
 >
-  <div class="space-y-10">
+  <div class="section-body">
     <div class="flex flex-wrap gap-3">
       @for (area of areas; track area) {
         <span class="pill-tag">{{ area | readableKey }}</span>
       }
     </div>
 
-    <div class="grid gap-4 md:grid-cols-2">
+    <div class="grid gap-5 md:grid-cols-2">
       @for (channel of channels; track channel.value) {
         <a
-          class="soft-card group"
+          class="contact-channel-card group flex flex-col justify-between"
           [href]="channel.href"
           [attr.target]="channel.external ? '_blank' : null"
           [attr.rel]="channel.external ? 'noopener noreferrer' : null"
         >
-          <div class="text-xs uppercase tracking-[0.18em] text-white/45">
-            {{ channel.label }}
+          <div class="space-y-3">
+            <div class="text-xs uppercase tracking-[0.18em] text-white/45">
+              {{ channel.label }}
+            </div>
+            <div class="text-xl font-medium leading-tight text-white md:text-2xl">
+              {{ channel.value }}
+            </div>
           </div>
-          <div class="mt-3 text-lg font-medium text-white">
-            {{ channel.value }}
-          </div>
-          <div class="mt-3 text-sm leading-6 text-white/55 group-hover:text-white/70">
-            {{ channel.description }}
+
+          <div class="mt-6 flex items-end justify-between gap-4">
+            <div class="max-w-[26ch] text-sm leading-6 text-white/60 group-hover:text-white/72">
+              {{ channel.description }}
+            </div>
+            <span
+              class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.08] text-base text-white/75 backdrop-blur-md transition group-hover:bg-white/[0.12] group-hover:text-white"
+            >
+              →
+            </span>
           </div>
         </a>
       }

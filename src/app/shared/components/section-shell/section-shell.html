@@ -3,9 +3,14 @@
     {{ kicker() }}
   </div>
 
-  <div class="space-y-10">
+  <div class="section-body">
     @if (title() || description()) {
-      <div class="max-w-3xl space-y-4">
+      <div
+        class="readable-copy-card space-y-4"
+        [class.max-w-3xl]="!wideHeader()"
+        [class.max-w-none]="wideHeader()"
+        [class.w-full]="wideHeader()"
+      >
         @if (title()) {
           <h2 class="section-title">
             {{ title() }}

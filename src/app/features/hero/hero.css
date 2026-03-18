@@ -3,9 +3,15 @@
   padding: 100px 0 72px;
   min-height: calc(100vh - 84px);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
   gap: 32px;
-  align-items: end;
+  align-items: start;
+  align-content: center;
+  justify-content: center;
+}
+
+.hero > :first-child {
+  max-width: 40rem;
 }
 
 .eyebrow {

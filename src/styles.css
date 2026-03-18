@@ -83,7 +83,7 @@ body {
   }
 
   .section-shell {
-    @apply grid gap-6 border-t border-white/10 py-14 md:gap-8 md:py-20 md:grid-cols-[180px_minmax(0,1fr)];
+    @apply grid gap-6 py-14 md:gap-8 md:py-20 md:grid-cols-[180px_minmax(0,1fr)];
   }
 
   .section-kicker {
@@ -98,24 +98,46 @@ body {
     @apply text-base leading-7 text-white/70 md:text-lg;
   }
 
+  .section-body {
+    @apply space-y-8 md:space-y-10;
+  }
+
   .glass-panel {
-    @apply rounded-[28px] border border-white/10 bg-white/[0.04] shadow-[0_20px_80px_rgba(0,0,0,0.2)] backdrop-blur-xl;
+    @apply rounded-[28px] border border-white/12 bg-white/[0.07] shadow-[0_20px_80px_rgba(0,0,0,0.16)];
+    backdrop-filter: blur(24px) saturate(145%);
+  }
+
+  .readable-copy-card {
+    @apply rounded-[28px] border border-white/12 bg-white/[0.08] px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.16)] md:px-7 md:py-6;
+    backdrop-filter: blur(24px) saturate(140%);
+  }
+
+  .readable-copy-card-compact {
+    @apply rounded-[28px] border border-white/12 bg-white/[0.07] px-5 py-5 shadow-[0_16px_48px_rgba(0,0,0,0.14)] md:px-6;
+    backdrop-filter: blur(20px) saturate(135%);
   }
 
   .soft-card {
-    @apply rounded-3xl border border-white/10 bg-white/[0.03] p-5 transition duration-200 hover:border-white/20 hover:bg-white/[0.05];
+    @apply rounded-[28px] border border-white/12 bg-white/[0.06] p-5 shadow-[0_14px_40px_rgba(0,0,0,0.12)] transition duration-200 hover:border-white/20 hover:bg-white/[0.1] md:p-6;
+    backdrop-filter: blur(22px) saturate(135%);
+  }
+
+  .contact-channel-card {
+    @apply min-h-[192px] rounded-[28px] border border-white/12 bg-white/[0.07] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] transition duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.11] md:min-h-[216px] md:p-7;
+    backdrop-filter: blur(22px) saturate(140%);
   }
 
   .button-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-white px-5 py-3 font-semibold text-ink-950 transition hover:translate-y-[-1px] hover:bg-signal-300 disabled:cursor-not-allowed disabled:opacity-70;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-white px-5 py-3 font-semibold text-ink-950 transition hover:translate-y-[-1px] hover:bg-signal-300 disabled:cursor-not-allowed disabled:opacity-70;
   }
 
   .button-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.06] px-5 py-3 font-semibold text-white transition hover:bg-white/[0.1] disabled:cursor-not-allowed disabled:opacity-70;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] px-5 py-3 font-semibold text-white transition hover:bg-white/[0.1] disabled:cursor-not-allowed disabled:opacity-70;
   }
 
   .pill-tag {
-    @apply rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs uppercase tracking-[0.16em] text-white/60;
+    @apply rounded-full border border-white/12 bg-white/[0.06] px-3 py-2 text-xs uppercase tracking-[0.16em] text-white/65;
+    backdrop-filter: blur(14px) saturate(135%);
   }
 
   .field-shell {
@@ -127,7 +149,8 @@ body {
   }
 
   .field-input {
-    @apply rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-white outline-none transition placeholder:text-white/28 focus:border-frost-300/40 focus:bg-white/[0.05];
+    @apply rounded-2xl border border-white/12 bg-white/[0.06] px-4 py-3 text-white outline-none transition placeholder:text-white/28 focus:border-frost-300/40 focus:bg-white/[0.1];
+    backdrop-filter: blur(14px) saturate(135%);
   }
 
   .field-error {

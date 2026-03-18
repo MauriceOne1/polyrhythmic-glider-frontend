@@ -6,9 +6,13 @@
 .experimental-page {
   min-height: inherit;
   display: grid;
-  gap: 24px;
+  gap: 32px;
   align-items: start;
   padding: 48px 0 64px;
+}
+
+.experimental-copy {
+  max-width: 42rem;
 }
 
 .eyebrow {
@@ -20,7 +24,7 @@
 
 h1 {
   margin: 0;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.6rem, 6vw, 4.75rem);
   line-height: 0.95;
 }
 
