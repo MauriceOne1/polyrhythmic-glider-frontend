@@ -1,10 +1,33 @@
 <header class="header-wrap">
   <div class="page-frame header">
-    <a class="brand" routerLink="/" fragment="hero">Polyrhythmic Glider</a>
+    <div class="header-top">
+      <a class="brand" routerLink="/" fragment="hero" (click)="closeMenu()">
+        Polyrhythmic Glider
+      </a>
 
-    <nav class="nav">
+      <button
+        class="menu-toggle"
+        type="button"
+        [attr.aria-expanded]="isMenuOpen()"
+        aria-label="Apri menu di navigazione"
+        (click)="toggleMenu()"
+      >
+        <span class="menu-toggle-line" [class.is-open]="isMenuOpen()"></span>
+        <span class="menu-toggle-line" [class.is-open]="isMenuOpen()"></span>
+        <span class="menu-toggle-line" [class.is-open]="isMenuOpen()"></span>
+      </button>
+    </div>
+
+    <nav class="nav" [class.is-open]="isMenuOpen()">
       @for (item of navItems; track item.fragment) {
-        <a routerLink="/" [fragment]="item.fragment">{{ item.label }}</a>
+        <a
+          class="nav-link"
+          routerLink="/"
+          [fragment]="item.fragment"
+          (click)="closeMenu()"
+        >
+          {{ item.label }}
+        </a>
       }
     </nav>
   </div>

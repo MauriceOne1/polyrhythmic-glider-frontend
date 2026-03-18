@@ -6,15 +6,10 @@ import {
   ViewChild,
   signal,
 } from '@angular/core';
-import { ReadableKeyPipe } from '../../shared/pipes/readable-key.pipe';
-import {
-  HERO_TAGS,
-  HERO_TERMINAL_COMMANDS,
-} from '../../shared/utils/site-content';
+import { HERO_TERMINAL_COMMANDS } from '../../shared/utils/site-content';
 
 @Component({
   selector: 'app-hero',
-  imports: [ReadableKeyPipe],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
@@ -22,7 +17,6 @@ export class Hero implements OnInit, OnDestroy {
   @ViewChild('terminalViewport')
   private terminalViewport?: ElementRef<HTMLDivElement>;
 
-  readonly tags = HERO_TAGS;
   readonly terminalHistory = signal<string[]>([]);
   readonly activeCommand = signal('');
   readonly terminalPrompt = 'visitor@polyglider:~$';

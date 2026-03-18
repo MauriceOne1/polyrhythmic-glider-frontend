@@ -12,19 +12,13 @@
       </p>
     </div>
 
-    <div class="flex flex-wrap gap-3">
-      @for (tag of tags; track tag) {
-        <span class="pill-tag">{{ tag | readableKey }}</span>
-      }
-    </div>
-
     <div class="hero-actions">
       <a class="button-primary" href="#contact">Collaboriamo</a>
       <a class="button-secondary" href="#about">Scopri il progetto</a>
     </div>
   </div>
 
-  <div class="glass-panel hero-panel terminal-panel">
+  <div class="glass-panel hero-panel terminal-panel desktop-only">
     <div class="terminal-header">
       <div class="terminal-lights">
         <span class="terminal-light bg-rose-300/80"></span>

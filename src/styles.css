@@ -11,12 +11,13 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
+  scroll-padding-top: 96px;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at top, rgba(157, 231, 255, 0.1), transparent 35%),
     radial-gradient(circle at 80% 20%, rgba(182, 255, 105, 0.1), transparent 20%),
@@ -32,7 +33,7 @@ body {
 }
 
 .main-content {
-  width: min(1100px, calc(100% - 32px));
+  width: min(1100px, calc(100% - 24px));
   margin: 0 auto;
 }
 
@@ -78,11 +79,11 @@ body {
 
 @layer components {
   .page-frame {
-    @apply mx-auto w-[min(1100px,calc(100%-32px))];
+    @apply mx-auto w-[min(1100px,calc(100%-24px))] md:w-[min(1100px,calc(100%-32px))];
   }
 
   .section-shell {
-    @apply grid gap-8 border-t border-white/10 py-20 md:grid-cols-[180px_minmax(0,1fr)];
+    @apply grid gap-6 border-t border-white/10 py-14 md:gap-8 md:py-20 md:grid-cols-[180px_minmax(0,1fr)];
   }
 
   .section-kicker {
@@ -131,5 +132,11 @@ body {
 
   .field-error {
     @apply text-sm text-rose-200;
+  }
+}
+
+@media (min-width: 900px) {
+  html {
+    scroll-snap-type: y proximity;
   }
 }

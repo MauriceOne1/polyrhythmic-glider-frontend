@@ -130,9 +130,32 @@ h1 {
   .hero {
     grid-template-columns: 1fr;
     align-items: start;
+    gap: 20px;
+    min-height: auto;
+    padding: 40px 0 24px;
+  }
+
+  .description {
+    max-width: 100%;
+  }
+
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .hero-actions a {
+    width: 100%;
+  }
+
+  .terminal-panel {
+    height: 320px;
   }
 
   .terminal-body {
-    height: calc(360px - 59px);
+    height: calc(320px - 59px);
+  }
+
+  .desktop-only {
+    display: none;
   }
 }
