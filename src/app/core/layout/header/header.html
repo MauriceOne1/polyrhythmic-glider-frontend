@@ -1,12 +1,11 @@
 <header class="header-wrap">
-  <div class="header">
-    <div class="brand">Polyrhythmic Glider</div>
+  <div class="page-frame header">
+    <a class="brand" routerLink="/" fragment="hero">Polyrhythmic Glider</a>
 
     <nav class="nav">
-      <a routerLink="/" fragment="hero">Home</a>
-      <a routerLink="/" fragment="about">About</a>
-      <a routerLink="/" fragment="contact">Contact</a>
-      <!-- <a routerLink="/snake">Snake</a> -->
+      @for (item of navItems; track item.fragment) {
+        <a routerLink="/" [fragment]="item.fragment">{{ item.label }}</a>
+      }
     </nav>
   </div>
 </header>

@@ -1,0 +1,25 @@
+<section class="section-shell">
+  <div class="section-kicker">
+    {{ kicker() }}
+  </div>
+
+  <div class="space-y-10">
+    @if (title() || description()) {
+      <div class="max-w-3xl space-y-4">
+        @if (title()) {
+          <h2 class="section-title">
+            {{ title() }}
+          </h2>
+        }
+
+        @if (description()) {
+          <p class="section-description">
+            {{ description() }}
+          </p>
+        }
+      </div>
+    }
+
+    <ng-content />
+  </div>
+</section>

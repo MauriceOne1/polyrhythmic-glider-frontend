@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NAV_ITEMS } from '../../../shared/utils/site-content';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './footer.css',
 })
 export class Footer {
-  currentYear = 2026;
+  readonly currentYear = new Date().getFullYear();
+  readonly navItems = NAV_ITEMS;
 }

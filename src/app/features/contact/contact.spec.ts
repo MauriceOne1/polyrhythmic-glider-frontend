@@ -19,4 +19,13 @@ describe('ContactSection', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the contact form and shared channels', () => {
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+
+    expect(element.querySelector('form')).toBeTruthy();
+    expect(element.querySelectorAll('a.soft-card').length).toBe(4);
+    expect(element.textContent).toContain('Costruiamo qualcosa insieme.');
+  });
 });

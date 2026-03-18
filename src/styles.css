@@ -1,5 +1,14 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-ink-950: #090b12;
+  --color-ink-900: #111520;
+  --color-ink-800: #161b29;
+  --color-signal-300: #d9ff8e;
+  --color-signal-400: #b6ff69;
+  --color-frost-300: #9de7ff;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
@@ -7,14 +16,19 @@ html {
 
 body {
   margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(157, 231, 255, 0.1), transparent 35%),
+    radial-gradient(circle at 80% 20%, rgba(182, 255, 105, 0.1), transparent 20%),
+    linear-gradient(180deg, #090b12 0%, #111520 100%);
+  color: #f7f7fb;
+  font-family: Aptos, 'Segoe UI', sans-serif;
 }
 
 :host {
   display: block;
   min-height: 100vh;
-  background: #0b0b0f;
-  color: #f5f5f5;
-  font-family: Arial, Helvetica, sans-serif;
+  color: #f7f7fb;
 }
 
 .main-content {
@@ -32,4 +46,90 @@ body {
 @keyframes cursor-blink {
   0%,50%,100% { opacity: 1; }
   25%,75% { opacity: 0; }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  h1,
+  h2,
+  h3,
+  .display-font {
+    font-family: Bahnschrift, Aptos, 'Segoe UI', sans-serif;
+  }
+
+  ::selection {
+    background: rgba(182, 255, 105, 0.3);
+  }
+}
+
+@layer components {
+  .page-frame {
+    @apply mx-auto w-[min(1100px,calc(100%-32px))];
+  }
+
+  .section-shell {
+    @apply grid gap-8 border-t border-white/10 py-20 md:grid-cols-[180px_minmax(0,1fr)];
+  }
+
+  .section-kicker {
+    @apply text-xs uppercase tracking-[0.18em] text-white/45;
+  }
+
+  .section-title {
+    @apply text-3xl font-semibold tracking-tight text-white md:text-4xl;
+  }
+
+  .section-description {
+    @apply text-base leading-7 text-white/70 md:text-lg;
+  }
+
+  .glass-panel {
+    @apply rounded-[28px] border border-white/10 bg-white/[0.04] shadow-[0_20px_80px_rgba(0,0,0,0.2)] backdrop-blur-xl;
+  }
+
+  .soft-card {
+    @apply rounded-3xl border border-white/10 bg-white/[0.03] p-5 transition duration-200 hover:border-white/20 hover:bg-white/[0.05];
+  }
+
+  .button-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-white px-5 py-3 font-semibold text-ink-950 transition hover:translate-y-[-1px] hover:bg-signal-300 disabled:cursor-not-allowed disabled:opacity-70;
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.06] px-5 py-3 font-semibold text-white transition hover:bg-white/[0.1] disabled:cursor-not-allowed disabled:opacity-70;
+  }
+
+  .pill-tag {
+    @apply rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs uppercase tracking-[0.16em] text-white/60;
+  }
+
+  .field-shell {
+    @apply flex flex-col gap-2;
+  }
+
+  .field-label {
+    @apply text-xs uppercase tracking-[0.16em] text-white/50;
+  }
+
+  .field-input {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-white outline-none transition placeholder:text-white/28 focus:border-frost-300/40 focus:bg-white/[0.05];
+  }
+
+  .field-error {
+    @apply text-sm text-rose-200;
+  }
 }

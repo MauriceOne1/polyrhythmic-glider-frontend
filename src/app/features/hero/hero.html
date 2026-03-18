@@ -1,10 +1,54 @@
-<section id="hero" class="hero">
-  <p class="eyebrow">Develop / sound / experiments</p>
-  <h1>
-    Polyrhythmic<br />
-    Glider
-  </h1>
-  <p class="description">
-    A space for music, code and evolving digital experiments.
-  </p>
+<section class="hero">
+  <div class="space-y-8">
+    <div class="space-y-4">
+      <p class="eyebrow">Develop / sound / experiments</p>
+      <h1 class="display-font">
+        Polyrhythmic<br />
+        Glider
+      </h1>
+      <p class="description">
+        Uno spazio per musica, codice e esperimenti digitali in continua
+        mutazione.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+      @for (tag of tags; track tag) {
+        <span class="pill-tag">{{ tag | readableKey }}</span>
+      }
+    </div>
+
+    <div class="hero-actions">
+      <a class="button-primary" href="#contact">Collaboriamo</a>
+      <a class="button-secondary" href="#about">Scopri il progetto</a>
+    </div>
+  </div>
+
+  <div class="glass-panel hero-panel terminal-panel">
+    <div class="terminal-header">
+      <div class="terminal-lights">
+        <span class="terminal-light bg-rose-300/80"></span>
+        <span class="terminal-light bg-amber-300/80"></span>
+        <span class="terminal-light bg-emerald-300/80"></span>
+      </div>
+      <p class="text-xs uppercase tracking-[0.18em] text-white/45">
+        terminal
+      </p>
+    </div>
+
+    <div #terminalViewport class="terminal-body">
+      @for (command of terminalHistory(); track command + '-' + $index) {
+        <div class="terminal-line">
+          <span class="terminal-prompt">{{ terminalPrompt }}</span>
+          <span class="terminal-command">{{ command }}</span>
+        </div>
+      }
+
+      <div class="terminal-line is-active">
+        <span class="terminal-prompt">{{ terminalPrompt }}</span>
+        <span class="terminal-command">{{ activeCommand() }}</span>
+        <span class="terminal-cursor" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
 </section>

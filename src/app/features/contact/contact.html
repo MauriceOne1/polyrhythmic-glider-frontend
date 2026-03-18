@@ -1,69 +1,36 @@
-<section id="contact" class="border-t border-white/10 py-20">
-    <div class="grid gap-8 md:grid-cols-[180px_1fr]">
-        <div class="text-xs uppercase tracking-[0.1em] text-white/50">
-            Contatti
-        </div>
-        <div class="max-w-3xl">
-            <h2 class="text-3xl font-semibold tracking-tight text-white md:text-4xl">
-                Costruiamo qualcosa insieme.
-            </h2>
-            <p class="mt-4 text-base leading-7 text-white/75 md:text-lg text-justify">
-                Polyrhythmic Glider è uno spazio in continua evoluzione dedicato a
-                musica elettronica, ricerca sonora, sperimentazione analogica e
-                strumenti digitali. Se vuoi collaborare, proporre un progetto oppure
-                semplicemente metterti in contatto, puoi farlo attraverso questi
-                canali.
-            </p>
-            <div class="mt-10 grid gap-4 sm:grid-cols-2">
-                <a href="mailto:tuaemail@example.com"
-                    class="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all duration-200 hover:border-white/20 hover:bg-white/[0.05]">
-                    <div class="text-xs uppercase tracking-[0.1em] text-white/45">
-                        Email
-                    </div>
-                    <div class="mt-2 text-lg font-medium text-white">
-                        info@polyglider.com
-                    </div>
-                    <div class="mt-3 text-sm text-white/55 group-hover:text-white/70">
-                        Per collaborazioni, progetti e contatti diretti
-                    </div>
-                </a>
-                <a href="https://github.com/polyglider" target="_blank" rel="noopener noreferrer"
-                    class="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all duration-200 hover:border-white/20 hover:bg-white/[0.05]">
-                    <div class="text-xs uppercase tracking-[0.1em] text-white/45">
-                        GitHub
-                    </div>
-                    <div class="mt-2 text-lg font-medium text-white">
-                        github.com/polyglider
-                    </div>
-                    <div class="mt-3 text-sm text-white/55 group-hover:text-white/70">
-                        Codice, esperimenti e progetti in sviluppo
-                    </div>
-                </a>
-                <a href="https://instagram.com/polyglider" target="_blank" rel="noopener noreferrer"
-                    class="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all duration-200 hover:border-white/20 hover:bg-white/[0.05]">
-                    <div class="text-xs uppercase tracking-[0.1em] text-white/45">
-                        Instagram
-                    </div>
-                    <div class="mt-2 text-lg font-medium text-white">
-                        @polyglider
-                    </div>
-                    <div class="mt-3 text-sm text-white/55 group-hover:text-white/70">
-                        Visual, aggiornamenti e dietro le quinte
-                    </div>
-                </a>
-                <a href="https://soundcloud.com/polyglider" target="_blank" rel="noopener noreferrer"
-                    class="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all duration-200 hover:border-white/20 hover:bg-white/[0.05]">
-                    <div class="text-xs uppercase tracking-[0.1em] text-white/45">
-                        Sound
-                    </div>
-                    <div class="mt-2 text-lg font-medium text-white">
-                        SoundCloud / Radio
-                    </div>
-                    <div class="mt-3 text-sm text-white/55 group-hover:text-white/70">
-                        Mix, ricerca sonora e trasmissioni future
-                    </div>
-                </a>
-            </div>
-        </div>
+<app-section-shell
+  kicker="Contatti"
+  title="Costruiamo qualcosa insieme."
+  description="Polyrhythmic Glider e uno spazio in continua evoluzione dedicato a musica elettronica, ricerca sonora, sperimentazione analogica e strumenti digitali. Se vuoi collaborare o proporre un progetto, qui trovi una base piu chiara e testabile."
+>
+  <div class="space-y-10">
+    <div class="flex flex-wrap gap-3">
+      @for (area of areas; track area) {
+        <span class="pill-tag">{{ area | readableKey }}</span>
+      }
     </div>
-</section>
+
+    <div class="grid gap-4 md:grid-cols-2">
+      @for (channel of channels; track channel.value) {
+        <a
+          class="soft-card group"
+          [href]="channel.href"
+          [attr.target]="channel.external ? '_blank' : null"
+          [attr.rel]="channel.external ? 'noopener noreferrer' : null"
+        >
+          <div class="text-xs uppercase tracking-[0.18em] text-white/45">
+            {{ channel.label }}
+          </div>
+          <div class="mt-3 text-lg font-medium text-white">
+            {{ channel.value }}
+          </div>
+          <div class="mt-3 text-sm leading-6 text-white/55 group-hover:text-white/70">
+            {{ channel.description }}
+          </div>
+        </a>
+      }
+    </div>
+
+    <app-contact-form></app-contact-form>
+  </div>
+</app-section-shell>

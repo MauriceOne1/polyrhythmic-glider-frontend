@@ -1,41 +1,41 @@
-<section class="border-t border-white/10 py-20">
-  <div class="grid gap-8 md:grid-cols-[180px_1fr]">
-    <div class="text-xs uppercase tracking-[0.1em] text-white/50">
-      Dietro le quinte
-    </div>
-    <div class="max-w-3xl">
-      <h2 class="text-3xl font-semibold tracking-tight text-white md:text-4xl">
-        Un piccolo laboratorio digitale.
-      </h2>
-      <p class="mt-4 text-base leading-7 text-white/75 md:text-lg text-justify">
-        Qui dentro convivono musica elettronica, codice e qualche esperimento
-        strano. Alcune idee diventano progetti, altre restano test notturni
-        tra sintetizzatori, script e caffè.
+<section class="section-shell">
+  <div class="section-kicker">Dietro le quinte</div>
+
+  <div class="max-w-3xl space-y-10">
+    <div class="space-y-4">
+      <h2 class="section-title">Un piccolo laboratorio digitale.</h2>
+      <p class="section-description">
+        Qui convivono musica elettronica, codice e qualche esperimento strano.
+        Alcune idee diventano release o strumenti, altre restano test notturni
+        tra sintetizzatori, script e caffe.
       </p>
-      <div class="mt-10 grid gap-8 sm:grid-cols-2">
-        <div>
-          <p class="text-xs uppercase tracking-[0.1em] text-white/45">
-            Navigazione
-          </p>
-          <div class="mt-4 flex flex-col gap-3">
-            <a href="#hero" class="text-white/70 transition hover:text-white">Home</a>
-            <a href="#about" class="text-white/70 transition hover:text-white">About</a>
-            <a href="#contact" class="text-white/70 transition hover:text-white">Contatti</a>
-          </div>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-[0.1em] text-white/45">
-            Segnale
-          </p>
-          <div class="mt-4 flex flex-col gap-3">
-            <p class="text-white/70">Studio online</p>
-            <a href="#hero" class="text-white/70 transition hover:text-white">Torna su</a>
-          </div>
+    </div>
+
+    <div class="grid gap-8 sm:grid-cols-2">
+      <div class="glass-panel p-5">
+        <p class="text-xs uppercase tracking-[0.18em] text-white/45">
+          Navigazione
+        </p>
+        <div class="mt-4 flex flex-col gap-3 text-white/70">
+          @for (item of navItems; track item.fragment) {
+            <a [href]="'#' + item.fragment" class="transition hover:text-white">
+              {{ item.label }}
+            </a>
+          }
         </div>
       </div>
-      <div class="mt-16 border-t border-white/10 pt-6 text-sm text-white/45">
-        © 2026 — Costruito con curiosità, codice e birra.
+
+      <div class="glass-panel p-5">
+        <p class="text-xs uppercase tracking-[0.18em] text-white/45">Segnale</p>
+        <div class="mt-4 space-y-3 text-white/70">
+          <p>Studio online, set ibridi e prototipi audiovisivi.</p>
+          <a href="#hero" class="transition hover:text-white">Torna su</a>
+        </div>
       </div>
+    </div>
+
+    <div class="border-t border-white/10 pt-6 text-sm text-white/45">
+      &copy; {{ currentYear }} - Costruito con curiosita, codice e birra.
     </div>
   </div>
 </section>

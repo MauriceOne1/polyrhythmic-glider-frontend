@@ -1,25 +1,138 @@
 .hero {
-  padding: 100px 0;
-  min-height: 70vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 100%;
+  padding: 100px 0 72px;
+  min-height: calc(100vh - 84px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 32px;
+  align-items: end;
 }
 
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.7;
+  letter-spacing: 0.18em;
+  color: rgba(247, 247, 251, 0.6);
 }
 
 h1 {
   font-size: clamp(3rem, 9vw, 6rem);
   line-height: 0.95;
-  margin: 16px 0;
+  margin: 0;
 }
 
 .description {
   max-width: 600px;
-  opacity: 0.85;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  color: rgba(247, 247, 251, 0.8);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-panel {
+  padding: 24px;
+}
+
+.terminal-panel {
+  padding: 0;
+  overflow: hidden;
+  height: 360px;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.terminal-lights {
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-light {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.terminal-body {
+  height: calc(360px - 59px);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+  overflow-y: auto;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 35%),
+    rgba(7, 10, 15, 0.88);
+  font-family: Consolas, 'Courier New', monospace;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+.terminal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.terminal-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.terminal-prompt {
+  color: rgba(182, 255, 105, 0.82);
+}
+
+.terminal-command {
+  color: rgba(247, 247, 251, 0.78);
+  word-break: break-word;
+}
+
+.terminal-cursor {
+  width: 9px;
+  height: 1.1rem;
+  display: inline-block;
+  background: rgba(157, 231, 255, 0.88);
+  animation: terminal-cursor-blink 1s steps(1) infinite;
+}
+
+@keyframes terminal-cursor-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .terminal-body {
+    height: calc(360px - 59px);
+  }
 }

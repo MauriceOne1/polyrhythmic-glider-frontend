@@ -3,9 +3,13 @@
 }
 
 .page-section {
-  min-height: 100vh;
+  min-height: calc(100vh - 84px);
   display: flex;
   align-items: center;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+}
+
+.page-section-footer {
+  min-height: auto;
 }

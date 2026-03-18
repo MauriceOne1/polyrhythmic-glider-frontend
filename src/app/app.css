@@ -1,8 +1,7 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #0b0b0f;
-  color: #f5f5f5;
+  color: #f7f7fb;
 }
 
 .app-shell {
@@ -28,7 +27,7 @@
   padding: 10px 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
-  background: rgba(10, 10, 14, 0.55);
+  background: rgba(9, 11, 18, 0.62);
   backdrop-filter: blur(12px);
 
   opacity: 0.18;
@@ -43,7 +42,7 @@
 .audio-button {
   border: 0;
   background: transparent;
-  color: white;
+  color: #f7f7fb;
   font-size: 0.85rem;
   cursor: pointer;
   padding: 0;
