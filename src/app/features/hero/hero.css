@@ -46,7 +46,9 @@ h1 {
 .terminal-panel {
   padding: 0;
   overflow: hidden;
-  height: 360px;
+  height: max(360px, var(--terminal-panel-height, 360px));
+  display: flex;
+  flex-direction: column;
 }
 
 .terminal-header {
@@ -71,7 +73,8 @@ h1 {
 }
 
 .terminal-body {
-  height: calc(360px - 59px);
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 18px;
   display: flex;
   flex-direction: column;
@@ -154,11 +157,7 @@ h1 {
   }
 
   .terminal-panel {
-    height: 320px;
-  }
-
-  .terminal-body {
-    height: calc(320px - 59px);
+    min-height: 320px;
   }
 
   .desktop-only {

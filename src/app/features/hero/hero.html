@@ -1,6 +1,6 @@
 <section class="hero">
   <div class="section-body">
-    <div class="readable-copy-card space-y-4">
+    <div #heroCopyCard class="readable-copy-card space-y-4">
       <p class="eyebrow">Develop / sound / experiments</p>
       <h1 class="display-font">
         Polyrhythmic<br />
@@ -17,7 +17,10 @@
     </div>
   </div>
 
-  <div class="glass-panel hero-panel terminal-panel desktop-only">
+  <div
+    class="glass-panel hero-panel terminal-panel desktop-only"
+    [style.--terminal-panel-height]="terminalPanelHeight() + 'px'"
+  >
     <div class="terminal-header">
       <div class="terminal-lights">
         <span class="terminal-light bg-rose-300/80"></span>

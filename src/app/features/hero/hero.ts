@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
@@ -13,19 +14,28 @@ import { HERO_TERMINAL_COMMANDS } from '../../shared/utils/site-content';
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
-export class Hero implements OnInit, OnDestroy {
+export class Hero implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('heroCopyCard')
+  private heroCopyCard?: ElementRef<HTMLDivElement>;
+
   @ViewChild('terminalViewport')
   private terminalViewport?: ElementRef<HTMLDivElement>;
 
   readonly terminalHistory = signal<string[]>([]);
   readonly activeCommand = signal('');
+  readonly terminalPanelHeight = signal(360);
   readonly terminalPrompt = 'visitor@polyglider:~$';
 
   private readonly terminalCommands = HERO_TERMINAL_COMMANDS;
   private timeoutId: number | null = null;
   private scrollFrameId: number | null = null;
+  private copyCardResizeObserver?: ResizeObserver;
   private commandIndex = 0;
   private characterIndex = 0;
+
+  ngAfterViewInit(): void {
+    this.syncTerminalPanelHeight();
+  }
 
   ngOnInit(): void {
     this.runTerminal();
@@ -39,6 +49,8 @@ export class Hero implements OnInit, OnDestroy {
     if (this.scrollFrameId !== null) {
       window.cancelAnimationFrame(this.scrollFrameId);
     }
+
+    this.copyCardResizeObserver?.disconnect();
   }
 
   private runTerminal(): void {
@@ -83,5 +95,28 @@ export class Hero implements OnInit, OnDestroy {
         viewport.scrollTop = viewport.scrollHeight;
       }
     });
+  }
+
+  private syncTerminalPanelHeight(): void {
+    const copyCard = this.heroCopyCard?.nativeElement;
+
+    if (!copyCard) {
+      return;
+    }
+
+    const updateHeight = () => {
+      this.terminalPanelHeight.set(
+        Math.max(320, Math.ceil(copyCard.getBoundingClientRect().height)),
+      );
+    };
+
+    updateHeight();
+
+    if (typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    this.copyCardResizeObserver = new ResizeObserver(() => updateHeight());
+    this.copyCardResizeObserver.observe(copyCard);
   }
 }
