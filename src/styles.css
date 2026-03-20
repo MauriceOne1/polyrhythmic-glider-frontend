@@ -190,9 +190,3 @@ body {
     @apply text-sm text-rose-200;
   }
 }
-
-@media (min-width: 900px) {
-  html {
-    scroll-snap-type: y proximity;
-  }
-}
