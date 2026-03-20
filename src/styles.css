@@ -96,6 +96,8 @@ body {
 
   .section-description {
     @apply text-base leading-7 text-white/70 md:text-lg;
+    text-align: justify;
+    text-wrap: pretty;
   }
 
   .section-body {
@@ -120,6 +122,11 @@ body {
   .soft-card {
     @apply rounded-[28px] border border-white/12 bg-white/[0.06] p-5 shadow-[0_14px_40px_rgba(0,0,0,0.12)] transition duration-200 hover:border-white/20 hover:bg-white/[0.1] md:p-6;
     backdrop-filter: blur(22px) saturate(135%);
+  }
+
+  .soft-card p {
+    text-align: justify;
+    text-wrap: pretty;
   }
 
   .contact-channel-card {
