@@ -23,8 +23,14 @@ export class Hero implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('heroCopyCard')
   private heroCopyCard?: ElementRef<HTMLDivElement>;
 
+  @ViewChild('terminalPanel')
+  private terminalPanel?: ElementRef<HTMLDivElement>;
+
   @ViewChild('activeCommandViewport')
   private activeCommandViewport?: ElementRef<HTMLSpanElement>;
+
+  @ViewChild('restoreButton')
+  private restoreButton?: ElementRef<HTMLButtonElement>;
 
   readonly terminalHistory = signal<string[]>([]);
   readonly activeCommand = signal('');
@@ -61,9 +67,14 @@ export class Hero implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    this.releaseFocusWithinTerminal();
     this.isTerminalClosed.set(true);
     this.activeCommand.set('');
     this.stopTerminalLoop();
+
+    window.requestAnimationFrame(() => {
+      this.restoreButton?.nativeElement.focus();
+    });
   }
 
   reopenTerminal(): void {
@@ -71,6 +82,7 @@ export class Hero implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    this.restoreButton?.nativeElement.blur();
     this.stopTerminalLoop();
     this.isTerminalClosed.set(false);
     this.terminalHistory.set([]);
@@ -157,6 +169,18 @@ export class Hero implements OnInit, AfterViewInit, OnDestroy {
     if (this.scrollFrameId !== null) {
       window.cancelAnimationFrame(this.scrollFrameId);
       this.scrollFrameId = null;
+    }
+  }
+
+  private releaseFocusWithinTerminal(): void {
+    const activeElement = document.activeElement;
+    const terminalPanel = this.terminalPanel?.nativeElement;
+
+    if (
+      activeElement instanceof HTMLElement &&
+      terminalPanel?.contains(activeElement)
+    ) {
+      activeElement.blur();
     }
   }
 

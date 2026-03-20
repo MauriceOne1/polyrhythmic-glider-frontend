@@ -26,10 +26,12 @@
   </div>
 
   <div
+    #terminalPanel
     class="glass-panel hero-panel terminal-panel desktop-only"
     [class.is-terminal-closed]="isTerminalClosed()"
     [style.--terminal-panel-height]="terminalPanelHeight() + 'px'"
     [attr.aria-hidden]="isTerminalClosed()"
+    [attr.inert]="isTerminalClosed() ? '' : null"
   >
     <div class="terminal-header">
       <div class="terminal-lights">
@@ -65,10 +67,11 @@
   </div>
 
   <button
+    #restoreButton
     class="hero-restore-button"
     type="button"
     [class.is-terminal-closed]="isTerminalClosed()"
-    [attr.aria-hidden]="!isTerminalClosed()"
+    [attr.tabindex]="isTerminalClosed() ? null : -1"
     aria-label="Ripristina layout iniziale"
     (click)="reopenTerminal()"
   >
