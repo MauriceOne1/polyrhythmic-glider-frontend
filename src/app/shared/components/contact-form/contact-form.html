@@ -34,11 +34,35 @@
 
     <label class="field-shell">
       <span class="field-label">Tipo di richiesta</span>
-      <select class="field-input" formControlName="subject">
-        @for (subject of subjectOptions; track subject) {
-          <option [value]="subject">{{ subject | readableKey }}</option>
+      <div class="field-dropdown">
+        <button
+          class="field-dropdown-trigger"
+          type="button"
+          aria-haspopup="listbox"
+          [attr.aria-expanded]="isSubjectMenuOpen()"
+          (click)="toggleSubjectMenu()"
+        >
+          <span>{{ form.controls.subject.value | readableKey }}</span>
+          <span class="field-dropdown-icon" [class.is-open]="isSubjectMenuOpen()"></span>
+        </button>
+
+        @if (isSubjectMenuOpen()) {
+          <div class="field-dropdown-panel" role="listbox" aria-label="Tipo di richiesta">
+            @for (subject of subjectOptions; track subject) {
+              <button
+                class="field-dropdown-option"
+                type="button"
+                role="option"
+                [attr.aria-selected]="form.controls.subject.value === subject"
+                [class.is-selected]="form.controls.subject.value === subject"
+                (click)="selectSubject(subject)"
+              >
+                {{ subject | readableKey }}
+              </button>
+            }
+          </div>
         }
-      </select>
+      </div>
     </label>
 
     <label class="field-shell">

@@ -3,6 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
+  HostListener,
   computed,
   inject,
   signal,
@@ -30,8 +32,10 @@ export class ContactForm {
   private readonly formBuilder = inject(FormBuilder);
   private readonly contactTestService = inject(ContactTestService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   readonly isSubmitting = signal(false);
+  readonly isSubjectMenuOpen = signal(false);
   readonly successMessage = signal('');
   readonly latestSubmission = this.contactTestService.latestSubmission;
   readonly form = this.formBuilder.nonNullable.group({
@@ -49,6 +53,34 @@ export class ContactForm {
   });
 
   readonly messageLength = computed(() => this.form.controls.message.value.length);
+
+  @HostListener('document:click', ['$event'])
+  handleDocumentClick(event: Event): void {
+    const target = event.target;
+
+    if (
+      target instanceof Node &&
+      !this.elementRef.nativeElement.contains(target) &&
+      this.isSubjectMenuOpen()
+    ) {
+      this.isSubjectMenuOpen.set(false);
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  handleEscapeKey(): void {
+    this.isSubjectMenuOpen.set(false);
+  }
+
+  toggleSubjectMenu(): void {
+    this.isSubjectMenuOpen.update((isOpen) => !isOpen);
+  }
+
+  selectSubject(subject: string): void {
+    this.form.controls.subject.setValue(subject);
+    this.form.controls.subject.markAsDirty();
+    this.isSubjectMenuOpen.set(false);
+  }
 
   submit(): void {
     if (this.form.invalid || this.isSubmitting()) {
@@ -68,6 +100,7 @@ export class ContactForm {
             `Messaggio simulato inviato con successo, risposta prevista ${estimatedReplyWindow}.`
           );
           this.form.reset(createEmptyContactFormValue());
+          this.isSubjectMenuOpen.set(false);
           this.isSubmitting.set(false);
         },
         error: () => {
@@ -81,6 +114,7 @@ export class ContactForm {
 
   resetForm(): void {
     this.form.reset(createEmptyContactFormValue());
+    this.isSubjectMenuOpen.set(false);
     this.successMessage.set('');
   }
 }
