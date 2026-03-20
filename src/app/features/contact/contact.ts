@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { HeroIcon } from '../../shared/components/hero-icon/hero-icon';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { ContactForm } from '../../shared/components/contact-form/contact-form';
 import { SectionShell } from '../../shared/components/section-shell/section-shell';
 import { ReadableKeyPipe } from '../../shared/pipes/readable-key.pipe';
@@ -7,11 +8,12 @@ import { CONTACT_CHANNELS, HERO_TAGS } from '../../shared/utils/site-content';
 
 @Component({
   selector: 'app-contact',
-  imports: [ContactForm, HeroIcon, ReadableKeyPipe, SectionShell],
+  imports: [ContactForm, FontAwesomeModule, ReadableKeyPipe, SectionShell],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
 export class Contact {
   readonly channels = CONTACT_CHANNELS;
   readonly areas = HERO_TAGS;
+  readonly externalLinkIcon = faArrowUpRightFromSquare;
 }

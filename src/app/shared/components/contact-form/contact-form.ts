@@ -11,7 +11,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HeroIcon } from '../hero-icon/hero-icon';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { ReadableKeyPipe } from '../../pipes/readable-key.pipe';
 import { ContactTestService } from '../../services/contact-test.service';
 import {
@@ -22,13 +23,14 @@ import {
 
 @Component({
   selector: 'app-contact-form',
-  imports: [CommonModule, HeroIcon, ReactiveFormsModule, ReadableKeyPipe],
+  imports: [CommonModule, FontAwesomeModule, ReactiveFormsModule, ReadableKeyPipe],
   templateUrl: './contact-form.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactForm {
   readonly subjectOptions = CONTACT_SUBJECT_OPTIONS;
   readonly minimumMessageLength = MIN_MESSAGE_LENGTH;
+  readonly chevronDownIcon = faChevronDown;
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly contactTestService = inject(ContactTestService);

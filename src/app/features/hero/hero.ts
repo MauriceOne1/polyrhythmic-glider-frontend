@@ -7,12 +7,13 @@ import {
   ViewChild,
   signal,
 } from '@angular/core';
-import { HeroIcon } from '../../shared/components/hero-icon/hero-icon';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTableColumns } from '@fortawesome/free-solid-svg-icons';
 import { HERO_TERMINAL_COMMAND_GROUPS } from '../../shared/utils/site-content';
 
 @Component({
   selector: 'app-hero',
-  imports: [HeroIcon],
+  imports: [FontAwesomeModule],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
@@ -30,6 +31,7 @@ export class Hero implements OnInit, AfterViewInit, OnDestroy {
   readonly terminalPanelHeight = signal(360);
   readonly isTerminalClosed = signal(false);
   readonly terminalPrompt = 'visitor@polyglider:~$';
+  readonly restoreLayoutIcon = faTableColumns;
 
   private readonly terminalCommandGroups = HERO_TERMINAL_COMMAND_GROUPS;
   private timeoutId: number | null = null;

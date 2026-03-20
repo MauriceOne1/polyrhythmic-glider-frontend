@@ -69,9 +69,9 @@
     type="button"
     [class.is-terminal-closed]="isTerminalClosed()"
     [attr.aria-hidden]="!isTerminalClosed()"
-  aria-label="Ripristina layout iniziale"
-  (click)="reopenTerminal()"
->
-    <app-hero-icon class="hero-restore-icon" name="view-columns"></app-hero-icon>
+    aria-label="Ripristina layout iniziale"
+    (click)="reopenTerminal()"
+  >
+    <fa-icon class="hero-restore-icon" [icon]="restoreLayoutIcon"></fa-icon>
   </button>
 </section>

@@ -24,7 +24,7 @@
               <span
                 class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.08] text-[1rem] text-white/78 backdrop-blur-md transition group-hover:border-white/18 group-hover:bg-white/[0.12] group-hover:text-white"
               >
-                <app-hero-icon [name]="channel.icon"></app-hero-icon>
+                <fa-icon [icon]="channel.icon"></fa-icon>
               </span>
               <span>{{ channel.label }}</span>
             </div>
@@ -40,7 +40,7 @@
             <span
               class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.08] text-[1rem] text-white/75 backdrop-blur-md transition group-hover:bg-white/[0.12] group-hover:text-white"
             >
-              <app-hero-icon name="arrow-up-right"></app-hero-icon>
+              <fa-icon [icon]="externalLinkIcon"></fa-icon>
             </span>
           </div>
         </a>

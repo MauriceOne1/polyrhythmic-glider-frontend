@@ -1,4 +1,4 @@
-import type { HeroIconName } from './icon.models';
+import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export interface NavItem {
   label: string;
@@ -16,6 +16,6 @@ export interface ContactChannel {
   value: string;
   href: string;
   description: string;
-  icon: HeroIconName;
+  icon: IconDefinition;
   external?: boolean;
 }
