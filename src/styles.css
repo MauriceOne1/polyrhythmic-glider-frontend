@@ -83,7 +83,7 @@ body {
   }
 
   .section-shell {
-    @apply grid gap-6 py-14 md:gap-8 md:py-20 md:grid-cols-[180px_minmax(0,1fr)];
+    @apply grid gap-6 py-14 md:gap-8 md:py-20 lg:grid-cols-[180px_minmax(0,1fr)];
   }
 
   .section-kicker {
