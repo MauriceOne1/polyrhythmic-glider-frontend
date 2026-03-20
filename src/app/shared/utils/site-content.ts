@@ -17,16 +17,37 @@ export const HERO_TAGS = [
   'sound-research',
 ];
 
-export const HERO_TERMINAL_COMMANDS = [
-  'ls -la ./sessions',
-  'tmux attach -t live-set',
-  'ffmpeg -i modular-jam.wav -af loudnorm master.wav',
-  'ffplay -loop 0 teaser-cut.mp4',
-  'sox kick.wav snare.wav groove.wav trim 0 00:30',
-  'msfconsole',
-  'ssh synth-lab@remote-rack',
-  'git log --oneline --decorate',
-  'ncmpcpp',
+export const HERO_TERMINAL_COMMAND_GROUPS = [
+  [
+    'ls -lah ./stems',
+    'ffprobe -hide_banner modular-session.wav',
+    'ffmpeg -i modular-session.wav -af loudnorm -ar 48000 master.wav',
+    'sox take.wav -n spectrogram -o take.png',
+    'rg "bpm|swing|patch" session-notes.md',
+    'git diff --word-diff patches/',
+    'tmux attach -t live-set',
+    'ssh synth-lab@remote-rack',
+  ],
+  [
+    'python -m jupyter lab --no-browser',
+    'torchrun --nproc_per_node=8 train.py --config configs/long-context.yaml',
+    'python -m pytest tests/test_attention.py -k flash',
+    'python scripts/eval.py --benchmark mmlu --ckpt checkpoints/latest',
+    'tensorboard --logdir runs/research',
+    'python scripts/ablate.py --rope-theta 500000 --group rmsnorm',
+    'git diff research/optimizer-ablation.md',
+    'python scripts/export_metrics.py --run runs/research/latest',
+  ],
+  [
+    'ng build --configuration production --stats-json',
+    'ng test --watch=false --code-coverage',
+    'npx playwright test --project=chromium',
+    'docker compose up api postgres redis',
+    'node --watch api/server.mjs',
+    'psql "$DATABASE_URL" -c "select version();"',
+    'redis-cli --scan --pattern "session:*"',
+    'curl -s http://localhost:3000/api/health',
+  ],
 ];
 
 export const ABOUT_PILLARS: FeatureCard[] = [

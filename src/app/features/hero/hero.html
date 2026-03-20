@@ -1,17 +1,25 @@
-<section class="hero">
-  <div class="section-body">
-    <div #heroCopyCard class="readable-copy-card space-y-4">
-      <p class="eyebrow">Develop / sound / experiments</p>
-      <h1 class="display-font">
-        Polyrhythmic<br />
-        Glider
+<section class="hero" [class.is-terminal-closed]="isTerminalClosed()">
+  <div class="hero-copy section-body" [class.is-terminal-closed]="isTerminalClosed()">
+    <div
+      #heroCopyCard
+      class="readable-copy-card hero-copy-card space-y-4"
+      [class.is-terminal-closed]="isTerminalClosed()"
+    >
+      <p class="eyebrow" [class.is-terminal-closed]="isTerminalClosed()">
+        Develop / sound / experiments
+      </p>
+
+      <h1 class="display-font hero-title" [class.is-terminal-closed]="isTerminalClosed()">
+        <span class="hero-title-line" data-text="Polyrhythmic">Polyrhythmic</span>
+        <span class="hero-title-line" data-text="Glider">Glider</span>
       </h1>
-      <p class="description">
+
+      <p class="description" [class.is-terminal-closed]="isTerminalClosed()">
         Uno spazio per musica, codice ed esperimenti digitali.
       </p>
     </div>
 
-    <div class="hero-actions">
+    <div class="hero-actions" [class.is-terminal-closed]="isTerminalClosed()">
       <a class="button-primary" href="#contact">Collaboriamo</a>
       <a class="button-secondary" href="#about">Scopri il progetto</a>
     </div>
@@ -19,11 +27,18 @@
 
   <div
     class="glass-panel hero-panel terminal-panel desktop-only"
+    [class.is-terminal-closed]="isTerminalClosed()"
     [style.--terminal-panel-height]="terminalPanelHeight() + 'px'"
+    [attr.aria-hidden]="isTerminalClosed()"
   >
     <div class="terminal-header">
       <div class="terminal-lights">
-        <span class="terminal-light bg-rose-300/80"></span>
+        <button
+          class="terminal-light terminal-light-button bg-rose-300/80"
+          type="button"
+          aria-label="Chiudi terminale"
+          (click)="closeTerminal()"
+        ></button>
         <span class="terminal-light bg-amber-300/80"></span>
         <span class="terminal-light bg-emerald-300/80"></span>
       </div>
@@ -32,7 +47,7 @@
       </p>
     </div>
 
-    <div #terminalViewport class="terminal-body">
+    <div class="terminal-body">
       @for (command of terminalHistory(); track command + '-' + $index) {
         <div class="terminal-line">
           <span class="terminal-prompt">{{ terminalPrompt }}</span>
@@ -42,9 +57,21 @@
 
       <div class="terminal-line is-active">
         <span class="terminal-prompt">{{ terminalPrompt }}</span>
-        <span class="terminal-command">{{ activeCommand() }}</span>
-        <span class="terminal-cursor" aria-hidden="true"></span>
+        <span #activeCommandViewport class="terminal-command is-active">
+          {{ activeCommand() }}<span class="terminal-cursor" aria-hidden="true">_</span>
+        </span>
       </div>
     </div>
   </div>
+
+  <button
+    class="hero-restore-button"
+    type="button"
+    [class.is-terminal-closed]="isTerminalClosed()"
+    [attr.aria-hidden]="!isTerminalClosed()"
+    aria-label="Ripristina layout iniziale"
+    (click)="reopenTerminal()"
+  >
+    <span class="hero-restore-icon" aria-hidden="true"></span>
+  </button>
 </section>

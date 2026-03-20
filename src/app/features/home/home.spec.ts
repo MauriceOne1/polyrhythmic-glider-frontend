@@ -13,7 +13,7 @@ describe('HomePage', () => {
       writable: true,
       value: () => ({
         matches: false,
-        media: '(max-width: 899px)',
+        media: '(max-width: 1023px)',
         onchange: null,
         addListener: () => {},
         removeListener: () => {},
