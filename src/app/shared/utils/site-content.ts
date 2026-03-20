@@ -11,10 +11,10 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 export const HERO_TAGS = [
-  'dj-sets',
-  'sound-design',
-  'creative-coding',
-  'live-visuals',
+  'shared-process',
+  'living-archive',
+  'open-systems',
+  'sound-research',
 ];
 
 export const HERO_TERMINAL_COMMANDS = [
@@ -31,28 +31,28 @@ export const HERO_TERMINAL_COMMANDS = [
 
 export const ABOUT_PILLARS: FeatureCard[] = [
   {
-    eyebrow: 'DJ',
-    title: 'DJ sets',
+    eyebrow: 'Process',
+    title: 'Condividiamo il processo',
     description:
-      'Sessioni dedicate alla musica elettronica e alla ricerca ritmica, tra selezione musicale e sperimentazione sonora.',
+      'Rendere visibili configurazioni, passaggi e strumenti significa restituire controllo e trasformare il lavoro in linguaggio condivisibile.',
   },
   {
-    eyebrow: 'Production',
-    title: 'Produzione musicale',
+    eyebrow: 'Documentation',
+    title: 'La documentazione e parte dell opera',
     description:
-      'Produzione e registrazione in studio utilizzando strumenti digitali e hardware analogico.',
+      'Ogni sistema o esperimento deve restare leggibile, tracciabile e riutilizzabile: se non e documentato, non puo davvero evolvere.',
   },
   {
-    eyebrow: 'Analog',
-    title: 'Sperimentazioni analogiche',
+    eyebrow: 'Archive',
+    title: 'Un archivio vivo',
     description:
-      'Esplorazione di drum machine, sintetizzatori e strumenti hardware come parte del processo creativo.',
+      'Non una raccolta statica di output, ma una rete di materiali, processi e connessioni pronti a essere riattivati e reinterpretati.',
   },
   {
-    eyebrow: 'Tech',
-    title: 'Ricerca informatica',
+    eyebrow: 'Responsibility',
+    title: 'Spazio condiviso, responsabilita comune',
     description:
-      'Sviluppo e sperimentazione di strumenti digitali, sistemi generativi e tecnologie applicate alla musica e ai media.',
+      'Ogni ambiente esiste attraverso il comportamento di chi lo attraversa: apertura, cura e responsabilita sono parte della struttura.',
   },
 ];
 
@@ -61,27 +61,27 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
     label: 'Email',
     value: 'info@polyglider.com',
     href: 'mailto:info@polyglider.com',
-    description: 'Per collaborazioni, progetti e contatti diretti.',
+    description: 'Per collaborazioni, processi condivisi, ricerca e attivazioni dirette.',
   },
   {
     label: 'GitHub',
     value: 'github.com/polyglider',
     href: 'https://github.com/polyglider',
-    description: 'Codice, esperimenti e prototipi in lavorazione.',
+    description: 'Codice, configurazioni e tracce leggibili dell infrastruttura.',
     external: true,
   },
   {
     label: 'Instagram',
     value: '@polyglider',
     href: 'https://instagram.com/polyglider',
-    description: 'Visual, aggiornamenti e dietro le quinte.',
+    description: 'Frammenti visivi, aggiornamenti e passaggi emersi dal processo.',
     external: true,
   },
   {
     label: 'Sound',
     value: 'SoundCloud / Radio',
     href: 'https://soundcloud.com/polyglider',
-    description: 'Mix, ricerca sonora e broadcast futuri.',
+    description: 'Ricerca sonora, bozze, archivi temporanei e segnali in transito.',
     external: true,
   },
 ];
