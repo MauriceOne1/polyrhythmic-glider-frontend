@@ -10,18 +10,22 @@
 }
 
 html {
+  min-height: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
+  background-color: #090b12;
+  background:
+    radial-gradient(circle at top, rgba(157, 231, 255, 0.1), transparent 35%),
+    radial-gradient(circle at 80% 20%, rgba(182, 255, 105, 0.1), transparent 20%),
+    linear-gradient(180deg, #090b12 0%, #111520 100%);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at top, rgba(157, 231, 255, 0.1), transparent 35%),
-    radial-gradient(circle at 80% 20%, rgba(182, 255, 105, 0.1), transparent 20%),
-    linear-gradient(180deg, #090b12 0%, #111520 100%);
+  background: transparent;
   color: #f7f7fb;
   font-family: Aptos, 'Segoe UI', sans-serif;
 }
@@ -96,7 +100,6 @@ body {
 
   .section-description {
     @apply text-base leading-7 text-white/70 md:text-lg;
-    text-align: justify;
     text-wrap: pretty;
   }
 
@@ -125,7 +128,6 @@ body {
   }
 
   .soft-card p {
-    text-align: justify;
     text-wrap: pretty;
   }
 
