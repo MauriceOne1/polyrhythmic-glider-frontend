@@ -1,4 +1,5 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { firstValueFrom } from 'rxjs';
 import { ContactTestService } from './contact-test.service';
 
 describe('ContactTestService', () => {
@@ -9,25 +10,19 @@ describe('ContactTestService', () => {
     service = TestBed.inject(ContactTestService);
   });
 
-  it('stores the latest simulated contact submission', fakeAsync(() => {
-    let replyWindow = '';
-
-    service
-      .submit({
+  it('stores the latest simulated contact submission', async () => {
+    const result = await firstValueFrom(
+      service.submit({
         name: 'Maurice',
         email: 'maurice@example.com',
         subject: 'creative-coding',
         message: 'Vorrei parlare di una installazione audiovisiva condivisa.',
         consent: true,
       })
-      .subscribe((result) => {
-        replyWindow = result.estimatedReplyWindow;
-      });
+    );
 
-    tick(650);
-
-    expect(replyWindow).toBe('entro 3 giorni lavorativi');
+    expect(result.estimatedReplyWindow).toBe('entro 3 giorni lavorativi');
     expect(service.latestSubmission()?.email).toBe('maurice@example.com');
     expect(service.submissions().length).toBe(1);
-  }));
+  });
 });

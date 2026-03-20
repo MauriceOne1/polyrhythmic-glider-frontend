@@ -4,6 +4,15 @@ import { App } from './app';
 import { routes } from './app.routes';
 
 describe('App', () => {
+  const originalGetContext = HTMLCanvasElement.prototype.getContext;
+
+  beforeAll(() => {
+    Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+      configurable: true,
+      value: () => null,
+    });
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
@@ -24,5 +33,12 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.brand')?.textContent).toContain('Polyrhythmic Glider');
     expect(compiled.querySelector('.audio-button')?.textContent).toContain('Play');
+  });
+
+  afterAll(() => {
+    Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+      configurable: true,
+      value: originalGetContext,
+    });
   });
 });

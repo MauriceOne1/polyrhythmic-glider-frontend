@@ -25,7 +25,9 @@ describe('ContactSection', () => {
     const element = fixture.nativeElement as HTMLElement;
 
     expect(element.querySelector('form')).toBeTruthy();
-    expect(element.querySelectorAll('a.soft-card').length).toBe(4);
+    expect(element.querySelectorAll('a.contact-channel-card').length).toBe(
+      component.channels.length
+    );
     expect(element.textContent).toContain('Costruiamo qualcosa insieme.');
   });
 });
