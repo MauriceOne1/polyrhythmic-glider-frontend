@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HeroIcon } from '../../shared/components/hero-icon/hero-icon';
 import { ContactForm } from '../../shared/components/contact-form/contact-form';
 import { SectionShell } from '../../shared/components/section-shell/section-shell';
 import { ReadableKeyPipe } from '../../shared/pipes/readable-key.pipe';
@@ -6,7 +7,7 @@ import { CONTACT_CHANNELS, HERO_TAGS } from '../../shared/utils/site-content';
 
 @Component({
   selector: 'app-contact',
-  imports: [ContactForm, ReadableKeyPipe, SectionShell],
+  imports: [ContactForm, HeroIcon, ReadableKeyPipe, SectionShell],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })

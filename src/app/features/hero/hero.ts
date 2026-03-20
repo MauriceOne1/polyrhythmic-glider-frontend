@@ -7,10 +7,12 @@ import {
   ViewChild,
   signal,
 } from '@angular/core';
+import { HeroIcon } from '../../shared/components/hero-icon/hero-icon';
 import { HERO_TERMINAL_COMMAND_GROUPS } from '../../shared/utils/site-content';
 
 @Component({
   selector: 'app-hero',
+  imports: [HeroIcon],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })

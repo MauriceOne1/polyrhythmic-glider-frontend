@@ -43,7 +43,11 @@
           (click)="toggleSubjectMenu()"
         >
           <span>{{ form.controls.subject.value | readableKey }}</span>
-          <span class="field-dropdown-icon" [class.is-open]="isSubjectMenuOpen()"></span>
+          <app-hero-icon
+            class="field-dropdown-icon"
+            name="chevron-down"
+            [class.is-open]="isSubjectMenuOpen()"
+          ></app-hero-icon>
         </button>
 
         @if (isSubjectMenuOpen()) {

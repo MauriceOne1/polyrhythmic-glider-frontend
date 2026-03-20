@@ -83,12 +83,14 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
     value: 'info@polyglider.com',
     href: 'mailto:info@polyglider.com',
     description: 'Per collaborazioni, processi condivisi, ricerca e attivazioni dirette.',
+    icon: 'envelope',
   },
   {
     label: 'GitHub',
     value: 'github.com/polyglider',
     href: 'https://github.com/polyglider',
     description: 'Codice, configurazioni e tracce leggibili dell infrastruttura.',
+    icon: 'command-line',
     external: true,
   },
   {
@@ -96,6 +98,7 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
     value: '@polyglider',
     href: 'https://instagram.com/polyglider',
     description: 'Frammenti visivi, aggiornamenti e passaggi emersi dal processo.',
+    icon: 'camera',
     external: true,
   },
   {
@@ -103,6 +106,7 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
     value: 'SoundCloud / Radio',
     href: 'https://soundcloud.com/polyglider',
     description: 'Ricerca sonora, bozze, archivi temporanei e segnali in transito.',
+    icon: 'play-circle',
     external: true,
   },
 ];

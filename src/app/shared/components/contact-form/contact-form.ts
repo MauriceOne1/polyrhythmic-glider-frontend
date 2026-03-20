@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HeroIcon } from '../hero-icon/hero-icon';
 import { ReadableKeyPipe } from '../../pipes/readable-key.pipe';
 import { ContactTestService } from '../../services/contact-test.service';
 import {
@@ -21,7 +22,7 @@ import {
 
 @Component({
   selector: 'app-contact-form',
-  imports: [CommonModule, ReactiveFormsModule, ReadableKeyPipe],
+  imports: [CommonModule, HeroIcon, ReactiveFormsModule, ReadableKeyPipe],
   templateUrl: './contact-form.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

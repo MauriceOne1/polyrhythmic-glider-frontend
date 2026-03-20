@@ -176,18 +176,14 @@ body {
   }
 
   .field-dropdown-icon {
-    display: inline-block;
-    width: 0.65rem;
-    height: 0.65rem;
+    font-size: 0.95rem;
     flex: 0 0 auto;
-    border-right: 2px solid rgba(247, 247, 251, 0.82);
-    border-bottom: 2px solid rgba(247, 247, 251, 0.82);
-    transform: translateY(-0.08rem) rotate(45deg);
+    color: rgba(247, 247, 251, 0.82);
     transition: transform 180ms ease;
   }
 
   .field-dropdown-icon.is-open {
-    transform: translateY(0.08rem) rotate(-135deg);
+    transform: rotate(180deg);
   }
 
   .field-error {

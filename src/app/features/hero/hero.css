@@ -141,10 +141,7 @@ h1 {
 }
 
 .hero-restore-icon {
-  width: 0.9rem;
-  height: 0.9rem;
-  border-radius: 0.14rem;
-  background: currentColor;
+  font-size: 1rem;
 }
 
 .hero-panel {

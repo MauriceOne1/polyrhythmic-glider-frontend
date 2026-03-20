@@ -1,3 +1,5 @@
+import type { HeroIconName } from './icon.models';
+
 export interface NavItem {
   label: string;
   fragment: string;
@@ -14,5 +16,6 @@ export interface ContactChannel {
   value: string;
   href: string;
   description: string;
+  icon: HeroIconName;
   external?: boolean;
 }
