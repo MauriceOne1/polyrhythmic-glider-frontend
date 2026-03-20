@@ -2,48 +2,37 @@
   <div class="section-body">
     <div class="readable-copy-card space-y-4">
       <h2 class="section-title">Polyrhythmic Glider</h2>
-
       <p class="section-description">
-        Viviamo in un contesto in cui tutto e accessibile, ma niente e davvero
-        controllato. Gli strumenti sono ovunque, ma la comprensione resta
-        superficiale; la produzione e continua, ma il processo tende a sparire.
-        In questo scenario, costruire, comprendere e condividere diventa una
-        scelta intenzionale.
+        Viviamo in un contesto in cui tutto è accessibile, ma niente è davvero
+        controllato. Gli strumenti sono ovunque, ma la comprensione è
+        superficiale; la produzione è continua, ma il processo è invisibile.
+        Le tecnologie che promettevano emancipazione sono diventate interfacce
+        chiuse, e la creatività si muove sempre più spesso entro confini
+        definiti da logiche esterne. In questo scenario, l’atto di costruire,
+        comprendere e condividere diventa una scelta intenzionale.
       </p>
+    </div>
 
-      <p class="section-description">
-        Condividiamo non solo il risultato, ma il processo. Non esiste
-        creazione senza trasparenza, ne evoluzione senza la possibilita di
-        replicare, osservare e modificare. Rendere visibile cio che accade
-        dietro le quinte significa restituire controllo, trasformare strumenti
-        in linguaggio e linguaggio in infrastruttura. La conoscenza non e un
-        sottoprodotto: e parte integrante dell opera.
-      </p>
-
-      <p class="section-description">
-        La documentazione e parte dell opera. Ogni sistema, ogni esperimento,
-        ogni configurazione deve restare leggibile, tracciabile e
-        trasmissibile: non come archivio morto, ma come struttura attiva,
-        consultabile e riutilizzabile. Se qualcosa non e documentato, non
-        esiste davvero: non puo essere compreso, evoluto o condiviso.
-      </p>
-
-      <p class="section-description">
-        Costruiamo un archivio vivo, non una collezione statica. Un insieme di
-        materiali, processi e relazioni che si trasformano nel tempo; un
-        sistema in cui ogni contributo entra in una rete piu ampia, pronta a
-        essere riattivata, modificata e reinterpretata. In questo spazio lo
-        strumento non e solo mezzo, ma interfaccia; l essere umano non e solo
-        autore, ma nodo; il codice non e solo esecuzione, ma protocollo.
-      </p>
-
-      <p class="section-description">
-        Lo spazio e condiviso, quindi e responsabilita comune. Non ci interessa
-        cio che e progettato per attirare attenzione in modo superficiale, ma
-        cio che regge nel tempo: strutture leggibili, intenzionali, essenziali.
-        In questo contesto prende forma Polyrhythmic Glider: non un evento, ma
-        un processo continuo.
-      </p>
+    <div class="manifesto-grid">
+      @for (card of manifestoCards; track card.title) {
+        <article
+          class="manifesto-card"
+          [class.is-cyan]="$index % 3 === 0"
+          [class.is-lime]="$index % 3 === 1"
+          [class.is-amber]="$index % 3 === 2"
+        >
+          <div class="manifesto-card-header">
+            <div class="manifesto-card-index">
+              {{ ($index + 1).toString().padStart(2, '0') }}
+            </div>
+            @if (card.eyebrow) {
+              <div class="manifesto-card-eyebrow">{{ card.eyebrow }}</div>
+            }
+          </div>
+          <h3 class="manifesto-card-title">{{ card.title }}</h3>
+          <p class="manifesto-card-description">{{ card.description }}</p>
+        </article>
+      }
     </div>
 
     <div class="grid gap-5 sm:grid-cols-2">

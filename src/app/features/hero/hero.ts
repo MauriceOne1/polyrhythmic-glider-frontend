@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTableColumns } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { HERO_TERMINAL_COMMAND_GROUPS } from '../../shared/utils/site-content';
 
 @Component({
@@ -37,7 +37,7 @@ export class Hero implements OnInit, AfterViewInit, OnDestroy {
   readonly terminalPanelHeight = signal(360);
   readonly isTerminalClosed = signal(false);
   readonly terminalPrompt = 'visitor@polyglider:~$';
-  readonly restoreLayoutIcon = faTableColumns;
+  readonly restoreLayoutIcon = faXmark;
 
   private readonly terminalCommandGroups = HERO_TERMINAL_COMMAND_GROUPS;
   private timeoutId: number | null = null;

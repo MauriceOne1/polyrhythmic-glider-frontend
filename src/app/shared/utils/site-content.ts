@@ -79,6 +79,57 @@ export const ABOUT_PILLARS: FeatureCard[] = [
   },
 ];
 
+export const ABOUT_MANIFESTO_CARDS: FeatureCard[] = [
+  {
+    eyebrow: '',
+    title: 'Condividiamo il processo.',
+    description:
+      'Non esiste creazione senza trasparenza, né evoluzione senza possibilità di replicare, osservare, modificare. Rendere visibile ciò che accade dietro le quinte significa restituire controllo, trasformare strumenti in linguaggio, e linguaggio in infrastruttura. La conoscenza non è un sottoprodotto: è parte integrante dell’opera.',
+  },
+  {
+    eyebrow: '',
+    title: 'La documentazione è parte dell’opera.',
+    description:
+      'Ogni sistema, ogni esperimento, ogni configurazione è un nodo leggibile, tracciabile, trasmissibile. Non come archivio morto, ma come struttura attiva, consultabile e riutilizzabile. Se qualcosa non è documentato, non esiste davvero: non può essere compreso, né evoluto, né condiviso.',
+  },
+  {
+    eyebrow: '',
+    title: 'Un archivio vivo.',
+    description:
+      'Un insieme di materiali, processi e relazioni che si trasformano nel tempo. Un database che non conserva soltanto risultati, ma connessioni: tra idee, strumenti, persone. Un sistema in cui ogni contributo non è isolato, ma entra in una rete più ampia, pronta a essere riattivata, modificata, reinterpretata.',
+  },
+  {
+    eyebrow: '',
+    title: 'Interfaccia, nodo, protocollo.',
+    description:
+      'L’essere umano non è solo autore, ma nodo. Il codice non è solo esecuzione, ma protocollo. Le interazioni non sono casuali, ma forme di sincronizzazione. Ci muoviamo all’interno di sistemi in cui la distinzione tra tecnico e creativo perde significato, e dove la costruzione diventa essa stessa espressione.',
+  },
+  {
+    eyebrow: '',
+    title: 'Responsabilità comune.',
+    description:
+      'Ogni ambiente, fisico o digitale, esiste attraverso il comportamento di chi lo attraversa. La qualità di ciò che accade dipende dalla cura, dal rispetto e dalla consapevolezza collettiva. Non esiste libertà senza responsabilità, né apertura senza attenzione.',
+  },
+  {
+    eyebrow: '',
+    title: 'Ciò che regge nel tempo.',
+    description:
+      'Rifiutiamo la superficialità del segnale fine a sé stesso, l’estetica come distrazione, la complessità simulata. Cerchiamo invece strutture leggibili, intenzionali, essenziali. Non ciò che colpisce immediatamente, ma ciò che regge nel tempo.',
+  },
+  {
+    eyebrow: '',
+    title: 'Una struttura aperta.',
+    description:
+      'In questo contesto prende forma Polyrhythmic Glider: un laboratorio indipendente di ricerca sonora e tecnologica, un ambiente operativo in cui sistemi umani e macchine collaborano, si sincronizzano, evolvono. Non un gruppo, ma una struttura aperta. Non un evento, ma un processo continuo.',
+  },
+  {
+    eyebrow: '',
+    title: 'Un sistema attraversato.',
+    description:
+      'Un’infrastruttura decentralizzata dove segnali non standardizzati possono emergere, essere osservati, documentati e condivisi. Un sistema in cui la creazione non è mai isolata, ma sempre parte di una rete più ampia. Un sistema che esiste solo finché viene attraversato, utilizzato, modificato.',
+  },
+];
+
 export const CONTACT_CHANNELS: ContactChannel[] = [
   {
     label: 'Email',

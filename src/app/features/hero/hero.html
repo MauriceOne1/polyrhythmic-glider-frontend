@@ -68,7 +68,7 @@
     type="button"
     [class.is-terminal-closed]="isTerminalClosed()"
     [attr.tabindex]="isTerminalClosed() ? null : -1"
-    aria-label="Ripristina layout iniziale"
+    aria-label="Chiudi animazione glitchata e ripristina layout iniziale"
     (click)="reopenTerminal()"
   >
     <fa-icon class="hero-restore-icon" [icon]="restoreLayoutIcon"></fa-icon>
