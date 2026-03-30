@@ -1,18 +1,34 @@
-<section class="game-of-life-page">
-  <div class="game-of-life-copy readable-copy-card">
-    <p class="eyebrow">Experimental route</p>
-    <h1 class="display-font">Game of Life</h1>
-    <p class="description">
-      Questa pagina usa un background dedicato con una simulazione animata del
-      cellular automaton di Conway.
-    </p>
-  </div>
+<section class="game-of-life-page page-section">
+  @if (isContentVisible()) {
+    <div class="section-shell overlay-shell">
+      <div class="section-kicker">Experimental</div>
 
-  <div class="game-of-life-details glass-panel">
-    <p class="label">nota bene</p>
-    <p class="note">
-      La simulazione si autorigenera quando la popolazione collassa o si satura,
-      cosi resta viva e leggibile nel tempo.
-    </p>
-  </div>
+      <div class="section-body overlay-body">
+        <div class="game-of-life-copy readable-copy-card">
+          <button
+            class="overlay-dismiss-button"
+            type="button"
+            aria-label="Chiudi overlay informativo"
+            (click)="dismissContent()"
+          >
+            <fa-icon class="overlay-dismiss-icon" [icon]="dismissIcon"></fa-icon>
+          </button>
+
+          <h1 class="display-font">Game of Life</h1>
+          <p class="description">
+            Questa pagina usa un background dedicato con una simulazione animata
+            del cellular automaton di Conway.
+          </p>
+        </div>
+
+        <div class="game-of-life-details glass-panel">
+          <p class="label">nota bene</p>
+          <p class="note">
+            La simulazione si autorigenera quando la popolazione collassa o si
+            satura, cosi resta viva e leggibile nel tempo.
+          </p>
+        </div>
+      </div>
+    </div>
+  }
 </section>

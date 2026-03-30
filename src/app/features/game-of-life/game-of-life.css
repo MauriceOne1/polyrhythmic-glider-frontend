@@ -4,15 +4,67 @@
 }
 
 .game-of-life-page {
+  width: 100%;
   min-height: inherit;
-  display: grid;
-  align-content: center;
-  gap: 24px;
-  padding: 56px 0 72px;
+  position: relative;
+  display: block;
+  padding: 0;
+}
+
+.overlay-shell {
+  width: 100%;
+}
+
+.overlay-body {
+  width: 100%;
+}
+
+.overlay-body > * + * {
+  margin-top: 24px;
+}
+
+.overlay-dismiss-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(16px) saturate(145%);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.overlay-dismiss-button {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid rgba(157, 231, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(8, 16, 29, 0.78);
+  color: rgba(247, 247, 251, 0.92);
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.overlay-dismiss-button:hover {
+  border-color: rgba(182, 255, 105, 0.34);
+  background: rgba(13, 20, 31, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 6px rgba(182, 255, 105, 0.08);
+}
+
+.overlay-dismiss-icon {
+  font-size: 1rem;
 }
 
 .game-of-life-copy {
-  max-width: 46rem;
+  position: relative;
+  width: 100%;
+  padding-right: 5rem;
 }
 
 .eyebrow,
@@ -54,4 +106,30 @@ h1 {
   font-weight: 700;
   letter-spacing: 0.04em;
   color: rgba(185, 255, 222, 0.94);
+}
+
+@media (max-width: 640px) {
+  .game-of-life-page {
+    min-height: auto;
+    padding: 18px 0;
+  }
+
+  .overlay-body > * + * {
+    margin-top: 18px;
+  }
+
+  .overlay-dismiss-button {
+    top: 14px;
+    right: 14px;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .overlay-dismiss-button:hover {
+    transform: none;
+  }
+
+  .game-of-life-copy {
+    padding-right: 4.4rem;
+  }
 }

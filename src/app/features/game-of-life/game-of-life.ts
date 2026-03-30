@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-game-of-life',
-  imports: [],
+  imports: [FontAwesomeModule],
   templateUrl: './game-of-life.html',
   styleUrl: './game-of-life.css',
 })
-export class GameOfLife {}
+export class GameOfLife {
+  readonly isContentVisible = signal(true);
+  readonly dismissIcon = faXmark;
+
+  dismissContent(): void {
+    this.isContentVisible.set(false);
+  }
+}
