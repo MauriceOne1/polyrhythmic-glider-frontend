@@ -1,0 +1,57 @@
+:host {
+  display: block;
+  min-height: calc(100vh - 88px);
+}
+
+.game-of-life-page {
+  min-height: inherit;
+  display: grid;
+  align-content: center;
+  gap: 24px;
+  padding: 56px 0 72px;
+}
+
+.game-of-life-copy {
+  max-width: 46rem;
+}
+
+.eyebrow,
+.label {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(247, 247, 251, 0.62);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.8rem, 7vw, 5.6rem);
+  line-height: 0.92;
+}
+
+.description,
+.note,
+.value {
+  margin: 0;
+}
+
+.description,
+.note {
+  max-width: 42rem;
+  line-height: 1.65;
+  color: rgba(247, 247, 251, 0.76);
+}
+
+.game-of-life-details {
+  width: min(100%, 34rem);
+  padding: 24px;
+  display: grid;
+  gap: 10px;
+}
+
+.value {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(185, 255, 222, 0.94);
+}

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { App } from './app';
 import { routes } from './app.routes';
 
@@ -33,6 +33,21 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.brand')?.textContent).toContain('Polyrhythmic Glider');
     expect(compiled.querySelector('.audio-button')?.textContent).toContain('Play');
+  });
+
+  it('should switch to the Game of Life background on the dedicated route', async () => {
+    const router = TestBed.inject(Router);
+    const fixture = TestBed.createComponent(App);
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    await router.navigateByUrl('/game-of-life');
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('app-game-of-life-background')).not.toBeNull();
+    expect(compiled.querySelector('.audio-button')).toBeNull();
   });
 
   afterAll(() => {
