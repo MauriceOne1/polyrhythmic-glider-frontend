@@ -3,6 +3,7 @@ import { Home } from './features/home/home';
 import { Experimental } from './features/experimental/experimental';
 import { Snake } from './features/snake/snake';
 import { GameOfLife } from './features/game-of-life/game-of-life';
+import { Login } from './features/login/login';
 
 export const routes: Routes = [
     {
@@ -50,6 +51,19 @@ export const routes: Routes = [
                 description:
                     'Esperimento visivo dedicato al Game of Life di Conway con simulazione animata e background generativo.',
                 keywords: ['game of life', 'conway', 'cellular automaton', 'generative art', 'visual experiment']
+            }
+        }
+    },
+    {
+        path: 'login',
+        component: Login,
+        data: {
+            seo: {
+                title: 'Login | Polyrhythmic Glider',
+                description:
+                    'Accesso con Netlify Identity per entrare nelle aree riservate di Polyrhythmic Glider.',
+                keywords: ['login', 'netlify identity', 'authentication'],
+                robots: 'noindex,nofollow'
             }
         }
     }

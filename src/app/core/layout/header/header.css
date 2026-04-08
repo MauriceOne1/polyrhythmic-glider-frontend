@@ -75,6 +75,10 @@
     transition: opacity 0.2s ease, color 0.2s ease;
 }
 
+.nav-action {
+    cursor: pointer;
+}
+
 .nav-link:hover {
     opacity: 1;
     color: #ffffff;

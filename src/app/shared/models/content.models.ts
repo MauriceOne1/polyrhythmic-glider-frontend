@@ -2,7 +2,8 @@ import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export interface NavItem {
   label: string;
-  fragment: string;
+  fragment?: string;
+  href?: string;
 }
 
 export interface FeatureCard {

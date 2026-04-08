@@ -5,6 +5,7 @@ import { filter, map, startWith } from 'rxjs';
 import { Background } from './core/layout/background/background';
 import { GameOfLifeBackground } from './core/layout/game-of-life-background/game-of-life-background';
 import { Header } from './core/layout/header/header';
+import { IdentityService } from './core/identity/identity.service';
 import { SeoService } from './core/seo/seo.service';
 import type { SeoData } from './shared/models/seo.models';
 
@@ -17,6 +18,7 @@ import type { SeoData } from './shared/models/seo.models';
 export class App {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly identityService = inject(IdentityService);
   private readonly seoService = inject(SeoService);
   private readonly currentUrl = toSignal(
     this.router.events.pipe(
@@ -32,6 +34,9 @@ export class App {
   );
 
   constructor() {
+    this.redirectIdentityHashToLogin();
+    this.identityService.init();
+
     this.router.events
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
@@ -44,6 +49,25 @@ export class App {
 
         this.seoService.updatePage(seo, this.getCanonicalPath());
       });
+  }
+
+  private redirectIdentityHashToLogin(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const { hash, pathname, search } = window.location;
+    const hasIdentityToken =
+      hash.includes('confirmation_token=') ||
+      hash.includes('recovery_token=') ||
+      hash.includes('invite_token=') ||
+      hash.includes('email_change_token=');
+
+    if (!hasIdentityToken || pathname === '/login') {
+      return;
+    }
+
+    window.location.replace(`/login${search}${hash}`);
   }
 
   private getLeafRoute(route: ActivatedRoute): ActivatedRoute {

@@ -19,8 +19,12 @@
     </div>
 
     <nav class="nav" [class.is-open]="isMenuOpen()">
-      @for (item of navItems; track item.fragment) {
-        @if (item.fragment === 'hero') {
+      @for (item of navItems; track item.label) {
+        @if (item.href) {
+          <a class="nav-link" [routerLink]="item.href" (click)="closeMenu()">
+            {{ item.label }}
+          </a>
+        } @else if (item.fragment === 'hero') {
           <a class="nav-link" routerLink="/" (click)="navigateHome($event)">
             {{ item.label }}
           </a>
@@ -34,6 +38,12 @@
             {{ item.label }}
           </a>
         }
+      }
+
+      @if (isLoggedIn()) {
+        <button class="nav-link nav-action" type="button" (click)="logout()">
+          Logout
+        </button>
       }
     </nav>
   </div>
