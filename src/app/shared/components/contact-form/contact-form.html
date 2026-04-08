@@ -1,149 +1,141 @@
-<div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
-  <form
-    class="glass-panel space-y-5 p-6 md:p-7"
-    [formGroup]="form"
-    (ngSubmit)="submit()"
-  >
-    <div class="grid gap-5 sm:grid-cols-2">
-      <label class="field-shell">
-        <span class="field-label">Nome</span>
-        <input
-          class="field-input"
-          type="text"
-          formControlName="name"
-          placeholder="Il tuo nome"
-        />
-        @if (form.controls.name.invalid && form.controls.name.touched) {
-          <span class="field-error">Inserisci il nome.</span>
-        }
-      </label>
+<form
+  class="glass-panel w-full space-y-5 p-6 md:p-7"
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  [formGroup]="form"
+  (submit)="submit($event)"
+>
+  <input type="hidden" name="form-name" [value]="formName" />
+  <input type="hidden" name="subject" [value]="form.controls.subject.value" />
 
-      <label class="field-shell">
-        <span class="field-label">Email</span>
-        <input
-          class="field-input"
-          type="email"
-          formControlName="email"
-          placeholder="studio@example.com"
-        />
-        @if (form.controls.email.invalid && form.controls.email.touched) {
-          <span class="field-error">Inserisci una email valida.</span>
-        }
-      </label>
-    </div>
-
+  <div class="grid gap-5 sm:grid-cols-2">
     <label class="field-shell">
-      <span class="field-label">Tipo di richiesta</span>
-      <div class="field-dropdown">
-        <button
-          class="field-dropdown-trigger"
-          type="button"
-          aria-haspopup="listbox"
-          [attr.aria-expanded]="isSubjectMenuOpen()"
-          (click)="toggleSubjectMenu()"
-        >
-          <span>{{ form.controls.subject.value | readableKey }}</span>
-          <fa-icon
-            class="field-dropdown-icon"
-            [icon]="chevronDownIcon"
-            [class.is-open]="isSubjectMenuOpen()"
-          ></fa-icon>
-        </button>
-
-        @if (isSubjectMenuOpen()) {
-          <div class="field-dropdown-panel" role="listbox" aria-label="Tipo di richiesta">
-            @for (subject of subjectOptions; track subject) {
-              <button
-                class="field-dropdown-option"
-                type="button"
-                role="option"
-                [attr.aria-selected]="form.controls.subject.value === subject"
-                [class.is-selected]="form.controls.subject.value === subject"
-                (click)="selectSubject(subject)"
-              >
-                {{ subject | readableKey }}
-              </button>
-            }
-          </div>
-        }
-      </div>
-    </label>
-
-    <label class="field-shell">
-      <span class="field-label">Messaggio</span>
-      <textarea
-        class="field-input min-h-40 resize-y"
-        formControlName="message"
-        placeholder="Racconta il progetto, il contesto e che tipo di supporto ti serve."
-      ></textarea>
-      <div class="flex items-center justify-between gap-3 text-xs text-white/45">
-        <span>Piu dettagli dai, meglio posso risponderti.</span>
-        <span>{{ messageLength() }}/{{ minimumMessageLength }}</span>
-      </div>
-      @if (form.controls.message.invalid && form.controls.message.touched) {
-        <span class="field-error">
-          Inserisci almeno {{ minimumMessageLength }} caratteri.
-        </span>
-      }
-    </label>
-
-    <label
-      class="flex items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white/70 backdrop-blur-md"
-    >
+      <span class="field-label">Nome</span>
       <input
-        class="mt-1 h-4 w-4 accent-white"
-        type="checkbox"
-        formControlName="consent"
+        class="field-input"
+        type="text"
+        name="name"
+        formControlName="name"
+        placeholder="Il tuo nome"
       />
-      <span>Autorizzo la simulazione del submit per testare il flusso del form.</span>
+      @if (form.controls.name.invalid && form.controls.name.touched) {
+        <span class="field-error">Inserisci il nome.</span>
+      }
     </label>
-    @if (form.controls.consent.invalid && form.controls.consent.touched) {
-      <span class="field-error block">Conferma il consenso per continuare.</span>
-    }
 
-    <div class="flex flex-wrap items-center gap-3 pt-2">
-      <button class="button-primary" type="submit" [disabled]="isSubmitting()">
-        {{ isSubmitting() ? 'Invio...' : 'Invia test' }}
-      </button>
+    <label class="field-shell">
+      <span class="field-label">Email</span>
+      <input
+        class="field-input"
+        type="email"
+        name="email"
+        formControlName="email"
+        placeholder="studio@example.com"
+      />
+      @if (form.controls.email.invalid && form.controls.email.touched) {
+        <span class="field-error">Inserisci una email valida.</span>
+      }
+    </label>
+  </div>
+
+  <label class="field-shell">
+    <span class="field-label">Tipo di richiesta</span>
+    <div class="field-dropdown">
       <button
-        class="button-secondary"
+        class="field-dropdown-trigger"
         type="button"
-        (click)="resetForm()"
-        [disabled]="isSubmitting()"
+        aria-haspopup="listbox"
+        [attr.aria-expanded]="isSubjectMenuOpen()"
+        (click)="toggleSubjectMenu()"
       >
-        Svuota form
+        <span>{{ form.controls.subject.value | readableKey }}</span>
+        <fa-icon
+          class="field-dropdown-icon"
+          [icon]="chevronDownIcon"
+          [class.is-open]="isSubjectMenuOpen()"
+        ></fa-icon>
       </button>
-    </div>
 
-    @if (successMessage()) {
-      <p class="rounded-2xl border border-emerald-300/20 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-100">
-        {{ successMessage() }}
-      </p>
-    }
-  </form>
-
-  <aside class="space-y-4">
-    <div class="glass-panel space-y-3 p-5">
-      <p class="text-xs uppercase tracking-[0.18em] text-white/45">Workflow</p>
-      <h3 class="text-xl font-semibold text-white">Test service attivo</h3>
-      <p class="text-sm leading-6 text-white/65">
-        Il form è un mock :D
-      </p>
-    </div>
-
-    <div class="glass-panel space-y-3 p-5">
-      <p class="text-xs uppercase tracking-[0.18em] text-white/45">Ultimo invio</p>
-      @if (latestSubmission(); as submission) {
-        <div class="space-y-2 text-sm text-white/70">
-          <p class="font-medium text-white">{{ submission.name }}</p>
-          <p>{{ submission.email }}</p>
-          <p>{{ submission.subject | readableKey }}</p>
+      @if (isSubjectMenuOpen()) {
+        <div class="field-dropdown-panel" role="listbox" aria-label="Tipo di richiesta">
+          @for (subject of subjectOptions; track subject) {
+            <button
+              class="field-dropdown-option"
+              type="button"
+              role="option"
+              [attr.aria-selected]="form.controls.subject.value === subject"
+              [class.is-selected]="form.controls.subject.value === subject"
+              (click)="selectSubject(subject)"
+            >
+              {{ subject | readableKey }}
+            </button>
+          }
         </div>
-      } @else {
-        <p class="text-sm leading-6 text-white/65">
-          Nessun submit simulato ancora registrato.
-        </p>
       }
     </div>
-  </aside>
-</div>
+  </label>
+
+  <label class="field-shell">
+    <span class="field-label">Messaggio</span>
+    <textarea
+      class="field-input min-h-40 resize-y"
+      name="message"
+      formControlName="message"
+      placeholder="Racconta il progetto, il contesto e che tipo di supporto ti serve."
+    ></textarea>
+    <div class="flex items-center justify-between gap-3 text-xs text-white/45">
+      <span>Piu dettagli dai, meglio posso risponderti.</span>
+      <span>{{ messageLength() }}/{{ minimumMessageLength }}</span>
+    </div>
+    @if (form.controls.message.invalid && form.controls.message.touched) {
+      <span class="field-error">
+        Inserisci almeno {{ minimumMessageLength }} caratteri.
+      </span>
+    }
+  </label>
+
+  <label
+    class="flex items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white/70 backdrop-blur-md"
+  >
+    <input
+      class="mt-1 h-4 w-4 accent-white"
+      type="checkbox"
+      name="consent"
+      value="accepted"
+      formControlName="consent"
+    />
+    <span>Acconsento al trattamento dei dati inviati per essere ricontattato.</span>
+  </label>
+  @if (form.controls.consent.invalid && form.controls.consent.touched) {
+    <span class="field-error block">Conferma il consenso per continuare.</span>
+  }
+
+  <div class="flex flex-wrap items-center gap-3 pt-2">
+    <button class="button-primary" type="submit" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Invio...' : 'Invia messaggio' }}
+    </button>
+    <button
+      class="button-secondary"
+      type="button"
+      (click)="resetForm()"
+      [disabled]="isSubmitting()"
+    >
+      Svuota form
+    </button>
+  </div>
+
+  @if (statusMessage()) {
+    <p
+      class="rounded-2xl border px-4 py-3 text-sm"
+      [class.border-emerald-300/20]="statusKind() === 'success'"
+      [class.bg-emerald-300/10]="statusKind() === 'success'"
+      [class.text-emerald-100]="statusKind() === 'success'"
+      [class.border-rose-300/20]="statusKind() === 'error'"
+      [class.bg-rose-300/10]="statusKind() === 'error'"
+      [class.text-rose-100]="statusKind() === 'error'"
+    >
+      {{ statusMessage() }}
+    </p>
+  }
+</form>

@@ -6,7 +6,3 @@ export function toReadableLabel(value: string): string {
     .map((chunk) => chunk.charAt(0).toUpperCase() + chunk.slice(1))
     .join(' ');
 }
-
-export function createSubmissionId(): string {
-  return `contact-${Date.now().toString(36)}`;
-}

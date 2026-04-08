@@ -18,16 +18,3 @@ export function createEmptyContactFormValue(): ContactFormValue {
     consent: false,
   };
 }
-
-export function getReplyWindow(subject: string): string {
-  switch (subject) {
-    case 'dj-sets':
-      return 'entro 48 ore';
-    case 'sound-design':
-      return 'entro 72 ore';
-    case 'creative-coding':
-      return 'entro 3 giorni lavorativi';
-    default:
-      return 'entro 24 ore';
-  }
-}

@@ -2,19 +2,16 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
   ElementRef,
   HostListener,
   computed,
   inject,
   signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { ReadableKeyPipe } from '../../pipes/readable-key.pipe';
-import { ContactTestService } from '../../services/contact-test.service';
 import {
   CONTACT_SUBJECT_OPTIONS,
   MIN_MESSAGE_LENGTH,
@@ -28,19 +25,18 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactForm {
+  readonly formName = 'contact';
   readonly subjectOptions = CONTACT_SUBJECT_OPTIONS;
   readonly minimumMessageLength = MIN_MESSAGE_LENGTH;
   readonly chevronDownIcon = faChevronDown;
 
   private readonly formBuilder = inject(FormBuilder);
-  private readonly contactTestService = inject(ContactTestService);
-  private readonly destroyRef = inject(DestroyRef);
   private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   readonly isSubmitting = signal(false);
   readonly isSubjectMenuOpen = signal(false);
-  readonly successMessage = signal('');
-  readonly latestSubmission = this.contactTestService.latestSubmission;
+  readonly statusMessage = signal('');
+  readonly statusKind = signal<'idle' | 'success' | 'error'>('idle');
   readonly form = this.formBuilder.nonNullable.group({
     name: [createEmptyContactFormValue().name, [Validators.required]],
     email: [
@@ -85,39 +81,73 @@ export class ContactForm {
     this.isSubjectMenuOpen.set(false);
   }
 
-  submit(): void {
+  async submit(event: SubmitEvent): Promise<void> {
     if (this.form.invalid || this.isSubmitting()) {
+      event.preventDefault();
       this.form.markAllAsTouched();
       return;
     }
 
+    event.preventDefault();
     this.isSubmitting.set(true);
-    this.successMessage.set('');
+    this.statusMessage.set('');
+    this.statusKind.set('idle');
 
-    this.contactTestService
-      .submit(this.form.getRawValue())
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: ({ estimatedReplyWindow }) => {
-          this.successMessage.set(
-            `Messaggio simulato inviato con successo, risposta prevista ${estimatedReplyWindow}.`
-          );
-          this.form.reset(createEmptyContactFormValue());
-          this.isSubjectMenuOpen.set(false);
-          this.isSubmitting.set(false);
-        },
-        error: () => {
-          this.successMessage.set(
-            'La simulazione non e riuscita, riprova tra un attimo.'
-          );
-          this.isSubmitting.set(false);
-        },
+    const formElement = event.target;
+
+    if (!(formElement instanceof HTMLFormElement)) {
+      this.statusKind.set('error');
+      this.statusMessage.set('Invio non disponibile in questo momento.');
+      this.isSubmitting.set(false);
+      return;
+    }
+
+    const formData = new FormData(formElement);
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: this.encodeFormData(formData),
       });
+
+      if (!response.ok) {
+        throw new Error('Netlify form submission failed');
+      }
+
+      this.statusKind.set('success');
+      this.statusMessage.set(
+        'Messaggio inviato correttamente. Ti rispondero appena possibile.'
+      );
+      this.form.reset(createEmptyContactFormValue());
+      this.form.markAsPristine();
+      this.form.markAsUntouched();
+      this.isSubjectMenuOpen.set(false);
+    } catch {
+      this.statusKind.set('error');
+      this.statusMessage.set(
+        'Invio non riuscito. Riprova tra un attimo o scrivi a info@polyglider.com.'
+      );
+    } finally {
+      this.isSubmitting.set(false);
+    }
   }
 
   resetForm(): void {
     this.form.reset(createEmptyContactFormValue());
+    this.form.markAsPristine();
+    this.form.markAsUntouched();
     this.isSubjectMenuOpen.set(false);
-    this.successMessage.set('');
+    this.statusMessage.set('');
+    this.statusKind.set('idle');
+  }
+
+  private encodeFormData(formData: FormData): string {
+    return Array.from(formData.entries())
+      .map(([key, value]) => {
+        const normalizedValue = typeof value === 'string' ? value : value.name;
+        return `${encodeURIComponent(key)}=${encodeURIComponent(normalizedValue)}`;
+      })
+      .join('&');
   }
 }
