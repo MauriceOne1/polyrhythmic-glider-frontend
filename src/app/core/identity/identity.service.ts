@@ -114,6 +114,7 @@ export class IdentityService {
     identity.on('init', (user) => {
       this.currentUser.set((user as IdentityUser | null) ?? identity.currentUser());
       this.isReady.set(true);
+      this.closeWidgetIfAuthenticated(identity);
       this.flushPendingOpen(identity);
     });
 
@@ -146,6 +147,7 @@ export class IdentityService {
 
     this.syncCurrentUser();
     this.isReady.set(true);
+    this.closeWidgetIfAuthenticated(identity);
     this.flushPendingOpen(identity);
   }
 
@@ -161,5 +163,13 @@ export class IdentityService {
     const tab = this.pendingOpen;
     this.pendingOpen = null;
     identity.open(tab);
+  }
+
+  private closeWidgetIfAuthenticated(identity: NetlifyIdentity): void {
+    if (!this.currentUser()) {
+      return;
+    }
+
+    identity.close();
   }
 }
