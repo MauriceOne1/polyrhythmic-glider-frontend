@@ -1,8 +1,8 @@
 :host {
-  --motion-spring: 420ms cubic-bezier(0.22, 1, 0.36, 1);
-  --motion-title: 520ms cubic-bezier(0.22, 1, 0.36, 1);
-  --motion-fade: 280ms ease;
-  --motion-ui: 220ms ease;
+  --m1: 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  --m2: 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  --m3: 280ms ease;
+  --m4: 220ms ease;
   display: block;
   width: 100%;
 }
@@ -18,17 +18,17 @@
   align-items: center;
   align-content: center;
   transition:
-    grid-template-columns var(--motion-spring),
-    gap var(--motion-spring);
+    grid-template-columns var(--m1),
+    gap var(--m1);
 }
 
 .hero-copy {
   min-width: 0;
   max-width: 40rem;
   transition:
-    transform var(--motion-spring),
-    max-width var(--motion-spring),
-    width var(--motion-spring);
+    transform var(--m1),
+    max-width var(--m1),
+    width var(--m1);
 }
 
 .hero-copy-card {
@@ -36,12 +36,12 @@
   container-type: inline-size;
   transform-origin: center;
   transition:
-    transform var(--motion-spring),
-    padding var(--motion-spring),
-    box-shadow var(--motion-spring),
-    background-color var(--motion-spring),
-    border-color var(--motion-spring),
-    backdrop-filter var(--motion-spring);
+    transform var(--m1),
+    padding var(--m1),
+    box-shadow var(--m1),
+    background-color var(--m1),
+    border-color var(--m1),
+    backdrop-filter var(--m1);
 }
 
 h1 {
@@ -58,11 +58,11 @@ h1 {
   max-width: 100%;
   letter-spacing: -0.025em;
   transition:
-    font-size var(--motion-title),
-    line-height var(--motion-title),
-    letter-spacing var(--motion-title),
-    transform var(--motion-title),
-    filter var(--motion-title);
+    font-size var(--m2),
+    line-height var(--m2),
+    letter-spacing var(--m2),
+    transform var(--m2),
+    filter var(--m2);
 }
 
 .hero-title-line {
@@ -89,10 +89,10 @@ h1 {
   line-height: 1.7;
   color: rgba(247, 247, 251, 0.8);
   transition:
-    opacity var(--motion-fade),
-    transform var(--motion-spring),
-    max-height var(--motion-spring),
-    margin var(--motion-spring);
+    opacity var(--m3),
+    transform var(--m1),
+    max-height var(--m1),
+    margin var(--m1);
 }
 
 .hero-actions {
@@ -102,10 +102,10 @@ h1 {
   max-height: 8rem;
   overflow: hidden;
   transition:
-    opacity var(--motion-fade),
-    transform var(--motion-spring),
-    max-height var(--motion-spring),
-    margin var(--motion-spring);
+    opacity var(--m3),
+    transform var(--m1),
+    max-height var(--m1),
+    margin var(--m1);
 }
 
 .hero-restore-button {
@@ -128,11 +128,11 @@ h1 {
   pointer-events: none;
   transform: translateX(-50%) translateY(1rem) scale(0.96);
   transition:
-    opacity var(--motion-fade),
-    transform var(--motion-spring),
-    border-color var(--motion-ui),
-    background-color var(--motion-ui),
-    box-shadow var(--motion-ui);
+    opacity var(--m3),
+    transform var(--m1),
+    border-color var(--m4),
+    background-color var(--m4),
+    box-shadow var(--m4);
   backdrop-filter: blur(16px) saturate(145%);
 }
 
@@ -167,9 +167,9 @@ h1 {
   transform-origin: right center;
   transition:
     opacity 320ms ease,
-    transform var(--motion-spring),
-    width var(--motion-spring),
-    padding var(--motion-spring);
+    transform var(--m1),
+    width var(--m1),
+    padding var(--m1);
 }
 
 .terminal-panel {
