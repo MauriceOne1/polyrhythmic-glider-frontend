@@ -34,18 +34,18 @@
         <button
           class="terminal-light terminal-light-button bg-rose-300/80"
           type="button"
-          aria-label="Chiudi terminale"
+          aria-label="Nascondi il pannello terminale decorativo"
           (click)="closeTerminal()"
         ></button>
         <span class="terminal-light bg-amber-300/80"></span>
         <span class="terminal-light bg-emerald-300/80"></span>
       </div>
-      <p class="text-xs uppercase tracking-[0.18em] text-white/45">
+      <p class="text-xs uppercase tracking-[0.18em] text-white/45" aria-hidden="true">
         terminal
       </p>
     </div>
 
-    <div class="terminal-body">
+    <div class="terminal-body" aria-hidden="true">
       @for (command of terminalHistory(); track command + '-' + $index) {
         <div class="terminal-line">
           <span class="terminal-prompt">{{ terminalPrompt }}</span>
@@ -68,9 +68,9 @@
     type="button"
     [class.is-terminal-closed]="isTerminalClosed()"
     [attr.tabindex]="isTerminalClosed() ? null : -1"
-    aria-label="Chiudi animazione glitchata e ripristina layout iniziale"
+    aria-label="Ripristina il pannello terminale e il layout iniziale"
     (click)="reopenTerminal()"
   >
-    <fa-icon class="hero-restore-icon" [icon]="restoreLayoutIcon"></fa-icon>
+    <fa-icon class="hero-restore-icon" [icon]="restoreLayoutIcon" aria-hidden="true"></fa-icon>
   </button>
 </section>

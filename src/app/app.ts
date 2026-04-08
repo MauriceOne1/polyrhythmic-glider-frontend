@@ -33,6 +33,11 @@ export class App {
     this.currentUrl().startsWith('/game-of-life')
   );
 
+  formatVolumeValue(volume: number | string): string {
+    const normalizedVolume = Math.min(1, Math.max(0, Number(volume) / 0.2));
+    return `Volume ${Math.round(normalizedVolume * 100)} percento`;
+  }
+
   constructor() {
     this.redirectIdentityHashToLogin();
     this.identityService.init();

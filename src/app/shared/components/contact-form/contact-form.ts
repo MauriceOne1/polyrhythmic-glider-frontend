@@ -2,15 +2,11 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  HostListener,
   computed,
   inject,
   signal,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { ReadableKeyPipe } from '../../pipes/readable-key.pipe';
 import {
   CONTACT_SUBJECT_OPTIONS,
@@ -20,7 +16,7 @@ import {
 
 @Component({
   selector: 'app-contact-form',
-  imports: [CommonModule, FontAwesomeModule, ReactiveFormsModule, ReadableKeyPipe],
+  imports: [CommonModule, ReactiveFormsModule, ReadableKeyPipe],
   templateUrl: './contact-form.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -28,13 +24,10 @@ export class ContactForm {
   readonly formName = 'contact';
   readonly subjectOptions = CONTACT_SUBJECT_OPTIONS;
   readonly minimumMessageLength = MIN_MESSAGE_LENGTH;
-  readonly chevronDownIcon = faChevronDown;
 
   private readonly formBuilder = inject(FormBuilder);
-  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   readonly isSubmitting = signal(false);
-  readonly isSubjectMenuOpen = signal(false);
   readonly statusMessage = signal('');
   readonly statusKind = signal<'idle' | 'success' | 'error'>('idle');
   readonly form = this.formBuilder.nonNullable.group({
@@ -52,34 +45,6 @@ export class ContactForm {
   });
 
   readonly messageLength = computed(() => this.form.controls.message.value.length);
-
-  @HostListener('document:click', ['$event'])
-  handleDocumentClick(event: Event): void {
-    const target = event.target;
-
-    if (
-      target instanceof Node &&
-      !this.elementRef.nativeElement.contains(target) &&
-      this.isSubjectMenuOpen()
-    ) {
-      this.isSubjectMenuOpen.set(false);
-    }
-  }
-
-  @HostListener('document:keydown.escape')
-  handleEscapeKey(): void {
-    this.isSubjectMenuOpen.set(false);
-  }
-
-  toggleSubjectMenu(): void {
-    this.isSubjectMenuOpen.update((isOpen) => !isOpen);
-  }
-
-  selectSubject(subject: string): void {
-    this.form.controls.subject.setValue(subject);
-    this.form.controls.subject.markAsDirty();
-    this.isSubjectMenuOpen.set(false);
-  }
 
   async submit(event: SubmitEvent): Promise<void> {
     if (this.form.invalid || this.isSubmitting()) {
@@ -130,7 +95,6 @@ export class ContactForm {
       this.form.reset(createEmptyContactFormValue());
       this.form.markAsPristine();
       this.form.markAsUntouched();
-      this.isSubjectMenuOpen.set(false);
     } catch {
       this.statusKind.set('error');
       this.statusMessage.set(
@@ -145,7 +109,6 @@ export class ContactForm {
     this.form.reset(createEmptyContactFormValue());
     this.form.markAsPristine();
     this.form.markAsUntouched();
-    this.isSubjectMenuOpen.set(false);
     this.statusMessage.set('');
     this.statusKind.set('idle');
   }

@@ -37,6 +37,10 @@ export class Snake implements OnInit, OnDestroy {
   readonly state = signal(this.buildInitialState());
   readonly boardCells = computed(() => this.createBoardCells(this.state()));
   readonly statusLabel = computed(() => this.getStatusLabel(this.state()));
+  readonly liveAnnouncement = computed(() => {
+    const state = this.state();
+    return `Stato ${this.getStatusLabel(state)}. Punteggio ${state.score}.`;
+  });
   readonly primaryActionLabel = computed(() => {
     const status = this.state().status;
 

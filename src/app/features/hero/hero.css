@@ -138,6 +138,12 @@ h1 {
   box-shadow: 0 0 0 6px rgba(182, 255, 105, 0.08);
 }
 
+.hero-restore-button:focus-visible,
+.terminal-light-button:focus-visible {
+  border-color: rgba(157, 231, 255, 0.38);
+  box-shadow: 0 0 0 6px rgba(157, 231, 255, 0.12);
+}
+
 .hero-restore-button.is-terminal-closed {
   opacity: 1;
   pointer-events: auto;
@@ -766,5 +772,26 @@ h1 {
 
   .hero-title.is-terminal-closed {
     font-size: clamp(3rem, 13cqi, 6.8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title.is-terminal-closed,
+  .hero-title.is-terminal-closed .hero-title-line,
+  .hero-title.is-terminal-closed .hero-title-line::before,
+  .hero-title.is-terminal-closed .hero-title-line::after,
+  .terminal-cursor {
+    animation: none !important;
+  }
+
+  .hero,
+  .hero-copy,
+  .hero-copy-card,
+  .hero-title,
+  .description,
+  .hero-actions,
+  .hero-panel,
+  .hero-restore-button {
+    transition: none !important;
   }
 }

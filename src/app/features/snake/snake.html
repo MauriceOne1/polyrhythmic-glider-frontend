@@ -1,7 +1,7 @@
-<section class="snake-page">
+<section class="snake-page" aria-labelledby="snake-title">
   <div class="snake-copy readable-copy-card">
     <p class="eyebrow">Experimental</p>
-    <h1>Snake</h1>
+    <h1 id="snake-title">Snake</h1>
     <p class="description">
       Classic grid movement, one food at a time, simple scorekeeping, and a
       clean restart loop.
@@ -21,11 +21,18 @@
       </div>
     </div>
 
+    <p id="snake-live-region" class="sr-only" aria-live="polite">
+      {{ liveAnnouncement() }}
+    </p>
+
     <div
       class="board"
+      role="img"
+      tabindex="0"
       [style.gridTemplateColumns]="'repeat(' + boardColumns + ', 1fr)'"
       [style.gridTemplateRows]="'repeat(' + boardRows + ', 1fr)'"
       aria-label="Snake board"
+      aria-describedby="snake-instructions snake-live-region"
     >
       @for (cell of boardCells(); track cell.id) {
         <div
@@ -44,11 +51,12 @@
       <button type="button" class="secondary" (click)="restart()">Restart</button>
     </div>
 
-    <p class="instructions">
-      Use arrow keys or WASD to move. Press Space to pause and R to restart.
+    <p id="snake-instructions" class="instructions">
+      Usa frecce o WASD per muoverti. Premi spazio per mettere in pausa e R per
+      ricominciare.
     </p>
 
-    <div class="touch-controls" aria-label="Snake controls">
+    <div class="touch-controls" role="group" aria-label="Controlli touch Snake">
       <button type="button" class="control up" (click)="queueDirection('up')">
         Up
       </button>

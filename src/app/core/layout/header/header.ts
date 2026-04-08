@@ -1,6 +1,8 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, HostListener, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { filter } from 'rxjs';
 import { IdentityService } from '../../identity/identity.service';
 import { NAV_ITEMS } from '../../../shared/utils/site-content';
 
@@ -22,10 +24,22 @@ export class Header {
 
   constructor() {
     this.identity.init();
+
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => this.closeMenu());
   }
 
   toggleMenu(): void {
     this.isMenuOpen.update((value) => !value);
+  }
+
+  @HostListener('document:keydown.escape')
+  handleEscapeKey(): void {
+    this.closeMenu();
   }
 
   closeMenu(): void {

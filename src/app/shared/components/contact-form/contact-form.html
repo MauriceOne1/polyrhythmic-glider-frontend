@@ -3,93 +3,101 @@
   name="contact"
   method="POST"
   data-netlify="true"
+  novalidate
   [formGroup]="form"
   (submit)="submit($event)"
 >
   <input type="hidden" name="form-name" [value]="formName" />
-  <input type="hidden" name="subject" [value]="form.controls.subject.value" />
 
   <div class="grid gap-5 sm:grid-cols-2">
     <label class="field-shell">
       <span class="field-label">Nome</span>
       <input
+        id="contact-name"
         class="field-input"
         type="text"
         name="name"
+        autocomplete="name"
         formControlName="name"
         placeholder="Il tuo nome"
+        [attr.aria-invalid]="form.controls.name.invalid && form.controls.name.touched"
+        [attr.aria-describedby]="
+          form.controls.name.invalid && form.controls.name.touched
+            ? 'contact-name-error'
+            : null
+        "
       />
       @if (form.controls.name.invalid && form.controls.name.touched) {
-        <span class="field-error">Inserisci il nome.</span>
+        <span id="contact-name-error" class="field-error">Inserisci il nome.</span>
       }
     </label>
 
     <label class="field-shell">
       <span class="field-label">Email</span>
       <input
+        id="contact-email"
         class="field-input"
         type="email"
         name="email"
+        autocomplete="email"
         formControlName="email"
         placeholder="studio@example.com"
+        [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
+        [attr.aria-describedby]="
+          form.controls.email.invalid && form.controls.email.touched
+            ? 'contact-email-error'
+            : null
+        "
       />
       @if (form.controls.email.invalid && form.controls.email.touched) {
-        <span class="field-error">Inserisci una email valida.</span>
+        <span id="contact-email-error" class="field-error">
+          Inserisci una email valida.
+        </span>
       }
     </label>
   </div>
 
   <label class="field-shell">
     <span class="field-label">Tipo di richiesta</span>
-    <div class="field-dropdown">
-      <button
-        class="field-dropdown-trigger"
-        type="button"
-        aria-haspopup="listbox"
-        [attr.aria-expanded]="isSubjectMenuOpen()"
-        (click)="toggleSubjectMenu()"
-      >
-        <span>{{ form.controls.subject.value | readableKey }}</span>
-        <fa-icon
-          class="field-dropdown-icon"
-          [icon]="chevronDownIcon"
-          [class.is-open]="isSubjectMenuOpen()"
-        ></fa-icon>
-      </button>
-
-      @if (isSubjectMenuOpen()) {
-        <div class="field-dropdown-panel" role="listbox" aria-label="Tipo di richiesta">
-          @for (subject of subjectOptions; track subject) {
-            <button
-              class="field-dropdown-option"
-              type="button"
-              role="option"
-              [attr.aria-selected]="form.controls.subject.value === subject"
-              [class.is-selected]="form.controls.subject.value === subject"
-              (click)="selectSubject(subject)"
-            >
-              {{ subject | readableKey }}
-            </button>
-          }
-        </div>
+    <select
+      id="contact-subject"
+      class="field-input"
+      name="subject"
+      formControlName="subject"
+    >
+      @for (subject of subjectOptions; track subject) {
+        <option [value]="subject">{{ subject | readableKey }}</option>
       }
-    </div>
+    </select>
   </label>
 
   <label class="field-shell">
     <span class="field-label">Messaggio</span>
     <textarea
+      id="contact-message"
       class="field-input min-h-40 resize-y"
       name="message"
+      autocomplete="off"
       formControlName="message"
       placeholder="Racconta il progetto, il contesto e che tipo di supporto ti serve."
+      [attr.aria-invalid]="form.controls.message.invalid && form.controls.message.touched"
+      [attr.aria-describedby]="
+        form.controls.message.invalid && form.controls.message.touched
+          ? 'contact-message-hint contact-message-count contact-message-error'
+          : 'contact-message-hint contact-message-count'
+      "
     ></textarea>
-    <div class="flex items-center justify-between gap-3 text-xs text-white/45">
+    <div
+      id="contact-message-hint"
+      class="flex items-center justify-between gap-3 text-xs text-white/45"
+    >
       <span>Piu dettagli dai, meglio posso risponderti.</span>
-      <span>{{ messageLength() }}/{{ minimumMessageLength }}</span>
+      <span id="contact-message-count">
+        {{ messageLength() }}/{{ minimumMessageLength }}
+      </span>
     </div>
     @if (form.controls.message.invalid && form.controls.message.touched) {
-      <span class="field-error">
+      <span id="contact-message-error" class="field-error">
         Inserisci almeno {{ minimumMessageLength }} caratteri.
       </span>
     }
@@ -99,16 +107,27 @@
     class="flex items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.06] px-4 py-3 text-sm text-white/70 backdrop-blur-md"
   >
     <input
+      id="contact-consent"
       class="mt-1 h-4 w-4 accent-white"
       type="checkbox"
       name="consent"
       value="accepted"
       formControlName="consent"
+      [attr.aria-invalid]="
+        form.controls.consent.invalid && form.controls.consent.touched
+      "
+      [attr.aria-describedby]="
+        form.controls.consent.invalid && form.controls.consent.touched
+          ? 'contact-consent-error'
+          : null
+      "
     />
     <span>Acconsento al trattamento dei dati inviati per essere ricontattato.</span>
   </label>
   @if (form.controls.consent.invalid && form.controls.consent.touched) {
-    <span class="field-error block">Conferma il consenso per continuare.</span>
+    <span id="contact-consent-error" class="field-error block">
+      Conferma il consenso per continuare.
+    </span>
   }
 
   <div class="flex flex-wrap items-center gap-3 pt-2">
@@ -120,6 +139,8 @@
   @if (statusMessage()) {
     <p
       class="rounded-2xl border px-4 py-3 text-sm"
+      [attr.role]="statusKind() === 'error' ? 'alert' : 'status'"
+      [attr.aria-live]="statusKind() === 'error' ? 'assertive' : 'polite'"
       [class.border-emerald-300/20]="statusKind() === 'success'"
       [class.bg-emerald-300/10]="statusKind() === 'success'"
       [class.text-emerald-100]="statusKind() === 'success'"

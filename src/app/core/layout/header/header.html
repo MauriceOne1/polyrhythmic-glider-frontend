@@ -9,7 +9,12 @@
         class="menu-toggle"
         type="button"
         [attr.aria-expanded]="isMenuOpen()"
-        aria-label="Apri menu di navigazione"
+        aria-controls="primary-navigation"
+        [attr.aria-label]="
+          isMenuOpen()
+            ? 'Chiudi menu di navigazione'
+            : 'Apri menu di navigazione'
+        "
         (click)="toggleMenu()"
       >
         <span class="menu-toggle-line" [class.is-open]="isMenuOpen()"></span>
@@ -18,7 +23,12 @@
       </button>
     </div>
 
-    <nav class="nav" [class.is-open]="isMenuOpen()">
+    <nav
+      id="primary-navigation"
+      class="nav"
+      aria-label="Navigazione principale"
+      [class.is-open]="isMenuOpen()"
+    >
       @for (item of navItems; track item.label) {
         @if (item.href) {
           <a class="nav-link" [routerLink]="item.href" (click)="closeMenu()">

@@ -30,6 +30,10 @@
     white-space: nowrap;
 }
 
+.brand:focus-visible {
+    border-radius: 999px;
+}
+
 .menu-toggle {
     display: none;
     width: 44px;
@@ -82,6 +86,15 @@
 .nav-link:hover {
     opacity: 1;
     color: #ffffff;
+}
+
+.nav-link:focus-visible,
+.menu-toggle:focus-visible,
+.brand:focus-visible {
+    opacity: 1;
+    color: #ffffff;
+    border-color: rgba(157, 231, 255, 0.38);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 @media (max-width: 640px) {
