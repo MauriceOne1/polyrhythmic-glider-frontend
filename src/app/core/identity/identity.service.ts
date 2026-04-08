@@ -24,6 +24,7 @@ export class IdentityService {
   private readonly widgetScriptId = 'netlify-identity-widget';
   private initialized = false;
   private pendingOpen: 'login' | 'signup' | null = null;
+  private postLoginRedirect = '/';
 
   init(): void {
     if (typeof window === 'undefined') {
@@ -55,6 +56,35 @@ export class IdentityService {
     this.pendingOpen = 'signup';
     this.init();
     window.netlifyIdentity?.open('signup');
+  }
+
+  async resolveCurrentUser(): Promise<IdentityUser | null> {
+    this.init();
+    this.syncCurrentUser();
+
+    if (this.currentUser()) {
+      return this.currentUser();
+    }
+
+    if (this.isReady()) {
+      return null;
+    }
+
+    return new Promise((resolve) => {
+      const startedAt = Date.now();
+      const intervalId = window.setInterval(() => {
+        this.syncCurrentUser();
+
+        if (this.currentUser() || this.isReady() || Date.now() - startedAt > 5000) {
+          window.clearInterval(intervalId);
+          resolve(this.currentUser());
+        }
+      }, 50);
+    });
+  }
+
+  setPostLoginRedirect(url: string | null | undefined): void {
+    this.postLoginRedirect = url || '/';
   }
 
   async logout(): Promise<void> {
@@ -122,7 +152,8 @@ export class IdentityService {
       this.authError.set('');
       this.currentUser.set((user as IdentityUser | null) ?? identity.currentUser());
       identity.close();
-      await this.router.navigateByUrl('/');
+      await this.router.navigateByUrl(this.postLoginRedirect);
+      this.postLoginRedirect = '/';
     });
 
     identity.on('logout', () => {

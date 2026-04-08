@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IdentityService } from '../../core/identity/identity.service';
 
 @Component({
@@ -9,11 +9,18 @@ import { IdentityService } from '../../core/identity/identity.service';
 })
 export class Login {
   readonly identity = inject(IdentityService);
+  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
   constructor() {
+    this.identity.setPostLoginRedirect(
+      this.route.snapshot.queryParamMap.get('redirectTo')
+    );
+
     if (this.identity.currentUser()) {
-      void this.router.navigateByUrl('/');
+      void this.router.navigateByUrl(
+        this.route.snapshot.queryParamMap.get('redirectTo') || '/'
+      );
       return;
     }
 

@@ -3,7 +3,9 @@ import { Home } from './features/home/home';
 import { Experimental } from './features/experimental/experimental';
 import { Snake } from './features/snake/snake';
 import { GameOfLife } from './features/game-of-life/game-of-life';
+import { Admin } from './features/admin/admin';
 import { Login } from './features/login/login';
+import { identityGuard } from './core/identity/identity.guard';
 
 export const routes: Routes = [
     {
@@ -63,6 +65,20 @@ export const routes: Routes = [
                 description:
                     'Accesso con Netlify Identity per entrare nelle aree riservate di Polyrhythmic Glider.',
                 keywords: ['login', 'netlify identity', 'authentication'],
+                robots: 'noindex,nofollow'
+            }
+        }
+    },
+    {
+        path: 'admin',
+        component: Admin,
+        canActivate: [identityGuard],
+        data: {
+            seo: {
+                title: 'Admin | Polyrhythmic Glider',
+                description:
+                    'Area amministrativa privata accessibile solo dopo autenticazione.',
+                keywords: ['admin', 'private area', 'authentication'],
                 robots: 'noindex,nofollow'
             }
         }

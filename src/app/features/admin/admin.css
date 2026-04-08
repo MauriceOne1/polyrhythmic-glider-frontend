@@ -1,0 +1,19 @@
+.admin-page {
+  min-height: calc(100vh - 120px);
+  display: grid;
+  place-items: center;
+  padding: 48px 0;
+}
+
+.admin-shell {
+  width: min(1100px, 100%);
+}
+
+.admin-title {
+  margin: 0;
+  font-size: clamp(3.2rem, 9vw, 7.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
