@@ -115,14 +115,6 @@
     <button class="button-primary" type="submit" [disabled]="isSubmitting()">
       {{ isSubmitting() ? 'Invio...' : 'Invia messaggio' }}
     </button>
-    <button
-      class="button-secondary"
-      type="button"
-      (click)="resetForm()"
-      [disabled]="isSubmitting()"
-    >
-      Svuota form
-    </button>
   </div>
 
   @if (statusMessage()) {

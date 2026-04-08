@@ -105,10 +105,18 @@ export class ContactForm {
     const formData = new FormData(formElement);
 
     try {
+      const encodedFormData = new URLSearchParams();
+
+      formData.forEach((value, key) => {
+        if (typeof value === 'string') {
+          encodedFormData.append(key, value);
+        }
+      });
+
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: this.encodeFormData(formData),
+        body: encodedFormData.toString(),
       });
 
       if (!response.ok) {
@@ -140,14 +148,5 @@ export class ContactForm {
     this.isSubjectMenuOpen.set(false);
     this.statusMessage.set('');
     this.statusKind.set('idle');
-  }
-
-  private encodeFormData(formData: FormData): string {
-    return Array.from(formData.entries())
-      .map(([key, value]) => {
-        const normalizedValue = typeof value === 'string' ? value : value.name;
-        return `${encodeURIComponent(key)}=${encodeURIComponent(normalizedValue)}`;
-      })
-      .join('&');
   }
 }
