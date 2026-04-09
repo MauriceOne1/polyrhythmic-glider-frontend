@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  HostListener,
   computed,
   inject,
   signal,
@@ -26,8 +28,10 @@ export class ContactForm {
   readonly minimumMessageLength = MIN_MESSAGE_LENGTH;
 
   private readonly formBuilder = inject(FormBuilder);
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   readonly isSubmitting = signal(false);
+  readonly isSubjectMenuOpen = signal(false);
   readonly statusMessage = signal('');
   readonly statusKind = signal<'idle' | 'success' | 'error'>('idle');
   readonly form = this.formBuilder.nonNullable.group({
@@ -45,6 +49,35 @@ export class ContactForm {
   });
 
   readonly messageLength = computed(() => this.form.controls.message.value.length);
+
+  @HostListener('document:click', ['$event'])
+  handleDocumentClick(event: Event): void {
+    const target = event.target;
+
+    if (
+      target instanceof Node &&
+      !this.elementRef.nativeElement.contains(target) &&
+      this.isSubjectMenuOpen()
+    ) {
+      this.isSubjectMenuOpen.set(false);
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  handleEscapeKey(): void {
+    this.isSubjectMenuOpen.set(false);
+  }
+
+  toggleSubjectMenu(): void {
+    this.isSubjectMenuOpen.update((isOpen) => !isOpen);
+  }
+
+  selectSubject(subject: string): void {
+    this.form.controls.subject.setValue(subject);
+    this.form.controls.subject.markAsDirty();
+    this.form.controls.subject.markAsTouched();
+    this.isSubjectMenuOpen.set(false);
+  }
 
   async submit(event: SubmitEvent): Promise<void> {
     if (this.form.invalid || this.isSubmitting()) {
@@ -93,6 +126,7 @@ export class ContactForm {
         'Messaggio inviato correttamente. Ti rispondero appena possibile.'
       );
       this.form.reset(createEmptyContactFormValue());
+      this.isSubjectMenuOpen.set(false);
       this.form.markAsPristine();
       this.form.markAsUntouched();
     } catch {
@@ -107,6 +141,7 @@ export class ContactForm {
 
   resetForm(): void {
     this.form.reset(createEmptyContactFormValue());
+    this.isSubjectMenuOpen.set(false);
     this.form.markAsPristine();
     this.form.markAsUntouched();
     this.statusMessage.set('');

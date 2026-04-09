@@ -57,19 +57,54 @@
     </label>
   </div>
 
-  <label class="field-shell">
-    <span class="field-label">Tipo di richiesta</span>
-    <select
-      id="contact-subject"
-      class="field-input"
-      name="subject"
-      formControlName="subject"
-    >
-      @for (subject of subjectOptions; track subject) {
-        <option [value]="subject">{{ subject | readableKey }}</option>
+  <div class="field-shell">
+    <span id="contact-subject-label" class="field-label">Tipo di richiesta</span>
+    <input type="hidden" name="subject" [value]="form.controls.subject.value" />
+
+    <div class="field-dropdown">
+      <button
+        id="contact-subject-trigger"
+        class="field-dropdown-trigger"
+        type="button"
+        aria-haspopup="listbox"
+        [attr.aria-expanded]="isSubjectMenuOpen()"
+        [attr.aria-controls]="isSubjectMenuOpen() ? 'contact-subject-menu' : null"
+        [attr.aria-labelledby]="'contact-subject-label contact-subject-value'"
+        (click)="toggleSubjectMenu()"
+      >
+        <span id="contact-subject-value">
+          {{ form.controls.subject.value | readableKey }}
+        </span>
+        <span
+          class="field-dropdown-icon"
+          [class.is-open]="isSubjectMenuOpen()"
+          aria-hidden="true"
+        ></span>
+      </button>
+
+      @if (isSubjectMenuOpen()) {
+        <div
+          id="contact-subject-menu"
+          class="field-dropdown-panel"
+          role="listbox"
+          aria-labelledby="contact-subject-label"
+        >
+          @for (subject of subjectOptions; track subject) {
+            <button
+              class="field-dropdown-option"
+              type="button"
+              role="option"
+              [attr.aria-selected]="form.controls.subject.value === subject"
+              [class.is-selected]="form.controls.subject.value === subject"
+              (click)="selectSubject(subject)"
+            >
+              {{ subject | readableKey }}
+            </button>
+          }
+        </div>
       }
-    </select>
-  </label>
+    </div>
+  </div>
 
   <label class="field-shell">
     <span class="field-label">Messaggio</span>

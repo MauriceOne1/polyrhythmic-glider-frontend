@@ -252,14 +252,19 @@ app-root {
   }
 
   .field-dropdown-icon {
-    font-size: 0.95rem;
+    display: inline-block;
+    width: 0.65rem;
+    height: 0.65rem;
     flex: 0 0 auto;
-    color: rgba(247, 247, 251, 0.82);
+    border-right: 2px solid rgba(247, 247, 251, 0.82);
+    border-bottom: 2px solid rgba(247, 247, 251, 0.82);
+    pointer-events: none;
+    transform: translateY(-0.08rem) rotate(45deg);
     transition: transform 180ms ease;
   }
 
   .field-dropdown-icon.is-open {
-    transform: rotate(180deg);
+    transform: translateY(0.08rem) rotate(-135deg);
   }
 
   .field-error {
