@@ -16,7 +16,7 @@ export const routes: Routes = [
       seo: {
         title: 'Polyrhythmic Glider | Musica, codice ed esperimenti digitali',
         description:
-          'Polyrhythmic Glider e uno spazio per musica, codice ed esperimenti digitali tra ricerca sonora, documentazione e sistemi aperti.',
+          'Polyrhythmic Glider è uno spazio per musica, codice ed esperimenti digitali tra ricerca sonora, documentazione e sistemi aperti.',
         keywords: ['polyrhythmic glider', 'musica', 'codice', 'esperimenti digitali', 'ricerca sonora'],
       },
     },

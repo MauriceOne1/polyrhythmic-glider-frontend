@@ -61,9 +61,9 @@ export const ABOUT_PILLARS: FeatureCard[] = [
   },
   {
     eyebrow: 'Documentation',
-    title: 'La documentazione e parte dell opera',
+    title: "La documentazione è parte dell'opera",
     description:
-      'Ogni sistema o esperimento deve restare leggibile, tracciabile e riutilizzabile: se non e documentato, non puo davvero evolvere.',
+      "Ogni sistema o esperimento deve restare leggibile, tracciabile e riutilizzabile: se non è documentato, non può davvero evolvere.",
   },
   {
     eyebrow: 'Archive',
@@ -73,9 +73,9 @@ export const ABOUT_PILLARS: FeatureCard[] = [
   },
   {
     eyebrow: 'Responsibility',
-    title: 'Spazio condiviso, responsabilita comune',
+    title: 'Spazio condiviso, responsabilità comune',
     description:
-      'Ogni ambiente esiste attraverso il comportamento di chi lo attraversa: apertura, cura e responsabilita sono parte della struttura.',
+      'Ogni ambiente esiste attraverso il comportamento di chi lo attraversa: apertura, cura e responsabilità sono parte della struttura.',
   },
 ];
 
@@ -84,37 +84,37 @@ export const ABOUT_MANIFESTO_CARDS: FeatureCard[] = [
     eyebrow: '',
     title: 'Condividiamo il processo.',
     description:
-      'Non esiste creazione senza trasparenza, nÃ© evoluzione senza possibilitÃ  di replicare, osservare, modificare. Rendere visibile ciÃ² che accade dietro le quinte significa restituire controllo, trasformare strumenti in linguaggio, e linguaggio in infrastruttura. La conoscenza non Ã¨ un sottoprodotto: Ã¨ parte integrante dellâ€™opera.',
+      "Non esiste creazione senza trasparenza, né evoluzione senza possibilità di replicare, osservare, modificare. Rendere visibile ciò che accade dietro le quinte significa restituire controllo, trasformare strumenti in linguaggio, e linguaggio in infrastruttura. La conoscenza non è un sottoprodotto: è parte integrante dell'opera.",
   },
   {
     eyebrow: '',
-    title: 'La documentazione Ã¨ parte dellâ€™opera.',
+    title: "La documentazione è parte dell'opera.",
     description:
-      'Ogni sistema, ogni esperimento, ogni configurazione Ã¨ un nodo leggibile, tracciabile, trasmissibile. Non come archivio morto, ma come struttura attiva, consultabile e riutilizzabile. Se qualcosa non Ã¨ documentato, non esiste davvero: non puÃ² essere compreso, nÃ© evoluto, nÃ© condiviso.',
+      'Ogni sistema, ogni esperimento, ogni configurazione è un nodo leggibile, tracciabile, trasmissibile. Non come archivio morto, ma come struttura attiva, consultabile e riutilizzabile. Se qualcosa non è documentato, non esiste davvero: non può essere compreso, né evoluto, né condiviso.',
   },
   {
     eyebrow: '',
     title: 'Un archivio vivo.',
     description:
-      'Un insieme di materiali, processi e relazioni che si trasformano nel tempo. Un database che non conserva soltanto risultati, ma connessioni: tra idee, strumenti, persone. Un sistema in cui ogni contributo non Ã¨ isolato, ma entra in una rete piÃ¹ ampia, pronta a essere riattivata, modificata, reinterpretata.',
+      'Un insieme di materiali, processi e relazioni che si trasformano nel tempo. Un database che non conserva soltanto risultati, ma connessioni: tra idee, strumenti, persone. Un sistema in cui ogni contributo non è isolato, ma entra in una rete più ampia, pronta a essere riattivata, modificata, reinterpretata.',
   },
   {
     eyebrow: '',
     title: 'Interfaccia, nodo, protocollo.',
     description:
-      'Lâ€™essere umano non Ã¨ solo autore, ma nodo. Il codice non Ã¨ solo esecuzione, ma protocollo. Le interazioni non sono casuali, ma forme di sincronizzazione. Ci muoviamo allâ€™interno di sistemi in cui la distinzione tra tecnico e creativo perde significato, e dove la costruzione diventa essa stessa espressione.',
+      "L'essere umano non è solo autore, ma nodo. Il codice non è solo esecuzione, ma protocollo. Le interazioni non sono casuali, ma forme di sincronizzazione. Ci muoviamo all'interno di sistemi in cui la distinzione tra tecnico e creativo perde significato, e dove la costruzione diventa essa stessa espressione.",
   },
   {
     eyebrow: '',
-    title: 'ResponsabilitÃ  comune.',
+    title: 'Responsabilità comune.',
     description:
-      'Ogni ambiente, fisico o digitale, esiste attraverso il comportamento di chi lo attraversa. La qualitÃ  di ciÃ² che accade dipende dalla cura, dal rispetto e dalla consapevolezza collettiva. Non esiste libertÃ  senza responsabilitÃ , nÃ© apertura senza attenzione.',
+      'Ogni ambiente, fisico o digitale, esiste attraverso il comportamento di chi lo attraversa. La qualità di ciò che accade dipende dalla cura, dal rispetto e dalla consapevolezza collettiva. Non esiste libertà senza responsabilità, né apertura senza attenzione.',
   },
   {
     eyebrow: '',
-    title: 'CiÃ² che regge nel tempo.',
+    title: 'Ciò che regge nel tempo.',
     description:
-      'Rifiutiamo la superficialitÃ  del segnale fine a sÃ© stesso, lâ€™estetica come distrazione, la complessitÃ  simulata. Cerchiamo invece strutture leggibili, intenzionali, essenziali. Non ciÃ² che colpisce immediatamente, ma ciÃ² che regge nel tempo.',
+      "Rifiutiamo la superficialità del segnale fine a sé stesso, l'estetica come distrazione, la complessità simulata. Cerchiamo invece strutture leggibili, intenzionali, essenziali. Non ciò che colpisce immediatamente, ma ciò che regge nel tempo.",
   },
   {
     eyebrow: '',
@@ -126,7 +126,7 @@ export const ABOUT_MANIFESTO_CARDS: FeatureCard[] = [
     eyebrow: '',
     title: 'Un sistema attraversato.',
     description:
-      'Unâ€™infrastruttura decentralizzata dove segnali non standardizzati possono emergere, essere osservati, documentati e condivisi. Un sistema in cui la creazione non Ã¨ mai isolata, ma sempre parte di una rete piÃ¹ ampia. Un sistema che esiste solo finchÃ© viene attraversato, utilizzato, modificato.',
+      "Un'infrastruttura decentralizzata dove segnali non standardizzati possono emergere, essere osservati, documentati e condivisi. Un sistema in cui la creazione non è mai isolata, ma sempre parte di una rete più ampia. Un sistema che esiste solo finché viene attraversato, utilizzato, modificato.",
   },
 ];
 
@@ -142,7 +142,7 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
     label: 'GitHub',
     value: 'github.com/polyglider',
     href: 'https://github.com/polyglider',
-    description: 'Codice, configurazioni e tracce leggibili dell infrastruttura.',
+    description: "Codice, configurazioni e tracce leggibili dell'infrastruttura.",
     icon: faGithub,
     external: true,
   },
