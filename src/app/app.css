@@ -4,25 +4,6 @@
   color: #f7f7fb;
 }
 
-.skip-link {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  z-index: 10000;
-  padding: 0.85rem 1.1rem;
-  border-radius: 999px;
-  background: #f7f7fb;
-  color: #090b12;
-  font-weight: 700;
-  text-decoration: none;
-  transform: translateY(-180%);
-  transition: transform 160ms ease;
-}
-
-.skip-link:focus {
-  transform: translateY(0);
-}
-
 .app-shell {
   position: relative;
   z-index: 1;

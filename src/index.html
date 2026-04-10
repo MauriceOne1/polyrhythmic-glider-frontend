@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="it">
 <head>
   <meta charset="utf-8">
@@ -33,6 +33,20 @@
     <input type="email" name="email">
     <input type="text" name="subject">
     <textarea name="message"></textarea>
+    <input type="checkbox" name="consent">
+  </form>
+  <form name="byos-participation" method="POST" data-netlify="true" hidden>
+    <input type="hidden" name="form-name" value="byos-participation">
+    <input type="text" name="name">
+    <input type="email" name="email">
+    <input type="text" name="attendance">
+    <input type="text" name="discovery">
+    <input type="text" name="genre">
+    <input type="text" name="instrument">
+    <input type="text" name="hasEffect">
+    <input type="text" name="effectDetails">
+    <textarea name="notes"></textarea>
+    <input type="checkbox" name="rulesConfirmed">
     <input type="checkbox" name="consent">
   </form>
   <app-root></app-root>

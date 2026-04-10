@@ -1,4 +1,4 @@
-<footer class="section-shell" aria-labelledby="footer-title">
+﻿<footer class="section-shell" aria-labelledby="footer-title">
   <div class="section-kicker">Dietro le quinte</div>
 
   <div class="section-body">
@@ -25,10 +25,20 @@
             class="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/70"
             aria-label="Navigazione nel footer"
           >
-            @for (item of navItems; track item.fragment) {
-              <a [href]="'#' + item.fragment" class="transition hover:text-white">
-                {{ item.label }}
-              </a>
+            @for (item of navItems; track item.label) {
+              @if (item.href) {
+                <a [routerLink]="item.href" class="transition hover:text-white">
+                  {{ item.label }}
+                </a>
+              } @else if (item.fragment === 'hero') {
+                <a routerLink="/" (click)="scrollToTop($event)" class="transition hover:text-white">
+                  {{ item.label }}
+                </a>
+              } @else {
+                <a [routerLink]="'/'" [fragment]="item.fragment" class="transition hover:text-white">
+                  {{ item.label }}
+                </a>
+              }
             }
           </nav>
         </div>
