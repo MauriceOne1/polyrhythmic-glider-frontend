@@ -6,7 +6,7 @@
 [![Tailwind](https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwindcss)](https://tailwindcss.com/)
 [![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?logo=netlify)](https://www.netlify.com/)
 
-Frontend Angular di Polyrhythmic Glider.
+Frontend di Polyrhythmic Glider.
 
 Live: https://polyglider.com
 
@@ -23,8 +23,6 @@ Live: https://polyglider.com
 npm install  
 npm start  
 
-http://localhost:4200
-
 ---
 
 ## Build
@@ -32,33 +30,3 @@ http://localhost:4200
 npm run build
 
 ---
-
-## Stack
-
-- Angular 21 (standalone)
-- RxJS
-- Netlify Identity
-- TailwindCSS
-
----
-
-## Structure
-
-src/app/  
-  core/  
-  features/  
-
----
-
-## Deploy
-
-Netlify  
-
-dist/polyrhythmic-glider-frontend/browser
-
----
-
-## Notes
-
-- client-side routing via Netlify redirects
-- auth via Netlify Identity
