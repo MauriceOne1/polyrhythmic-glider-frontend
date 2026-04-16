@@ -1,59 +1,42 @@
-# PolyrhythmicGliderFrontend
+# Polyrhythmic Glider Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.2.
+[![Angular](https://img.shields.io/badge/Angular-21-red?logo=angular)](https://angular.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![RxJS](https://img.shields.io/badge/RxJS-7-purple?logo=reactivex)](https://rxjs.dev/)
+[![Tailwind](https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwindcss)](https://tailwindcss.com/)
+[![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?logo=netlify)](https://www.netlify.com/)
 
-## Development server
+Frontend Angular di Polyrhythmic Glider.
 
-To start a local development server, run:
+Live: <https://polyglider.com>
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Status
 
-## Code scaffolding
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b66e0339-1654-4d8b-a3e2-01381b46332d/deploy-status)](https://app.netlify.com/projects/polyglider/deploys)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Dev
 
 ```bash
-ng generate --help
+npm install
+npm start
 ```
 
-## Building
+Open: <http://localhost:4200>
 
-To build the project run:
+---
+
+## Build
 
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Output:
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```text
+dist/polyrhythmic-glider-frontend/browser
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -138,14 +138,14 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
   //   description: 'Per collaborazioni, processi condivisi, ricerca e attivazioni dirette.',
   //   icon: faEnvelope,
   // },
-  // {
-  //   label: 'GitHub',
-  //   value: 'github.com/polyglider',
-  //   href: 'https://github.com/polyglider',
-  //   description: "Codice, configurazioni e tracce leggibili dell'infrastruttura.",
-  //   icon: faGithub,
-  //   external: true,
-  // },
+  {
+    label: 'GitHub',
+    value: 'github.com/polyrhythmic-glider',
+    href: 'https://github.com/polyrhythmic-glider',
+    description: "Codice, configurazioni e tracce leggibili dell'infrastruttura.",
+    icon: faGithub,
+    external: true,
+  },
   {
     label: 'Instagram',
     value: '@polyglider',
