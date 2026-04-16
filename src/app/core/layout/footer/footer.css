@@ -2,6 +2,19 @@
   display: block;
 }
 
+.resources-block {
+  display: grid;
+  gap: 16px;
+}
+
+.resources-title {
+  margin: 0;
+  color: rgba(247, 247, 251, 0.88);
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
 .resources-nav {
   display: grid;
   gap: 16px;

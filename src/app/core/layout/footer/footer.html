@@ -15,18 +15,22 @@
       </p>
     </div>
 
-    <nav class="resources-nav" aria-label="Percorsi laterali">
-      @for (resource of resources; track resource.path) {
-        <a class="resource-link" [routerLink]="resource.path">
-          <span class="resource-link-eyebrow">{{ resource.eyebrow }}</span>
-          <span class="resource-link-body">
-            <strong>{{ resource.label }}</strong>
-            <span>{{ resource.description }}</span>
-          </span>
-          <span class="resource-link-arrow" aria-hidden="true">-></span>
-        </a>
-      }
-    </nav>
+    <div class="resources-block">
+      <h3 class="resources-title">Percorsi laterali</h3>
+
+      <nav class="resources-nav" aria-label="Percorsi laterali">
+        @for (resource of resources; track resource.path) {
+          <a class="resource-link" [routerLink]="resource.path">
+            <span class="resource-link-eyebrow">{{ resource.eyebrow }}</span>
+            <span class="resource-link-body">
+              <strong>{{ resource.label }}</strong>
+              <span>{{ resource.description }}</span>
+            </span>
+            <span class="resource-link-arrow" aria-hidden="true">-></span>
+          </a>
+        }
+      </nav>
+    </div>
 
     <div class="soft-card">
       <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
