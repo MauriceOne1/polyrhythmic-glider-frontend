@@ -1,1 +1,66 @@
-<section class="login-hidden" aria-hidden="true"></section>
+<section class="login-page">
+  <div class="login-shell">
+    <p class="login-eyebrow">Accesso riservato</p>
+
+    @if (identityAction === 'recovery') {
+      <h1 class="login-title">Scegli una nuova password</h1>
+      <p class="login-copy">
+        Completa il passaggio di sicurezza e rientra nel tuo spazio.
+      </p>
+      <div class="login-actions" aria-label="Recupero password">
+        <button class="login-action primary" type="button" (click)="openIdentityAction()">
+          Recupera password
+        </button>
+      </div>
+    } @else if (identityAction === 'invite') {
+      <h1 class="login-title">Completa l'invito</h1>
+      <p class="login-copy">
+        Attiva il tuo accesso e scegli la password per entrare.
+      </p>
+      <div class="login-actions" aria-label="Invito account">
+        <button class="login-action primary" type="button" (click)="openIdentityAction()">
+          Attiva account
+        </button>
+      </div>
+    } @else if (identityAction === 'confirmation') {
+      <h1 class="login-title">Conferma il tuo accesso</h1>
+      <p class="login-copy">
+        Conferma l'email e prosegui verso l'area riservata.
+      </p>
+      <div class="login-actions" aria-label="Conferma account">
+        <button class="login-action primary" type="button" (click)="openIdentityAction()">
+          Conferma account
+        </button>
+      </div>
+    } @else if (identityAction === 'email-change') {
+      <h1 class="login-title">Conferma la nuova email</h1>
+      <p class="login-copy">
+        Completa la verifica per aggiornare il tuo accesso.
+      </p>
+      <div class="login-actions" aria-label="Conferma email">
+        <button class="login-action primary" type="button" (click)="openIdentityAction()">
+          Conferma email
+        </button>
+      </div>
+    } @else {
+      <h1 class="login-title">Entra in Polyrhythmic Glider</h1>
+      <p class="login-copy">
+        Accedi per continuare verso le aree riservate.
+      </p>
+      <div class="login-actions" aria-label="Accesso account">
+        <button class="login-action primary" type="button" (click)="openLogin()">
+          Accedi
+        </button>
+        <button class="login-action secondary" type="button" (click)="openSignup()">
+          Crea account
+        </button>
+      </div>
+    }
+
+    @if (identity.authError()) {
+      <p class="login-error" role="alert">
+        {{ identity.authError() }}
+      </p>
+    }
+  </div>
+</section>

@@ -13,6 +13,8 @@ declare global {
   }
 }
 
+type IdentityOpenMode = 'login' | 'signup' | 'default';
+
 @Injectable({ providedIn: 'root' })
 export class IdentityService {
   readonly currentUser = signal<IdentityUser | null>(null);
@@ -23,9 +25,10 @@ export class IdentityService {
   private readonly router = inject(Router);
   private readonly widgetScriptId = 'netlify-identity-widget';
   private initialized = false;
-  private pendingOpen: 'login' | 'signup' | null = null;
+  private pendingOpen: IdentityOpenMode | null = null;
   private postLoginRedirect = '/';
   private suppressNextCloseNavigation = false;
+  private handlingIdentityAction = false;
 
   init(): void {
     if (typeof window === 'undefined') {
@@ -48,21 +51,23 @@ export class IdentityService {
   }
 
   openLogin(): void {
-    this.pendingOpen = 'login';
-    this.init();
-    window.netlifyIdentity?.open('login');
+    this.openWidget('login');
   }
 
   openSignup(): void {
-    this.pendingOpen = 'signup';
-    this.init();
-    window.netlifyIdentity?.open('signup');
+    this.openWidget('signup');
+  }
+
+  openIdentityAction(): void {
+    this.handlingIdentityAction = true;
+    this.openWidget('default');
   }
 
   closeWidget(): void {
     this.pendingOpen = null;
+    this.handlingIdentityAction = false;
 
-    if (!window.netlifyIdentity) {
+    if (typeof window === 'undefined' || !window.netlifyIdentity) {
       return;
     }
 
@@ -110,6 +115,19 @@ export class IdentityService {
     } finally {
       this.currentUser.set(null);
       await this.router.navigateByUrl('/');
+    }
+  }
+
+  private openWidget(mode: IdentityOpenMode): void {
+    this.pendingOpen = mode;
+    this.init();
+
+    if (
+      typeof window !== 'undefined' &&
+      window.netlifyIdentity &&
+      this.isReady()
+    ) {
+      this.flushPendingOpen(window.netlifyIdentity);
     }
   }
 
@@ -166,6 +184,11 @@ export class IdentityService {
     identity.on('login', async (user) => {
       this.authError.set('');
       this.currentUser.set((user as IdentityUser | null) ?? identity.currentUser());
+
+      if (this.isHandlingIdentityAction()) {
+        return;
+      }
+
       identity.close();
       await this.router.navigateByUrl(this.postLoginRedirect);
       this.postLoginRedirect = '/';
@@ -181,10 +204,22 @@ export class IdentityService {
         return;
       }
 
+      if (this.currentUser() && this.router.url.startsWith('/login')) {
+        if (!this.handlingIdentityAction) {
+          return;
+        }
+
+        this.handlingIdentityAction = false;
+        await this.router.navigateByUrl(this.postLoginRedirect);
+        this.postLoginRedirect = '/';
+        return;
+      }
+
       if (this.currentUser() || !this.router.url.startsWith('/login')) {
         return;
       }
 
+      this.handlingIdentityAction = false;
       await this.router.navigateByUrl('/');
     });
 
@@ -211,16 +246,41 @@ export class IdentityService {
       return;
     }
 
-    const tab = this.pendingOpen;
+    const mode = this.pendingOpen;
     this.pendingOpen = null;
-    identity.open(tab);
+
+    if (mode === 'default') {
+      identity.open();
+      return;
+    }
+
+    identity.open(mode);
   }
 
   private closeWidgetIfAuthenticated(identity: NetlifyIdentity): void {
-    if (!this.currentUser()) {
+    if (!this.currentUser() || this.isHandlingIdentityAction()) {
       return;
     }
 
     identity.close();
+  }
+
+  private isHandlingIdentityAction(): boolean {
+    return this.handlingIdentityAction || this.hasIdentityActionHash();
+  }
+
+  private hasIdentityActionHash(): boolean {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    const { hash } = window.location;
+
+    return (
+      hash.includes('confirmation_token=') ||
+      hash.includes('recovery_token=') ||
+      hash.includes('invite_token=') ||
+      hash.includes('email_change_token=')
+    );
   }
 }

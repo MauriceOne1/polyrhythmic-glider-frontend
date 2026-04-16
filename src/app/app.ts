@@ -40,7 +40,10 @@ export class App {
   }
 
   constructor() {
-    this.redirectIdentityHashToLogin();
+    if (this.redirectIdentityHashToLogin()) {
+      return;
+    }
+
     this.identityService.init();
 
     this.router.events
@@ -57,9 +60,9 @@ export class App {
       });
   }
 
-  private redirectIdentityHashToLogin(): void {
+  private redirectIdentityHashToLogin(): boolean {
     if (typeof window === 'undefined') {
-      return;
+      return false;
     }
 
     const { hash, pathname, search } = window.location;
@@ -70,10 +73,11 @@ export class App {
       hash.includes('email_change_token=');
 
     if (!hasIdentityToken || pathname === '/login') {
-      return;
+      return false;
     }
 
     window.location.replace(`/login${search}${hash}`);
+    return true;
   }
 
   private getLeafRoute(route: ActivatedRoute): ActivatedRoute {

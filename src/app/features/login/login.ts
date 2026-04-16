@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IdentityService } from '../../core/identity/identity.service';
 import { ToastService } from '../../core/toast/toast.service';
 
+type IdentityAction = 'confirmation' | 'recovery' | 'invite' | 'email-change';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.html',
@@ -10,6 +12,8 @@ import { ToastService } from '../../core/toast/toast.service';
 })
 export class Login implements OnDestroy {
   readonly identity = inject(IdentityService);
+  readonly identityAction = this.readIdentityAction();
+
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
@@ -19,7 +23,7 @@ export class Login implements OnDestroy {
       this.route.snapshot.queryParamMap.get('redirectTo')
     );
 
-    if (this.identity.currentUser()) {
+    if (this.identity.currentUser() && !this.identityAction) {
       void this.router.navigateByUrl(
         this.route.snapshot.queryParamMap.get('redirectTo') || '/'
       );
@@ -29,7 +33,8 @@ export class Login implements OnDestroy {
     this.showRouteNotice();
     this.identity.init();
 
-    if (this.hasIdentityHash()) {
+    if (this.identityAction) {
+      this.identity.openIdentityAction();
       return;
     }
 
@@ -39,6 +44,18 @@ export class Login implements OnDestroy {
   ngOnDestroy(): void {
     this.toast.dismiss('polyblog-construction');
     this.identity.closeWidget();
+  }
+
+  openLogin(): void {
+    this.identity.openLogin();
+  }
+
+  openSignup(): void {
+    this.identity.openSignup();
+  }
+
+  openIdentityAction(): void {
+    this.identity.openIdentityAction();
   }
 
   private showRouteNotice(): void {
@@ -60,18 +77,29 @@ export class Login implements OnDestroy {
     });
   }
 
-  private hasIdentityHash(): boolean {
+  private readIdentityAction(): IdentityAction | null {
     if (typeof window === 'undefined') {
-      return false;
+      return null;
     }
 
     const { hash } = window.location;
 
-    return (
-      hash.includes('confirmation_token=') ||
-      hash.includes('recovery_token=') ||
-      hash.includes('invite_token=') ||
-      hash.includes('email_change_token=')
-    );
+    if (hash.includes('recovery_token=')) {
+      return 'recovery';
+    }
+
+    if (hash.includes('invite_token=')) {
+      return 'invite';
+    }
+
+    if (hash.includes('confirmation_token=')) {
+      return 'confirmation';
+    }
+
+    if (hash.includes('email_change_token=')) {
+      return 'email-change';
+    }
+
+    return null;
   }
 }
