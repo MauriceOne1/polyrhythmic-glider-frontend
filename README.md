@@ -6,7 +6,7 @@
 [![Tailwind](https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwindcss)](https://tailwindcss.com/)
 [![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?logo=netlify)](https://www.netlify.com/)
 
-Frontend di Polyrhythmic Glider.
+Frontend Angular di Polyrhythmic Glider.
 
 Live: https://polyglider.com
 
@@ -20,13 +20,23 @@ Live: https://polyglider.com
 
 ## Dev
 
-npm install  
-npm start  
+```bash
+npm install
+npm start
+```
+
+Open: http://localhost:4200
 
 ---
 
 ## Build
 
+```bash
 npm run build
+```
 
----
+Output:
+
+```text
+dist/polyrhythmic-glider-frontend/browser
+```
