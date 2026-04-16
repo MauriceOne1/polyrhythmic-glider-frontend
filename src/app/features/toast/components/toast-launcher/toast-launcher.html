@@ -1,0 +1,160 @@
+<section class="toast-tool">
+  <div class="tool-header">
+    <div>
+      <p class="tool-kicker">Toast helper</p>
+      <h2 class="display-font">Notification console</h2>
+    </div>
+
+    <button class="ghost-button" type="button" (click)="clearAll()">
+      Clear all
+    </button>
+  </div>
+
+  <div class="tone-strip" aria-label="Lancia una notifica per tipo">
+    @for (tone of toneOptions; track tone.value) {
+      <button
+        class="tone-button"
+        type="button"
+        [class.is-info]="tone.value === 'info'"
+        [class.is-success]="tone.value === 'success'"
+        [class.is-warning]="tone.value === 'warning'"
+        [class.is-danger]="tone.value === 'danger'"
+        [class.is-neutral]="tone.value === 'neutral'"
+        (click)="launchTone(tone.value)"
+      >
+        <span>{{ tone.label }}</span>
+        <small>{{ tone.hint }}</small>
+      </button>
+    }
+  </div>
+
+  <form class="toast-form" [formGroup]="form" (submit)="launchFromForm($event)">
+    <div class="form-grid">
+      <label class="field-shell">
+        <span class="field-label">Tipo</span>
+        <select class="field-input" formControlName="tone">
+          @for (tone of toneOptions; track tone.value) {
+            <option [value]="tone.value">{{ tone.label }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field-shell">
+        <span class="field-label">Eyebrow</span>
+        <input
+          class="field-input"
+          type="text"
+          formControlName="eyebrow"
+          placeholder="system"
+        />
+      </label>
+
+      <label class="field-shell field-wide">
+        <span class="field-label">Titolo</span>
+        <input
+          class="field-input"
+          type="text"
+          formControlName="title"
+          placeholder="Operazione completata"
+        />
+        @if (form.controls.title.invalid && form.controls.title.touched) {
+          <span class="field-error">Inserisci un titolo, massimo 80 caratteri.</span>
+        }
+      </label>
+
+      <label class="field-shell field-wide">
+        <span class="field-label">Messaggio</span>
+        <textarea
+          class="field-input message-input"
+          formControlName="message"
+          placeholder="Scrivi il contenuto della notifica"
+        ></textarea>
+        @if (form.controls.message.invalid && form.controls.message.touched) {
+          <span class="field-error">
+            Inserisci un messaggio, massimo 180 caratteri.
+          </span>
+        }
+      </label>
+
+      <label class="field-shell">
+        <span class="field-label">Rimane visibile</span>
+        <input
+          class="field-input"
+          type="number"
+          min="0"
+          max="60000"
+          step="500"
+          formControlName="durationMs"
+        />
+        <span class="field-help">0 ms = persistente</span>
+      </label>
+
+      <label class="field-shell">
+        <span class="field-label">Ritardo lancio</span>
+        <input
+          class="field-input"
+          type="number"
+          min="0"
+          max="30000"
+          step="250"
+          formControlName="delayMs"
+        />
+      </label>
+
+      <label class="field-shell field-wide">
+        <span class="field-label">Toast ID opzionale</span>
+        <input
+          class="field-input"
+          type="text"
+          formControlName="toastId"
+          placeholder="Usa lo stesso ID per sostituire una notifica"
+        />
+      </label>
+    </div>
+
+    <label class="switch-row">
+      <input type="checkbox" formControlName="dismissible" />
+      <span>Mostra il pulsante di chiusura</span>
+    </label>
+
+    <div class="actions-row">
+      <button class="button-primary" type="submit">Launch toast</button>
+      <button class="button-secondary" type="button" (click)="launchStack()">
+        Launch stack
+      </button>
+    </div>
+  </form>
+
+  <section class="preset-section" aria-labelledby="toast-preset-title">
+    <div class="preset-heading">
+      <p class="tool-kicker">Presets</p>
+      <h3 id="toast-preset-title">Scenari pronti</h3>
+    </div>
+
+    <div class="preset-grid">
+      @for (preset of presets; track preset.tone) {
+        <article
+          class="preset-card"
+          [class.is-info]="preset.tone === 'info'"
+          [class.is-success]="preset.tone === 'success'"
+          [class.is-warning]="preset.tone === 'warning'"
+          [class.is-danger]="preset.tone === 'danger'"
+          [class.is-neutral]="preset.tone === 'neutral'"
+        >
+          <span>{{ preset.eyebrow }}</span>
+          <strong>{{ preset.title }}</strong>
+          <p>{{ preset.message }}</p>
+          <div class="preset-actions">
+            <button type="button" (click)="loadPreset(preset)">Load</button>
+            <button type="button" (click)="launchPreset(preset)">Launch</button>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <div class="status-row" aria-live="polite">
+    <span>Ultimo ID</span>
+    <code>{{ lastToastId() || 'nessun toast lanciato' }}</code>
+  </div>
+</section>

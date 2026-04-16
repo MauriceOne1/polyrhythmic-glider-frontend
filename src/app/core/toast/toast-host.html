@@ -2,7 +2,14 @@
   @for (message of toast.messages(); track message.id) {
     <aside
       class="toast-message"
+      [class.is-info]="message.tone === 'info'"
+      [class.is-success]="message.tone === 'success'"
       [class.is-warning]="message.tone === 'warning'"
+      [class.is-danger]="message.tone === 'danger'"
+      [class.is-neutral]="message.tone === 'neutral'"
+      [class.is-persistent]="!message.durationMs"
+      [style.--toast-duration]="(message.durationMs ?? 0) + 'ms'"
+      [attr.role]="message.tone === 'danger' ? 'alert' : 'status'"
     >
       @if (message.eyebrow) {
         <span class="toast-eyebrow-row">
@@ -14,14 +21,20 @@
       <strong>{{ message.title }}</strong>
       <span>{{ message.message }}</span>
 
-      <button
-        class="toast-dismiss"
-        type="button"
-        aria-label="Chiudi notifica"
-        (click)="toast.dismiss(message.id)"
-      >
-        esc
-      </button>
+      @if (message.dismissible !== false) {
+        <button
+          class="toast-dismiss"
+          type="button"
+          aria-label="Chiudi notifica"
+          (click)="toast.dismiss(message.id)"
+        >
+          esc
+        </button>
+      }
+
+      @if (message.durationMs && message.durationMs > 0) {
+        <span class="toast-timer" aria-hidden="true"></span>
+      }
     </aside>
   }
 </div>

@@ -10,6 +10,7 @@ import { Blog } from './features/blog/blog';
 import { BlogPost } from './features/blog-post/blog-post';
 import { HackerManifesto } from './features/hacker-manifesto/hacker-manifesto';
 import { Radio } from './features/radio/radio';
+import { Toast } from './features/toast/toast';
 import { blogAccessGuard } from './core/identity/blog-access.guard';
 import { identityGuard } from './core/identity/identity.guard';
 
@@ -134,6 +135,19 @@ export const routes: Routes = [
         description:
           'Canale radio sperimentale con player audio, dirette mock e prova locale video.',
         keywords: ['radio', 'live stream', 'audio', 'video', 'polyrhythmic glider'],
+        robots: 'noindex,nofollow',
+      },
+    },
+  },
+  {
+    path: 'toast',
+    component: Toast,
+    data: {
+      seo: {
+        title: 'Toast | Polyrhythmic Glider',
+        description:
+          'Laboratorio interno per provare notifiche toast, durata, ritardo, persistenza, stacking e varianti visive.',
+        keywords: ['toast', 'notification', 'ui test', 'polyrhythmic glider'],
         robots: 'noindex,nofollow',
       },
     },

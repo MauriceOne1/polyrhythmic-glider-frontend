@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+
+.toast-page {
+  display: grid;
+  gap: 32px;
+  padding: 44px 0 64px;
+}
+
+.toast-hero {
+  display: grid;
+  gap: 14px;
+  max-width: 48rem;
+}
+
+.toast-kicker {
+  margin: 0;
+  color: rgba(247, 247, 251, 0.52);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.9rem, 7vw, 5.8rem);
+  line-height: 0.9;
+}
+
+p {
+  margin: 0;
+  max-width: 42rem;
+  color: rgba(247, 247, 251, 0.74);
+  font-size: 1.08rem;
+  line-height: 1.75;
+  text-wrap: pretty;
+}
+
+@media (max-width: 640px) {
+  .toast-page {
+    gap: 24px;
+    padding: 28px 0 44px;
+  }
+}
