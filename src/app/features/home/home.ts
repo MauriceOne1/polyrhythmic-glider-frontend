@@ -50,20 +50,20 @@ export class Home implements AfterViewInit {
       description:
         'Esperimento visuale con automa cellulare e background generativo dedicato.',
     },
-    {
-      label: 'Snake',
-      path: '/snake',
-      eyebrow: 'Gioco',
-      description:
-        'Microgioco browser con controlli da tastiera e touch, punteggio e loop essenziale.',
-    },
-    {
-      label: 'Area admin',
-      path: '/admin',
-      eyebrow: 'Privato',
-      description:
-        'Spazio riservato per gestione e strumenti interni, accessibile solo con autenticazione.',
-    },
+    // {
+    //   label: 'Snake',
+    //   path: '/snake',
+    //   eyebrow: 'Gioco',
+    //   description:
+    //     'Microgioco browser con controlli da tastiera e touch, punteggio e loop essenziale.',
+    // },
+    // {
+    //   label: 'Area admin',
+    //   path: '/admin',
+    //   eyebrow: 'Privato',
+    //   description:
+    //     'Spazio riservato per gestione e strumenti interni, accessibile solo con autenticazione.',
+    // },
   ];
 
   ngAfterViewInit(): void {
