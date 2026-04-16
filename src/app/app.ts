@@ -7,11 +7,12 @@ import { GameOfLifeBackground } from './core/layout/game-of-life-background/game
 import { Header } from './core/layout/header/header';
 import { IdentityService } from './core/identity/identity.service';
 import { SeoService } from './core/seo/seo.service';
+import { ToastHost } from './core/toast/toast-host';
 import type { SeoData } from './shared/models/seo.models';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Background, GameOfLifeBackground],
+  imports: [RouterOutlet, Header, Background, GameOfLifeBackground, ToastHost],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

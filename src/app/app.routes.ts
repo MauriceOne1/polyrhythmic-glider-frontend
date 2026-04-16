@@ -8,6 +8,8 @@ import { Login } from './features/login/login';
 import { Participation } from './features/participation/participation';
 import { Blog } from './features/blog/blog';
 import { BlogPost } from './features/blog-post/blog-post';
+import { HackerManifesto } from './features/hacker-manifesto/hacker-manifesto';
+import { blogAccessGuard } from './core/identity/blog-access.guard';
 import { identityGuard } from './core/identity/identity.guard';
 
 export const routes: Routes = [
@@ -87,6 +89,7 @@ export const routes: Routes = [
   {
     path: 'blog',
     component: Blog,
+    canActivate: [blogAccessGuard],
     data: {
       seo: {
         title: 'Polyblog | Polyrhythmic Glider',
@@ -105,6 +108,7 @@ export const routes: Routes = [
   {
     path: 'blog/:slug',
     component: BlogPost,
+    canActivate: [blogAccessGuard],
     data: {
       seo: {
         title: 'Polyblog | Polyrhythmic Glider',
@@ -117,6 +121,19 @@ export const routes: Routes = [
           'documentazione',
           'ricerca sonora',
         ],
+      },
+    },
+  },
+  {
+    path: 'hacker-manifesto',
+    component: HackerManifesto,
+    data: {
+      seo: {
+        title: 'The Hacker Manifesto | Polyrhythmic Glider',
+        description:
+          'Pagina nascosta dedicata al manifesto di The Mentor con originale Phrack e traduzione italiana di FiloSottile.',
+        keywords: ['hacker manifesto', 'the mentor', 'phrack', 'filosottile'],
+        robots: 'noindex,nofollow',
       },
     },
   },

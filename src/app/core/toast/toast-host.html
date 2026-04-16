@@ -1,0 +1,32 @@
+<div class="toast-viewport" aria-live="polite" aria-atomic="true">
+  @for (message of toast.messages(); track message.id) {
+    <aside
+      class="toast-message"
+      [class.is-warning]="message.tone === 'warning'"
+      [class.is-static]="message.dismissible === false"
+    >
+      @if (message.eyebrow) {
+        <span class="toast-eyebrow-row">
+          @if (message.tone === 'warning') {
+            <span class="toast-alert-mark" aria-hidden="true"></span>
+          }
+          <span class="toast-eyebrow">{{ message.eyebrow }}</span>
+        </span>
+      }
+
+      <strong>{{ message.title }}</strong>
+      <span>{{ message.message }}</span>
+
+      @if (message.dismissible !== false) {
+        <button
+          class="toast-dismiss"
+          type="button"
+          aria-label="Chiudi notifica"
+          (click)="toast.dismiss(message.id)"
+        >
+          x
+        </button>
+      }
+    </aside>
+  }
+</div>

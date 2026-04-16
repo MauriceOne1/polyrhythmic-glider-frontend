@@ -25,6 +25,7 @@ export class IdentityService {
   private initialized = false;
   private pendingOpen: 'login' | 'signup' | null = null;
   private postLoginRedirect = '/';
+  private suppressNextCloseNavigation = false;
 
   init(): void {
     if (typeof window === 'undefined') {
@@ -56,6 +57,20 @@ export class IdentityService {
     this.pendingOpen = 'signup';
     this.init();
     window.netlifyIdentity?.open('signup');
+  }
+
+  closeWidget(): void {
+    this.pendingOpen = null;
+
+    if (!window.netlifyIdentity) {
+      return;
+    }
+
+    this.suppressNextCloseNavigation = true;
+    window.netlifyIdentity.close();
+    window.setTimeout(() => {
+      this.suppressNextCloseNavigation = false;
+    }, 500);
   }
 
   async resolveCurrentUser(): Promise<IdentityUser | null> {
@@ -161,7 +176,12 @@ export class IdentityService {
     });
 
     identity.on('close', async () => {
-      if (this.currentUser() || this.router.url !== '/login') {
+      if (this.suppressNextCloseNavigation) {
+        this.suppressNextCloseNavigation = false;
+        return;
+      }
+
+      if (this.currentUser() || !this.router.url.startsWith('/login')) {
         return;
       }
 

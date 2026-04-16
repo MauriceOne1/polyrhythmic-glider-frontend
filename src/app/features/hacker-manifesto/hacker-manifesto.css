@@ -1,0 +1,239 @@
+:host {
+  display: block;
+  min-height: calc(100vh - 88px);
+}
+
+.manifesto-page {
+  display: grid;
+  gap: 24px;
+  padding: 48px 0 80px;
+}
+
+.manifesto-hero {
+  max-width: 52rem;
+  padding: 28px 0 10px;
+}
+
+.manifesto-kicker,
+.source-field span,
+.source-link,
+.reader-header p {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.manifesto-kicker {
+  margin: 0 0 14px;
+  color: rgba(182, 255, 105, 0.72);
+  font-size: 0.78rem;
+}
+
+.manifesto-hero h1 {
+  margin: 0;
+  max-width: 12ch;
+  color: #fff;
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 0.88;
+}
+
+.manifesto-hero p:not(.manifesto-kicker) {
+  max-width: 42rem;
+  margin: 22px 0 0;
+  color: rgba(247, 247, 251, 0.72);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.manifesto-toolbar {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(22px) saturate(140%);
+}
+
+.source-field {
+  display: grid;
+  flex: 1 1 220px;
+  gap: 8px;
+}
+
+.source-field span {
+  color: rgba(247, 247, 251, 0.56);
+  font-size: 0.72rem;
+}
+
+.manifesto-source-dropdown {
+  max-width: 28rem;
+}
+
+.manifesto-source-trigger {
+  min-height: 62px;
+  border-radius: 999px;
+}
+
+.manifesto-source-trigger-copy {
+  display: grid;
+  gap: 3px;
+}
+
+.manifesto-source-trigger-copy small {
+  color: rgba(247, 247, 251, 0.52);
+  font-size: 0.72rem;
+}
+
+.manifesto-source-panel {
+  z-index: 8;
+  border-radius: 24px;
+}
+
+.manifesto-source-option {
+  display: grid;
+  gap: 3px;
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.manifesto-source-option span,
+.manifesto-source-option small {
+  pointer-events: none;
+}
+
+.manifesto-source-option small {
+  color: rgba(247, 247, 251, 0.48);
+  font-size: 0.72rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.manifesto-source-option.is-selected {
+  background: rgba(217, 255, 142, 0.12);
+  color: #fff;
+}
+
+.manifesto-source-option.is-selected small {
+  color: rgba(247, 247, 251, 0.68);
+}
+
+.source-link {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border: 1px solid rgba(157, 231, 255, 0.2);
+  border-radius: 999px;
+  color: rgba(247, 247, 251, 0.78);
+  font-size: 0.72rem;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.source-link:hover {
+  border-color: rgba(217, 255, 142, 0.42);
+  background: rgba(217, 255, 142, 0.08);
+  color: #fff;
+}
+
+.manifesto-reader {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.045)),
+    rgba(9, 11, 18, 0.72);
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(24px) saturate(145%);
+}
+
+.reader-header {
+  padding: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(90deg, rgba(157, 231, 255, 0.08), transparent 36%),
+    rgba(255, 255, 255, 0.035);
+}
+
+.reader-header p {
+  margin: 0 0 10px;
+  color: rgba(157, 231, 255, 0.7);
+  font-size: 0.72rem;
+}
+
+.reader-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1;
+}
+
+.reader-state {
+  display: grid;
+  min-height: 260px;
+  place-items: center;
+  padding: 32px;
+  color: rgba(247, 247, 251, 0.7);
+  line-height: 1.7;
+  text-align: center;
+}
+
+.reader-error {
+  gap: 18px;
+}
+
+.reader-error p {
+  max-width: 34rem;
+  margin: 0;
+}
+
+.retry-button {
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #f7f7fb;
+  color: #090b12;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.manifesto-text {
+  margin: 0;
+  padding: 24px;
+  color: rgba(247, 247, 251, 0.84);
+  font-family: 'Cascadia Mono', Consolas, 'Courier New', monospace;
+  font-size: clamp(0.86rem, 1.8vw, 1rem);
+  line-height: 1.75;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+@media (min-width: 760px) {
+  .manifesto-page {
+    padding-top: 64px;
+  }
+
+  .manifesto-toolbar {
+    padding: 20px 22px;
+  }
+
+  .reader-header,
+  .manifesto-text {
+    padding: 32px;
+  }
+}

@@ -1,0 +1,105 @@
+<section class="manifesto-page" aria-labelledby="manifesto-title">
+  <header class="manifesto-hero">
+    <p class="manifesto-kicker">Archivio nascosto</p>
+    <h1 id="manifesto-title" class="display-font">The Hacker Manifesto</h1>
+    <p>
+      The Mentor, Phrack Volume One Issue 7.
+    </p>
+  </header>
+
+  <div class="manifesto-toolbar" aria-label="Selezione versione">
+    <div class="source-field">
+      <span>Versione</span>
+      <div
+        class="field-dropdown manifesto-source-dropdown"
+        (focusout)="closeSourceMenuOnFocusOut($event)"
+        (keydown.escape)="closeSourceMenu()"
+      >
+        <button
+          id="manifesto-source"
+          class="field-dropdown-trigger manifesto-source-trigger"
+          type="button"
+          aria-haspopup="listbox"
+          [attr.aria-expanded]="isSourceMenuOpen()"
+          aria-controls="manifesto-source-options"
+          (click)="toggleSourceMenu()"
+        >
+          <span class="manifesto-source-trigger-copy">
+            <span>{{ selectedSource().label }}</span>
+            <small>{{ selectedSource().sourceName }}</small>
+          </span>
+          <span
+            class="field-dropdown-icon"
+            [class.is-open]="isSourceMenuOpen()"
+            aria-hidden="true"
+          ></span>
+        </button>
+
+        @if (isSourceMenuOpen()) {
+          <div
+            id="manifesto-source-options"
+            class="field-dropdown-panel manifesto-source-panel"
+            role="listbox"
+            aria-labelledby="manifesto-source"
+          >
+            @for (source of sources; track source.id) {
+              <button
+                class="field-dropdown-option manifesto-source-option"
+                type="button"
+                role="option"
+                [class.is-selected]="selectedId() === source.id"
+                [attr.aria-selected]="selectedId() === source.id"
+                (click)="selectSource(source.id)"
+              >
+                <span>{{ source.label }}</span>
+                <small>{{ source.sourceName }}</small>
+              </button>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <a
+      class="source-link"
+      [href]="selectedSource().sourceUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Fonte: {{ selectedSource().sourceName }}
+    </a>
+  </div>
+
+  <article
+    class="manifesto-reader"
+    [attr.aria-busy]="
+      selectedDocument().status === 'idle' ||
+      selectedDocument().status === 'loading'
+        ? 'true'
+        : 'false'
+    "
+  >
+    <header class="reader-header">
+      <div>
+        <p>{{ selectedSource().byline }}</p>
+        <h2>{{ selectedSource().title }}</h2>
+      </div>
+    </header>
+
+    @if (
+      selectedDocument().status === 'idle' ||
+      selectedDocument().status === 'loading'
+    ) {
+      <div class="reader-state" role="status">Caricamento manifesto...</div>
+    } @else if (selectedDocument().status === 'error') {
+      <div class="reader-state reader-error" role="alert">
+        <p>{{ selectedDocument().errorMessage }}</p>
+        <button class="retry-button" type="button" (click)="retry()">
+          Riprova
+        </button>
+      </div>
+    } @else {
+      <pre class="manifesto-text">{{ selectedDocument().text }}</pre>
+    }
+  </article>
+</section>

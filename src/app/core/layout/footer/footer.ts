@@ -25,7 +25,7 @@ export class Footer {
       path: '/blog',
       eyebrow: 'Appunti',
       description:
-        'Bozze tecniche, formule, codice e frammenti da trasformare in articoli veri.',
+        'Bozze tecniche, formule, codice e frammenti di articoli.',
     },
     {
       label: 'BYOS!',
