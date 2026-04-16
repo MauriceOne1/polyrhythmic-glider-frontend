@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IdentityService } from '../../core/identity/identity.service';
 import { ToastService } from '../../core/toast/toast.service';
 
-type LoginMode = 'login' | 'signup' | 'forgot' | 'reset' | 'invite' | 'status';
+type LoginMode = 'login' | 'forgot' | 'reset' | 'invite' | 'status';
 type StatusKind = 'idle' | 'success' | 'error';
 
 @Component({
@@ -39,12 +39,6 @@ export class Login implements OnDestroy {
   readonly loginForm = this.formBuilder.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
-  });
-
-  readonly signupForm = this.formBuilder.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-    passwordConfirm: ['', [Validators.required]],
   });
 
   readonly forgotForm = this.formBuilder.nonNullable.group({
@@ -110,40 +104,6 @@ export class Login implements OnDestroy {
     try {
       const { email, password } = this.loginForm.getRawValue();
       await this.identity.loginWithPassword(email, password);
-    } catch {
-      this.setStatus('idle', '');
-    } finally {
-      this.isSubmitting.set(false);
-    }
-  }
-
-  async submitSignup(): Promise<void> {
-    if (this.signupForm.invalid || this.isSubmitting()) {
-      this.signupForm.markAllAsTouched();
-      return;
-    }
-
-    const { email, password, passwordConfirm } = this.signupForm.getRawValue();
-
-    if (password !== passwordConfirm) {
-      this.signupForm.controls.passwordConfirm.setErrors({ mismatch: true });
-      this.signupForm.controls.passwordConfirm.markAsTouched();
-      return;
-    }
-
-    this.isSubmitting.set(true);
-    this.setStatus('idle', '');
-
-    try {
-      await this.identity.signupWithPassword(email, password);
-
-      if (!this.identity.currentUser()) {
-        this.setStatus(
-          'success',
-          'Account creato. Controlla la mail per confermare il tuo indirizzo.'
-        );
-        this.mode.set('login');
-      }
     } catch {
       this.setStatus('idle', '');
     } finally {

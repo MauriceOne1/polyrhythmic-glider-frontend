@@ -7,9 +7,8 @@ import {
   login,
   logout,
   onAuthChange,
+  recoverPassword,
   requestPasswordRecovery,
-  signup,
-  updateUser,
   type CallbackResult,
 } from '@netlify/identity';
 import type { IdentityUser } from '../../shared/models/identity.models';
@@ -25,6 +24,7 @@ export class IdentityService {
   private readonly router = inject(Router);
   private initPromise: Promise<void> | null = null;
   private postLoginRedirect = '/';
+  private recoveryToken: string | null = null;
 
   init(): void {
     void this.ensureInitialized();
@@ -52,29 +52,6 @@ export class IdentityService {
     }
   }
 
-  async signupWithPassword(
-    email: string,
-    password: string
-  ): Promise<IdentityUser> {
-    this.authError.set('');
-
-    try {
-      const createdUser = await signup(email, password);
-      const activeUser = await getUser();
-
-      this.currentUser.set(activeUser);
-
-      if (activeUser) {
-        await this.navigateAfterLogin();
-      }
-
-      return createdUser;
-    } catch (error) {
-      this.setAuthError(error, 'Registrazione non riuscita. Riprova tra un attimo.');
-      throw error;
-    }
-  }
-
   async sendPasswordRecovery(email: string): Promise<void> {
     this.authError.set('');
 
@@ -90,10 +67,17 @@ export class IdentityService {
   }
 
   async updateRecoveredPassword(password: string): Promise<void> {
+    const token = this.recoveryToken;
+
+    if (!token) {
+      this.authError.set('Link di recupero non valido o scaduto. Richiedine uno nuovo.');
+      throw new Error('Missing recovery token');
+    }
+
     this.authError.set('');
 
     try {
-      const user = await updateUser({ password });
+      const user = await recoverPassword(token, password);
       this.currentUser.set(user);
       await this.navigateAfterLogin();
     } catch (error) {
@@ -157,7 +141,13 @@ export class IdentityService {
     this.isProcessingCallback.set(this.hasIdentityHash());
 
     try {
-      if (this.hasIdentityHash()) {
+      const recoveryToken = this.readHashParam('recovery_token');
+
+      if (recoveryToken) {
+        this.recoveryToken = recoveryToken;
+        this.callbackResult.set({ type: 'recovery', user: null });
+        this.clearHash();
+      } else if (this.hasIdentityHash()) {
         const callback = await handleAuthCallback();
         this.callbackResult.set(callback);
 
@@ -182,6 +172,7 @@ export class IdentityService {
   private async navigateAfterLogin(): Promise<void> {
     const target = this.postLoginRedirect;
     this.postLoginRedirect = '/';
+    this.recoveryToken = null;
     this.callbackResult.set(null);
     await this.router.navigateByUrl(target);
   }
@@ -196,6 +187,31 @@ export class IdentityService {
     );
   }
 
+  private readHashParam(name: string): string | null {
+    if (typeof window === 'undefined' || !window.location.hash) {
+      return null;
+    }
+
+    const params = new URLSearchParams(window.location.hash.slice(1));
+    return params.get(name);
+  }
+
+  private clearHash(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.history.replaceState(
+      window.history.state,
+      this.documentTitle(),
+      `${window.location.pathname}${window.location.search}`
+    );
+  }
+
+  private documentTitle(): string {
+    return typeof document === 'undefined' ? '' : document.title;
+  }
+
   private setAuthError(error: unknown, fallback: string): void {
     const message = error instanceof Error ? error.message : fallback;
     this.authError.set(this.readableAuthMessage(message, fallback));
@@ -206,14 +222,6 @@ export class IdentityService {
 
     if (normalized.includes('invalid login') || normalized.includes('401')) {
       return 'Email o password non corretti.';
-    }
-
-    if (normalized.includes('already registered')) {
-      return 'Esiste gia un account con questa email.';
-    }
-
-    if (normalized.includes('signup disabled')) {
-      return 'Le nuove registrazioni sono disattivate.';
     }
 
     if (normalized.includes('expired') || normalized.includes('invalid token')) {

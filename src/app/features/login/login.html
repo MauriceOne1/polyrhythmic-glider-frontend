@@ -77,50 +77,6 @@
           {{ isSubmitting() ? 'Attivazione...' : 'Attiva account' }}
         </button>
       </form>
-    } @else if (mode() === 'signup') {
-      <h1 class="login-title">Crea il tuo account</h1>
-      <p class="login-copy">
-        Usa email e password per accedere alle aree riservate.
-      </p>
-
-      <form class="login-form" [formGroup]="signupForm" (ngSubmit)="submitSignup()">
-        <label class="login-field">
-          <span>Email</span>
-          <input type="email" formControlName="email" autocomplete="email" />
-        </label>
-
-        <label class="login-field">
-          <span>Password</span>
-          <input
-            type="password"
-            formControlName="password"
-            autocomplete="new-password"
-            minlength="8"
-          />
-        </label>
-
-        <label class="login-field">
-          <span>Ripeti password</span>
-          <input
-            type="password"
-            formControlName="passwordConfirm"
-            autocomplete="new-password"
-            minlength="8"
-          />
-        </label>
-
-        @if (signupForm.controls.passwordConfirm.hasError('mismatch')) {
-          <p class="field-error">Le password non coincidono.</p>
-        }
-
-        <button class="login-action primary" type="submit" [disabled]="isSubmitting()">
-          {{ isSubmitting() ? 'Creazione...' : 'Crea account' }}
-        </button>
-      </form>
-
-      <button class="login-link" type="button" (click)="setMode('login')">
-        Ho gia un account
-      </button>
     } @else if (mode() === 'forgot') {
       <h1 class="login-title">Recupera password</h1>
       <p class="login-copy">
@@ -175,9 +131,6 @@
       <div class="login-switches" aria-label="Azioni account">
         <button class="login-link" type="button" (click)="setMode('forgot')">
           Password dimenticata
-        </button>
-        <button class="login-link" type="button" (click)="setMode('signup')">
-          Crea account
         </button>
       </div>
     }
