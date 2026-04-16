@@ -231,11 +231,10 @@ export class Login implements OnDestroy {
 
     this.toast.show({
       id: 'polyblog-construction',
-      eyebrow: 'access denied',
-      title: 'Questa pagina e in costruzione.',
-      message: 'Per accederci devi essere autenticato.',
+      eyebrow: 'auth_required',
+      title: 'Route protetta.',
+      message: 'Esegui il login per continuare.',
       tone: 'warning',
-      dismissible: false,
       durationMs: 0,
     });
   }

@@ -17,31 +17,41 @@
   position: relative;
   display: grid;
   gap: 8px;
-  padding: 20px 54px 20px 22px;
-  border: 1px solid rgba(157, 231, 255, 0.28);
+  padding: 18px 62px 18px 20px;
+  border: 1px solid rgba(157, 231, 255, 0.32);
   border-radius: 8px;
   background:
-    linear-gradient(90deg, rgba(157, 231, 255, 0.12), transparent 38%),
-    rgba(4, 8, 12, 0.96);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent),
+    repeating-linear-gradient(
+      0deg,
+      rgba(157, 231, 255, 0.035) 0,
+      rgba(157, 231, 255, 0.035) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    rgba(3, 7, 10, 0.97);
   color: rgba(247, 247, 251, 0.84);
   box-shadow:
     0 22px 60px rgba(0, 0, 0, 0.42),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.055);
   pointer-events: auto;
   backdrop-filter: blur(18px) saturate(145%);
   font-family: Consolas, 'Courier New', monospace;
   animation: toast-enter 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.toast-message.is-static {
-  padding-right: 22px;
-}
-
 .toast-message.is-warning {
   border-color: rgba(217, 255, 142, 0.28);
   background:
-    linear-gradient(90deg, rgba(217, 255, 142, 0.12), transparent 38%),
-    rgba(4, 8, 12, 0.96);
+    linear-gradient(180deg, rgba(217, 255, 142, 0.055), transparent),
+    repeating-linear-gradient(
+      0deg,
+      rgba(217, 255, 142, 0.032) 0,
+      rgba(217, 255, 142, 0.032) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    rgba(3, 7, 10, 0.97);
 }
 
 .toast-eyebrow-row {
@@ -51,33 +61,10 @@
   width: fit-content;
 }
 
-.toast-alert-mark {
-  position: relative;
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 1px solid rgba(217, 255, 142, 0.5);
-  border-radius: 8px;
-  box-shadow: 0 0 18px rgba(217, 255, 142, 0.12);
-}
-
-.toast-alert-mark::before,
-.toast-alert-mark::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0.72rem;
-  height: 2px;
-  border-radius: 999px;
-  background: rgba(217, 255, 142, 0.95);
-}
-
-.toast-alert-mark::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.toast-alert-mark::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
+.toast-prompt {
+  color: rgba(217, 255, 142, 0.92);
+  font-size: 0.86rem;
+  line-height: 1;
 }
 
 .toast-eyebrow {
@@ -103,15 +90,17 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 2rem;
-  height: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  min-width: 2.7rem;
+  height: 1.8rem;
+  border: 1px solid rgba(217, 255, 142, 0.18);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(247, 247, 251, 0.72);
+  background: rgba(217, 255, 142, 0.08);
+  color: rgba(217, 255, 142, 0.76);
   cursor: pointer;
   font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.72rem;
   line-height: 1;
+  text-transform: uppercase;
 }
 
 .toast-dismiss:hover,
