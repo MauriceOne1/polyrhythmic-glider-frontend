@@ -9,6 +9,7 @@ import { Participation } from './features/participation/participation';
 import { Blog } from './features/blog/blog';
 import { BlogPost } from './features/blog-post/blog-post';
 import { HackerManifesto } from './features/hacker-manifesto/hacker-manifesto';
+import { Radio } from './features/radio/radio';
 import { blogAccessGuard } from './core/identity/blog-access.guard';
 import { identityGuard } from './core/identity/identity.guard';
 
@@ -121,6 +122,19 @@ export const routes: Routes = [
           'documentazione',
           'ricerca sonora',
         ],
+      },
+    },
+  },
+  {
+    path: 'radio',
+    component: Radio,
+    data: {
+      seo: {
+        title: 'Radio | Polyrhythmic Glider',
+        description:
+          'Canale radio sperimentale con player audio, dirette mock e prova locale video.',
+        keywords: ['radio', 'live stream', 'audio', 'video', 'polyrhythmic glider'],
+        robots: 'noindex,nofollow',
       },
     },
   },

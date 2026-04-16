@@ -3,6 +3,12 @@
   publish = "dist/polyrhythmic-glider-frontend/browser"
 
 [[redirects]]
+  from = "http://polyglider.com/*"
+  to = "https://polyglider.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

@@ -33,6 +33,9 @@ export class App {
   readonly isGameOfLifeRoute = computed(() =>
     this.currentUrl().startsWith('/game-of-life')
   );
+  readonly isRadioRoute = computed(() =>
+    this.currentUrl().startsWith('/radio')
+  );
 
   formatVolumeValue(volume: number | string): string {
     const normalizedVolume = Math.min(1, Math.max(0, Number(volume) / 0.2));

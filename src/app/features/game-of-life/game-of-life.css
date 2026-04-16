@@ -97,7 +97,8 @@ h1 {
 }
 
 .game-of-life-details {
-  width: min(100%, 48rem);
+  width: 100%;
+  box-sizing: border-box;
   padding: 24px;
   display: grid;
   gap: 22px;
@@ -108,10 +109,16 @@ h1 {
   gap: 10px;
 }
 
+.game-of-life-details .note,
+.game-of-life-details .rules-list {
+  max-width: none;
+}
+
 .rules-list {
   display: grid;
   gap: 8px;
   padding-left: 1.15rem;
+  list-style-type: disc;
 }
 
 .rules-list li::marker {

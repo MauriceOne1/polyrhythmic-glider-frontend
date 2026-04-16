@@ -1,0 +1,120 @@
+<section class="radio-console" aria-labelledby="radio-title">
+  <header class="radio-topbar">
+    <div>
+      <p class="kicker">Radio room</p>
+      <h1 id="radio-title">Canale unico in diretta</h1>
+    </div>
+
+    <div class="status-strip" aria-label="Stato canale">
+      <div class="signal-chip">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>On air</span>
+      </div>
+      <span class="ghost-chip" aria-disabled="true">Registered</span>
+      <span class="ghost-chip" aria-disabled="true">Playlist</span>
+    </div>
+  </header>
+
+  <div class="console-grid">
+    <section class="panel now-panel" aria-labelledby="now-title">
+      <p class="kicker">Ora</p>
+      <h2 id="now-title">{{ currentProgram.title }}</h2>
+      <p class="muted">{{ currentProgram.description }}</p>
+
+      <div class="song-now" aria-label="Brano in onda">
+        <span>In onda</span>
+        <strong>{{ currentTrack.title }}</strong>
+        <small>{{ currentTrack.artist }} / {{ currentTrack.mood }}</small>
+      </div>
+
+      <dl class="track-facts">
+        <div>
+          <dt>BPM</dt>
+          <dd>{{ currentTrack.bpm }}</dd>
+        </div>
+        <div>
+          <dt>Durata</dt>
+          <dd>{{ currentTrack.duration }}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="panel stage-panel" aria-label="Player radio">
+      @if (mode() === 'video' && videoSource) {
+        <video [src]="videoSource" controls preload="metadata" playsinline></video>
+      } @else if (mode() === 'video') {
+        <div class="video-stage">
+          <span>Video</span>
+          <strong>Regia in attesa</strong>
+          <small>Qui arrivera' il feed fisso della diretta.</small>
+        </div>
+      } @else {
+        <div class="audio-stage">
+          <span class="ring ring-one"></span>
+          <span class="ring ring-two"></span>
+          <span class="ring ring-three"></span>
+          <div>
+            <p class="kicker">Solo audio</p>
+            <strong>{{ currentTrack.title }}</strong>
+            <small>{{ currentProgram.host }}</small>
+          </div>
+        </div>
+      }
+    </section>
+
+    <aside class="panel schedule-panel" aria-labelledby="schedule-title">
+      <p class="kicker">Dopo</p>
+      <h2 id="schedule-title">Prossimi programmi</h2>
+
+      <ol class="program-list">
+        @for (program of upcomingPrograms; track program.id) {
+          <li>
+            <time>{{ program.time }}</time>
+            <span>
+              <strong>
+                {{ program.title }}
+                <em [class]="'program-status is-' + program.status">
+                  {{ programStatusLabel(program.status) }}
+                </em>
+              </strong>
+              <small>{{ program.description }}</small>
+            </span>
+          </li>
+        }
+      </ol>
+    </aside>
+  </div>
+
+  <footer class="radio-player" aria-label="Player radio">
+    <div class="player-copy">
+      <span class="player-label">{{ mode() === 'audio' ? 'Solo audio' : 'Video' }}</span>
+      <strong>{{ currentTrack.title }}</strong>
+      <small>{{ currentProgram.title }} / {{ currentProgram.host }}</small>
+    </div>
+
+    <div class="native-player">
+      @if (mode() === 'audio') {
+        <audio [src]="audioSource" controls preload="metadata"></audio>
+      } @else if (videoSource) {
+        <video [src]="videoSource" controls preload="metadata" playsinline></video>
+      } @else {
+        <div class="video-feed-note" role="status">Feed video fisso non collegato.</div>
+      }
+    </div>
+
+    <div class="player-actions">
+      <div class="mode-switch" role="group" aria-label="Modalita player">
+        <button type="button" [class.is-active]="mode() === 'audio'" (click)="setMode('audio')">
+          Audio
+        </button>
+        <button
+          type="button"
+          [class.is-active]="mode() === 'video'"
+          (click)="setMode('video')"
+        >
+          Video
+        </button>
+      </div>
+    </div>
+  </footer>
+</section>

@@ -1,6 +1,6 @@
 @if (isGameOfLifeRoute()) {
   <app-game-of-life-background></app-game-of-life-background>
-} @else {
+} @else if (!isRadioRoute()) {
   <app-background #bg></app-background>
 
   <div class="audio-controls" role="group" aria-labelledby="audio-controls-title">
@@ -39,8 +39,10 @@
   </div>
 }
 
-<div class="app-shell">
-  <app-header></app-header>
+<div class="app-shell" [class.is-radio-shell]="isRadioRoute()">
+  @if (!isRadioRoute()) {
+    <app-header></app-header>
+  }
 
   <main id="main-content" class="main-content" tabindex="-1">
     <router-outlet></router-outlet>

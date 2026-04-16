@@ -41,6 +41,7 @@ export class IdentityService {
 
   async loginWithPassword(email: string, password: string): Promise<void> {
     this.authError.set('');
+    this.ensureSecureIdentityOrigin();
 
     try {
       const user = await login(email, password);
@@ -54,6 +55,7 @@ export class IdentityService {
 
   async sendPasswordRecovery(email: string): Promise<void> {
     this.authError.set('');
+    this.ensureSecureIdentityOrigin();
 
     try {
       await requestPasswordRecovery(email);
@@ -67,6 +69,7 @@ export class IdentityService {
   }
 
   async updateRecoveredPassword(password: string): Promise<void> {
+    this.ensureSecureIdentityOrigin();
     const token = this.recoveryToken;
 
     if (!token) {
@@ -87,6 +90,7 @@ export class IdentityService {
   }
 
   async acceptInviteWithPassword(password: string): Promise<void> {
+    this.ensureSecureIdentityOrigin();
     const token = this.callbackResult()?.token;
 
     if (!token) {
@@ -108,6 +112,7 @@ export class IdentityService {
 
   async logout(): Promise<void> {
     this.authError.set('');
+    this.ensureSecureIdentityOrigin();
 
     try {
       await logout();
@@ -126,6 +131,11 @@ export class IdentityService {
 
     if (this.initPromise) {
       return this.initPromise;
+    }
+
+    if (!this.hasSecureIdentityOrigin()) {
+      this.finishInsecureIdentityInit();
+      return Promise.resolve();
     }
 
     onAuthChange((_event, user) => {
@@ -167,6 +177,36 @@ export class IdentityService {
       this.isProcessingCallback.set(false);
       this.isReady.set(true);
     }
+  }
+
+  private finishInsecureIdentityInit(): void {
+    this.currentUser.set(null);
+    this.callbackResult.set(null);
+    this.isProcessingCallback.set(false);
+    this.isReady.set(true);
+
+    if (this.hasIdentityHash()) {
+      this.authError.set(this.secureIdentityMessage());
+      this.clearHash();
+    }
+  }
+
+  private ensureSecureIdentityOrigin(): void {
+    if (this.hasSecureIdentityOrigin()) {
+      return;
+    }
+
+    const message = this.secureIdentityMessage();
+    this.authError.set(message);
+    throw new Error(message);
+  }
+
+  private hasSecureIdentityOrigin(): boolean {
+    return typeof window !== 'undefined' && window.location.protocol === 'https:';
+  }
+
+  private secureIdentityMessage(): string {
+    return 'Accesso non disponibile: Netlify Identity richiede HTTPS.';
   }
 
   private async navigateAfterLogin(): Promise<void> {

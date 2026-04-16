@@ -14,6 +14,10 @@
   margin: 0 auto;
 }
 
+.app-shell.is-radio-shell .main-content {
+  width: min(1360px, calc(100% - 28px));
+}
+
 .audio-controls {
   position: fixed;
   right: 20px;
