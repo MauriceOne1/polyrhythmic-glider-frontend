@@ -21,6 +21,7 @@
     "@fortawesome/fontawesome-svg-core": "^7.0.1",
     "@fortawesome/free-brands-svg-icons": "^7.0.1",
     "@fortawesome/free-solid-svg-icons": "^7.0.1",
+    "@netlify/identity": "^1.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

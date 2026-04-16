@@ -14,7 +14,8 @@
 .login-eyebrow,
 .login-title,
 .login-copy,
-.login-error {
+.login-status,
+.field-error {
   margin: 0;
 }
 
@@ -40,11 +41,34 @@
   line-height: 1.7;
 }
 
-.login-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding-top: 4px;
+.login-form {
+  width: min(460px, 100%);
+  display: grid;
+  gap: 14px;
+}
+
+.login-field {
+  display: grid;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.94rem;
+}
+
+.login-field input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  padding: 0 14px;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.login-field input:focus {
+  border-color: #d9ff8e;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .login-action {
@@ -58,12 +82,18 @@
   color: #ffffff;
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease, opacity 0.2s ease;
 }
 
 .login-action:hover,
 .login-action:focus-visible {
   transform: translateY(-1px);
+}
+
+.login-action:disabled {
+  cursor: wait;
+  opacity: 0.68;
+  transform: none;
 }
 
 .login-action.primary {
@@ -72,22 +102,43 @@
   color: #090b12;
 }
 
-.login-action.secondary {
-  background: rgba(255, 255, 255, 0.07);
+.login-switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
 }
 
-.login-action.secondary:hover,
-.login-action.secondary:focus-visible {
-  border-color: rgba(255, 255, 255, 0.32);
-  background: rgba(255, 255, 255, 0.11);
+.login-link {
+  width: fit-content;
+  border: 0;
+  color: rgba(255, 255, 255, 0.76);
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
-.login-error {
+.login-link:hover,
+.login-link:focus-visible {
+  color: #ffffff;
+}
+
+.login-status {
   max-width: 58ch;
-  border-left: 3px solid #ffb4b4;
+  border-left: 3px solid #d9ff8e;
   padding: 10px 0 10px 14px;
-  color: #ffd8d8;
+  color: #edffd0;
   line-height: 1.6;
+}
+
+.login-status.is-error,
+.field-error {
+  border-color: #ffb4b4;
+  color: #ffd8d8;
+}
+
+.field-error {
+  font-size: 0.92rem;
 }
 
 @media (max-width: 640px) {
@@ -110,6 +161,5 @@
 
   .login-action {
     width: 100%;
-    justify-content: center;
   }
 }

@@ -1,286 +1,225 @@
-import { DOCUMENT } from '@angular/common';
-import { inject, Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import type {
-  IdentityUser,
-  NetlifyIdentity,
-} from '../../shared/models/identity.models';
-import { SITE_URL } from '../../shared/utils/seo.config';
-
-declare global {
-  interface Window {
-    netlifyIdentity?: NetlifyIdentity;
-  }
-}
-
-type IdentityOpenMode = 'login' | 'signup' | 'default';
+import {
+  acceptInvite,
+  getUser,
+  handleAuthCallback,
+  login,
+  logout,
+  onAuthChange,
+  requestPasswordRecovery,
+  signup,
+  updateUser,
+  type CallbackResult,
+} from '@netlify/identity';
+import type { IdentityUser } from '../../shared/models/identity.models';
 
 @Injectable({ providedIn: 'root' })
 export class IdentityService {
   readonly currentUser = signal<IdentityUser | null>(null);
   readonly isReady = signal(false);
+  readonly isProcessingCallback = signal(false);
+  readonly callbackResult = signal<CallbackResult | null>(null);
   readonly authError = signal('');
 
-  private readonly document = inject(DOCUMENT);
   private readonly router = inject(Router);
-  private readonly widgetScriptId = 'netlify-identity-widget';
-  private initialized = false;
-  private pendingOpen: IdentityOpenMode | null = null;
+  private initPromise: Promise<void> | null = null;
   private postLoginRedirect = '/';
-  private suppressNextCloseNavigation = false;
-  private handlingIdentityAction = false;
 
   init(): void {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    if (this.initialized) {
-      this.syncCurrentUser();
-      return;
-    }
-
-    this.initialized = true;
-
-    if (window.netlifyIdentity) {
-      this.bindIdentity(window.netlifyIdentity);
-      return;
-    }
-
-    this.ensureWidgetScript();
-  }
-
-  openLogin(): void {
-    this.openWidget('login');
-  }
-
-  openSignup(): void {
-    this.openWidget('signup');
-  }
-
-  openIdentityAction(): void {
-    this.handlingIdentityAction = true;
-    this.openWidget('default');
-  }
-
-  closeWidget(): void {
-    this.pendingOpen = null;
-    this.handlingIdentityAction = false;
-
-    if (typeof window === 'undefined' || !window.netlifyIdentity) {
-      return;
-    }
-
-    this.suppressNextCloseNavigation = true;
-    window.netlifyIdentity.close();
-    window.setTimeout(() => {
-      this.suppressNextCloseNavigation = false;
-    }, 500);
+    void this.ensureInitialized();
   }
 
   async resolveCurrentUser(): Promise<IdentityUser | null> {
-    this.init();
-    this.syncCurrentUser();
-
-    if (this.currentUser()) {
-      return this.currentUser();
-    }
-
-    if (this.isReady()) {
-      return null;
-    }
-
-    return new Promise((resolve) => {
-      const startedAt = Date.now();
-      const intervalId = window.setInterval(() => {
-        this.syncCurrentUser();
-
-        if (this.currentUser() || this.isReady() || Date.now() - startedAt > 5000) {
-          window.clearInterval(intervalId);
-          resolve(this.currentUser());
-        }
-      }, 50);
-    });
+    await this.ensureInitialized();
+    return this.currentUser();
   }
 
   setPostLoginRedirect(url: string | null | undefined): void {
     this.postLoginRedirect = url || '/';
   }
 
+  async loginWithPassword(email: string, password: string): Promise<void> {
+    this.authError.set('');
+
+    try {
+      const user = await login(email, password);
+      this.currentUser.set(user);
+      await this.navigateAfterLogin();
+    } catch (error) {
+      this.setAuthError(error, 'Accesso non riuscito. Controlla email e password.');
+      throw error;
+    }
+  }
+
+  async signupWithPassword(
+    email: string,
+    password: string
+  ): Promise<IdentityUser> {
+    this.authError.set('');
+
+    try {
+      const createdUser = await signup(email, password);
+      const activeUser = await getUser();
+
+      this.currentUser.set(activeUser);
+
+      if (activeUser) {
+        await this.navigateAfterLogin();
+      }
+
+      return createdUser;
+    } catch (error) {
+      this.setAuthError(error, 'Registrazione non riuscita. Riprova tra un attimo.');
+      throw error;
+    }
+  }
+
+  async sendPasswordRecovery(email: string): Promise<void> {
+    this.authError.set('');
+
+    try {
+      await requestPasswordRecovery(email);
+    } catch (error) {
+      this.setAuthError(
+        error,
+        'Non sono riuscito a inviare la mail di recupero password.'
+      );
+      throw error;
+    }
+  }
+
+  async updateRecoveredPassword(password: string): Promise<void> {
+    this.authError.set('');
+
+    try {
+      const user = await updateUser({ password });
+      this.currentUser.set(user);
+      await this.navigateAfterLogin();
+    } catch (error) {
+      this.setAuthError(error, 'Non sono riuscito ad aggiornare la password.');
+      throw error;
+    }
+  }
+
+  async acceptInviteWithPassword(password: string): Promise<void> {
+    const token = this.callbackResult()?.token;
+
+    if (!token) {
+      this.authError.set('Invito non valido o scaduto. Richiedi un nuovo link.');
+      throw new Error('Missing invite token');
+    }
+
+    this.authError.set('');
+
+    try {
+      const user = await acceptInvite(token, password);
+      this.currentUser.set(user);
+      await this.navigateAfterLogin();
+    } catch (error) {
+      this.setAuthError(error, 'Non sono riuscito ad attivare questo invito.');
+      throw error;
+    }
+  }
+
   async logout(): Promise<void> {
     this.authError.set('');
 
     try {
-      await window.netlifyIdentity?.logout();
+      await logout();
     } finally {
       this.currentUser.set(null);
+      this.callbackResult.set(null);
       await this.router.navigateByUrl('/');
     }
   }
 
-  private openWidget(mode: IdentityOpenMode): void {
-    this.pendingOpen = mode;
-    this.init();
-
-    if (
-      typeof window !== 'undefined' &&
-      window.netlifyIdentity &&
-      this.isReady()
-    ) {
-      this.flushPendingOpen(window.netlifyIdentity);
-    }
-  }
-
-  private ensureWidgetScript(): void {
-    const existingScript = this.document.getElementById(this.widgetScriptId);
-
-    if (existingScript) {
-      existingScript.addEventListener('load', () => this.initializeWidget(), {
-        once: true,
-      });
-      return;
+  private ensureInitialized(): Promise<void> {
+    if (typeof window === 'undefined') {
+      this.isReady.set(true);
+      return Promise.resolve();
     }
 
-    const script = this.document.createElement('script');
-    script.id = this.widgetScriptId;
-    script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
-    script.async = true;
-    script.addEventListener('load', () => this.initializeWidget(), {
-      once: true,
-    });
-    script.addEventListener('error', () => {
-      this.authError.set(
-        'Impossibile caricare Netlify Identity. Verifica deploy Netlify e HTTPS.'
-      );
-      this.isReady.set(true);
-    });
-
-    this.document.body.appendChild(script);
-  }
-
-  private initializeWidget(): void {
-    if (!window.netlifyIdentity) {
-      this.authError.set('Netlify Identity non è disponibile in questa pagina.');
-      this.isReady.set(true);
-      return;
+    if (this.initPromise) {
+      return this.initPromise;
     }
 
-    this.bindIdentity(window.netlifyIdentity);
+    onAuthChange((_event, user) => {
+      this.currentUser.set(user);
+    });
+    this.initPromise = this.bootstrapIdentity();
+
+    return this.initPromise;
   }
 
-  private bindIdentity(identity: NetlifyIdentity): void {
-    identity.init({
-      locale: 'en',
-      APIUrl: `${SITE_URL}/.netlify/identity`,
-    });
+  private async bootstrapIdentity(): Promise<void> {
+    this.authError.set('');
+    this.isProcessingCallback.set(this.hasIdentityHash());
 
-    identity.on('init', (user) => {
-      this.currentUser.set((user as IdentityUser | null) ?? identity.currentUser());
-      this.isReady.set(true);
-      this.closeWidgetIfAuthenticated(identity);
-      this.flushPendingOpen(identity);
-    });
+    try {
+      if (this.hasIdentityHash()) {
+        const callback = await handleAuthCallback();
+        this.callbackResult.set(callback);
 
-    identity.on('login', async (user) => {
-      this.authError.set('');
-      this.currentUser.set((user as IdentityUser | null) ?? identity.currentUser());
-
-      if (this.isHandlingIdentityAction()) {
-        return;
-      }
-
-      identity.close();
-      await this.router.navigateByUrl(this.postLoginRedirect);
-      this.postLoginRedirect = '/';
-    });
-
-    identity.on('logout', () => {
-      this.currentUser.set(null);
-    });
-
-    identity.on('close', async () => {
-      if (this.suppressNextCloseNavigation) {
-        this.suppressNextCloseNavigation = false;
-        return;
-      }
-
-      if (this.currentUser() && this.router.url.startsWith('/login')) {
-        if (!this.handlingIdentityAction) {
-          return;
+        if (callback?.user) {
+          this.currentUser.set(callback.user);
         }
-
-        this.handlingIdentityAction = false;
-        await this.router.navigateByUrl(this.postLoginRedirect);
-        this.postLoginRedirect = '/';
-        return;
       }
 
-      if (this.currentUser() || !this.router.url.startsWith('/login')) {
-        return;
-      }
-
-      this.handlingIdentityAction = false;
-      await this.router.navigateByUrl('/');
-    });
-
-    identity.on('error', (error) => {
-      this.authError.set(
-        error instanceof Error
-          ? error.message
-          : 'Autenticazione non riuscita. Riprova tra un attimo.'
+      const user = await getUser();
+      this.currentUser.set(user);
+    } catch (error) {
+      this.setAuthError(
+        error,
+        'Non sono riuscito a completare il link di accesso. Potrebbe essere scaduto.'
       );
-    });
-
-    this.syncCurrentUser();
-    this.isReady.set(true);
-    this.closeWidgetIfAuthenticated(identity);
-    this.flushPendingOpen(identity);
-  }
-
-  private syncCurrentUser(): void {
-    this.currentUser.set(window.netlifyIdentity?.currentUser() ?? null);
-  }
-
-  private flushPendingOpen(identity: NetlifyIdentity): void {
-    if (!this.pendingOpen) {
-      return;
+    } finally {
+      this.isProcessingCallback.set(false);
+      this.isReady.set(true);
     }
-
-    const mode = this.pendingOpen;
-    this.pendingOpen = null;
-
-    if (mode === 'default') {
-      identity.open();
-      return;
-    }
-
-    identity.open(mode);
   }
 
-  private closeWidgetIfAuthenticated(identity: NetlifyIdentity): void {
-    if (!this.currentUser() || this.isHandlingIdentityAction()) {
-      return;
-    }
-
-    identity.close();
+  private async navigateAfterLogin(): Promise<void> {
+    const target = this.postLoginRedirect;
+    this.postLoginRedirect = '/';
+    this.callbackResult.set(null);
+    await this.router.navigateByUrl(target);
   }
 
-  private isHandlingIdentityAction(): boolean {
-    return this.handlingIdentityAction || this.hasIdentityActionHash();
-  }
-
-  private hasIdentityActionHash(): boolean {
+  private hasIdentityHash(): boolean {
     if (typeof window === 'undefined') {
       return false;
     }
 
-    const { hash } = window.location;
-
-    return (
-      hash.includes('confirmation_token=') ||
-      hash.includes('recovery_token=') ||
-      hash.includes('invite_token=') ||
-      hash.includes('email_change_token=')
+    return /^#(confirmation_token|recovery_token|invite_token|email_change_token|access_token)=/.test(
+      window.location.hash
     );
+  }
+
+  private setAuthError(error: unknown, fallback: string): void {
+    const message = error instanceof Error ? error.message : fallback;
+    this.authError.set(this.readableAuthMessage(message, fallback));
+  }
+
+  private readableAuthMessage(message: string, fallback: string): string {
+    const normalized = message.toLowerCase();
+
+    if (normalized.includes('invalid login') || normalized.includes('401')) {
+      return 'Email o password non corretti.';
+    }
+
+    if (normalized.includes('already registered')) {
+      return 'Esiste gia un account con questa email.';
+    }
+
+    if (normalized.includes('signup disabled')) {
+      return 'Le nuove registrazioni sono disattivate.';
+    }
+
+    if (normalized.includes('expired') || normalized.includes('invalid token')) {
+      return 'Questo link non e piu valido. Richiedine uno nuovo.';
+    }
+
+    return message || fallback;
   }
 }

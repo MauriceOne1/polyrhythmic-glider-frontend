@@ -70,7 +70,8 @@ export class App {
       hash.includes('confirmation_token=') ||
       hash.includes('recovery_token=') ||
       hash.includes('invite_token=') ||
-      hash.includes('email_change_token=');
+      hash.includes('email_change_token=') ||
+      hash.includes('access_token=');
 
     if (!hasIdentityToken || pathname === '/login') {
       return false;

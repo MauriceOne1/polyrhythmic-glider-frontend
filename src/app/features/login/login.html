@@ -2,63 +2,194 @@
   <div class="login-shell">
     <p class="login-eyebrow">Accesso riservato</p>
 
-    @if (identityAction === 'recovery') {
+    @if (identity.isProcessingCallback()) {
+      <h1 class="login-title">Controllo il link</h1>
+      <p class="login-copy">
+        Un attimo: sto preparando il passaggio sicuro.
+      </p>
+    } @else if (mode() === 'reset') {
       <h1 class="login-title">Scegli una nuova password</h1>
       <p class="login-copy">
-        Completa il passaggio di sicurezza e rientra nel tuo spazio.
+        Inserisci una password nuova per completare il recupero.
       </p>
-      <div class="login-actions" aria-label="Recupero password">
-        <button class="login-action primary" type="button" (click)="openIdentityAction()">
-          Recupera password
+
+      <form class="login-form" [formGroup]="passwordForm" (ngSubmit)="submitPasswordAction()">
+        <label class="login-field">
+          <span>Nuova password</span>
+          <input
+            type="password"
+            formControlName="password"
+            autocomplete="new-password"
+            minlength="8"
+          />
+        </label>
+
+        <label class="login-field">
+          <span>Ripeti password</span>
+          <input
+            type="password"
+            formControlName="passwordConfirm"
+            autocomplete="new-password"
+            minlength="8"
+          />
+        </label>
+
+        @if (passwordForm.controls.passwordConfirm.hasError('mismatch')) {
+          <p class="field-error">Le password non coincidono.</p>
+        }
+
+        <button class="login-action primary" type="submit" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Salvataggio...' : 'Salva password' }}
         </button>
-      </div>
-    } @else if (identityAction === 'invite') {
+      </form>
+    } @else if (mode() === 'invite') {
       <h1 class="login-title">Completa l'invito</h1>
       <p class="login-copy">
-        Attiva il tuo accesso e scegli la password per entrare.
+        Crea la password per attivare il tuo account.
       </p>
-      <div class="login-actions" aria-label="Invito account">
-        <button class="login-action primary" type="button" (click)="openIdentityAction()">
-          Attiva account
+
+      <form class="login-form" [formGroup]="passwordForm" (ngSubmit)="submitPasswordAction()">
+        <label class="login-field">
+          <span>Password</span>
+          <input
+            type="password"
+            formControlName="password"
+            autocomplete="new-password"
+            minlength="8"
+          />
+        </label>
+
+        <label class="login-field">
+          <span>Ripeti password</span>
+          <input
+            type="password"
+            formControlName="passwordConfirm"
+            autocomplete="new-password"
+            minlength="8"
+          />
+        </label>
+
+        @if (passwordForm.controls.passwordConfirm.hasError('mismatch')) {
+          <p class="field-error">Le password non coincidono.</p>
+        }
+
+        <button class="login-action primary" type="submit" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Attivazione...' : 'Attiva account' }}
         </button>
-      </div>
-    } @else if (identityAction === 'confirmation') {
-      <h1 class="login-title">Conferma il tuo accesso</h1>
+      </form>
+    } @else if (mode() === 'signup') {
+      <h1 class="login-title">Crea il tuo account</h1>
       <p class="login-copy">
-        Conferma l'email e prosegui verso l'area riservata.
+        Usa email e password per accedere alle aree riservate.
       </p>
-      <div class="login-actions" aria-label="Conferma account">
-        <button class="login-action primary" type="button" (click)="openIdentityAction()">
-          Conferma account
+
+      <form class="login-form" [formGroup]="signupForm" (ngSubmit)="submitSignup()">
+        <label class="login-field">
+          <span>Email</span>
+          <input type="email" formControlName="email" autocomplete="email" />
+        </label>
+
+        <label class="login-field">
+          <span>Password</span>
+          <input
+            type="password"
+            formControlName="password"
+            autocomplete="new-password"
+            minlength="8"
+          />
+        </label>
+
+        <label class="login-field">
+          <span>Ripeti password</span>
+          <input
+            type="password"
+            formControlName="passwordConfirm"
+            autocomplete="new-password"
+            minlength="8"
+          />
+        </label>
+
+        @if (signupForm.controls.passwordConfirm.hasError('mismatch')) {
+          <p class="field-error">Le password non coincidono.</p>
+        }
+
+        <button class="login-action primary" type="submit" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Creazione...' : 'Crea account' }}
         </button>
-      </div>
-    } @else if (identityAction === 'email-change') {
-      <h1 class="login-title">Conferma la nuova email</h1>
+      </form>
+
+      <button class="login-link" type="button" (click)="setMode('login')">
+        Ho gia un account
+      </button>
+    } @else if (mode() === 'forgot') {
+      <h1 class="login-title">Recupera password</h1>
       <p class="login-copy">
-        Completa la verifica per aggiornare il tuo accesso.
+        Ti mando un link per scegliere una nuova password.
       </p>
-      <div class="login-actions" aria-label="Conferma email">
-        <button class="login-action primary" type="button" (click)="openIdentityAction()">
-          Conferma email
+
+      <form class="login-form" [formGroup]="forgotForm" (ngSubmit)="submitForgot()">
+        <label class="login-field">
+          <span>Email</span>
+          <input type="email" formControlName="email" autocomplete="email" />
+        </label>
+
+        <button class="login-action primary" type="submit" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Invio...' : 'Invia link' }}
         </button>
-      </div>
+      </form>
+
+      <button class="login-link" type="button" (click)="setMode('login')">
+        Torna al login
+      </button>
+    } @else if (mode() === 'status') {
+      <h1 class="login-title">Accesso confermato</h1>
+      <p class="login-copy">
+        Ti sto portando alla pagina richiesta.
+      </p>
     } @else {
       <h1 class="login-title">Entra in Polyrhythmic Glider</h1>
       <p class="login-copy">
-        Accedi per continuare verso le aree riservate.
+        Accedi con email e password.
       </p>
-      <div class="login-actions" aria-label="Accesso account">
-        <button class="login-action primary" type="button" (click)="openLogin()">
-          Accedi
+
+      <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+        <label class="login-field">
+          <span>Email</span>
+          <input type="email" formControlName="email" autocomplete="email" />
+        </label>
+
+        <label class="login-field">
+          <span>Password</span>
+          <input
+            type="password"
+            formControlName="password"
+            autocomplete="current-password"
+          />
+        </label>
+
+        <button class="login-action primary" type="submit" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Accesso...' : 'Accedi' }}
         </button>
-        <button class="login-action secondary" type="button" (click)="openSignup()">
+      </form>
+
+      <div class="login-switches" aria-label="Azioni account">
+        <button class="login-link" type="button" (click)="setMode('forgot')">
+          Password dimenticata
+        </button>
+        <button class="login-link" type="button" (click)="setMode('signup')">
           Crea account
         </button>
       </div>
     }
 
+    @if (statusMessage()) {
+      <p class="login-status" [class.is-error]="statusKind() === 'error'" role="status">
+        {{ statusMessage() }}
+      </p>
+    }
+
     @if (identity.authError()) {
-      <p class="login-error" role="alert">
+      <p class="login-status is-error" role="alert">
         {{ identity.authError() }}
       </p>
     }
