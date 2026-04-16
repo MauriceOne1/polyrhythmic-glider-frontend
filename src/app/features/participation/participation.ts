@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 
 interface ChoiceOption {
   readonly value: string;
@@ -18,7 +17,7 @@ interface ChoiceOption {
 const ATTENDANCE_OPTIONS: ChoiceOption[] = [
   {
     value: 'yes',
-    label: 'Si, ci sono',
+    label: 'Sì, ci sono',
     hint: 'Porto il setup e mi unisco alla jam.',
   },
   {

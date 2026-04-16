@@ -127,7 +127,7 @@ export class IdentityService {
 
   private initializeWidget(): void {
     if (!window.netlifyIdentity) {
-      this.authError.set('Netlify Identity non e disponibile in questa pagina.');
+      this.authError.set('Netlify Identity non è disponibile in questa pagina.');
       this.isReady.set(true);
       return;
     }

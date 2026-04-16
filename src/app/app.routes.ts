@@ -6,6 +6,8 @@ import { GameOfLife } from './features/game-of-life/game-of-life';
 import { Admin } from './features/admin/admin';
 import { Login } from './features/login/login';
 import { Participation } from './features/participation/participation';
+import { Blog } from './features/blog/blog';
+import { BlogPost } from './features/blog-post/blog-post';
 import { identityGuard } from './core/identity/identity.guard';
 
 export const routes: Routes = [
@@ -79,6 +81,42 @@ export const routes: Routes = [
         description:
           'Landing page dedicata alla synth jam BYOS! con form di partecipazione per raccogliere presenza, setup e intenzioni musicali.',
         keywords: ['byos', 'synth jam', 'electronic jam', 'partecipazione', 'polyrhythmic glider'],
+      },
+    },
+  },
+  {
+    path: 'blog',
+    component: Blog,
+    data: {
+      seo: {
+        title: 'Polyblog | Polyrhythmic Glider',
+        description:
+          'Polyblog raccoglie appunti di Polyrhythmic Glider su ricerca sonora, documentazione, sistemi aperti e processi condivisi.',
+        keywords: [
+          'polyblog',
+          'polyrhythmic glider',
+          'ricerca sonora',
+          'documentazione',
+          'sistemi aperti',
+        ],
+      },
+    },
+  },
+  {
+    path: 'blog/:slug',
+    component: BlogPost,
+    data: {
+      seo: {
+        title: 'Polyblog | Polyrhythmic Glider',
+        description:
+          'Appunto del Polyblog di Polyrhythmic Glider su ricerca sonora, documentazione e processi condivisi.',
+        keywords: [
+          'polyblog',
+          'polyrhythmic glider',
+          'processo',
+          'documentazione',
+          'ricerca sonora',
+        ],
       },
     },
   },

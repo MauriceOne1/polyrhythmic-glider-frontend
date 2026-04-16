@@ -23,10 +23,17 @@ type Particle = {
 export class Background implements AfterViewInit, OnDestroy {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
 
+  private readonly maxParticleCount = 80;
+  private readonly minParticleCount = 28;
+  private readonly referenceViewportArea = 1440 * 900;
+
   private ctx!: CanvasRenderingContext2D;
   private particles: Particle[] = [];
   private animationId = 0;
-  private resizeHandler = () => this.resizeCanvas();
+  private resizeHandler = () => {
+    this.resizeCanvas();
+    this.syncParticleDensity();
+  };
 
   private audio?: HTMLAudioElement;
   private audioContext?: AudioContext;
@@ -52,7 +59,7 @@ export class Background implements AfterViewInit, OnDestroy {
     this.ctx = ctx;
 
     this.resizeCanvas();
-    this.createParticles(80);
+    this.syncParticleDensity();
     window.addEventListener('resize', this.resizeHandler);
 
     await this.setupAudio();
@@ -146,6 +153,32 @@ export class Background implements AfterViewInit, OnDestroy {
     }
   }
 
+  private getTargetParticleCount(): number {
+    const areaRatio =
+      (window.innerWidth * window.innerHeight) / this.referenceViewportArea;
+
+    return Math.round(
+      Math.min(
+        this.maxParticleCount,
+        Math.max(this.minParticleCount, this.maxParticleCount * areaRatio)
+      )
+    );
+  }
+
+  private syncParticleDensity(): void {
+    const targetCount = this.getTargetParticleCount();
+
+    if (this.particles.length !== targetCount) {
+      this.createParticles(targetCount);
+      return;
+    }
+
+    for (const particle of this.particles) {
+      particle.x = Math.min(window.innerWidth, Math.max(0, particle.x));
+      particle.y = Math.min(window.innerHeight, Math.max(0, particle.y));
+    }
+  }
+
   private async setupAudio(): Promise<void> {
     try {
       this.audio = new Audio('assets/audio/protoclusta.mp3');
@@ -208,11 +241,15 @@ export class Background implements AfterViewInit, OnDestroy {
 
     this.ctx.clearRect(0, 0, width, height);
 
+    const viewportScale = Math.min(1, Math.max(0.7, width / 1024));
     const speedBoost = 1 + this.lowEnergy * 3;
     const pointRadius = 0.9 + this.lowEnergy * 1.5;
-    const lineDistance = 100 + this.midEnergy * 160;
-    const lineOpacityBoost = 0.2 + this.midEnergy * 0.5;
-    const glowOpacity = 0.02 + this.energy * 0.1;
+    const lineDistance =
+      100 * viewportScale + this.midEnergy * 160 * viewportScale;
+    const lineOpacityBoost =
+      0.2 * viewportScale + this.midEnergy * 0.5 * viewportScale;
+    const glowOpacity =
+      0.02 * viewportScale + this.energy * 0.1 * viewportScale;
 
     this.ctx.fillStyle = `rgba(255,255,255,${glowOpacity})`;
     this.ctx.fillRect(0, 0, width, height);

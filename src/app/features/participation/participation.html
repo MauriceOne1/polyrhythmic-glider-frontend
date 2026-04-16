@@ -49,7 +49,7 @@
               <span>segue ogni slot.</span>
             </h2>
             <p>
-              Ogni jam sara seguita dagli organizzatori per accompagnare il
+              Ogni jam sarà seguita dagli organizzatori per accompagnare il
               gruppo, gestire mixer e passaggi e mantenere i cambi fluidi.
             </p>
           </article>
@@ -57,12 +57,12 @@
           <article class="participation-inline-meta-card">
             <p class="participation-meta-label">In sala</p>
             <h2 class="participation-inline-meta-title">
-              <span>Mixer gia pronto</span>
+              <span>Mixer già pronto</span>
               <span>verso l'impianto.</span>
             </h2>
             <p>
               Troverai un ingresso di mixer collegato all'impianto di fronte al
-              setup: l'idea e entrare, collegarsi velocemente e suonare.
+              setup: l'idea è entrare, collegarsi velocemente e suonare.
             </p>
           </article>
 
@@ -73,7 +73,7 @@
               <span>jam dopo.</span>
             </h2>
             <p>
-              L'aperitivo sara a buffet, con salumi, formaggi, marmellate e
+              L'aperitivo sarà a buffet, con salumi, formaggi, marmellate e
               coppia ferrarese. Si mangia, si chiacchiera, poi si accendono le
               macchine.
             </p>
@@ -87,7 +87,9 @@
             </h2>
             <div class="participation-event-meta">
               <p class="participation-event-location">Via Zucchini 23a</p>
-              <p class="participation-event-time">{{ eventDateLabel }} · dalle 18:00</p>
+              <p class="participation-event-time">
+                {{ eventDateLabel }} · dalle 18:00
+              </p>
             </div>
             <p class="participation-inline-meta-copy">
               Se vieni, faccelo sapere qui: ci aiuta a capire quanti setup
@@ -95,16 +97,18 @@
             </p>
           </article>
         </div>
-
       </div>
     </div>
 
-    <aside class="glass-panel participation-side-panel" aria-label="Info rapide sulla jam">
+    <aside
+      class="glass-panel participation-side-panel"
+      aria-label="Info rapide sulla jam"
+    >
       <p class="participation-side-kicker">Regole della jam</p>
       <div class="participation-side-block">
-        <h2>Porta poco, entra bene, suona con gli altri.</h2>
+        <h2>Porta un setup semplice. Esprimiti nella collettività.</h2>
         <p>
-          L'idea e semplice: setup essenziali, cambi rapidi e macchine pronte a
+          L'idea è semplice: setup essenziali, cambi rapidi e macchine pronte a
           convivere nello stesso spazio senza complicare il flusso della jam.
         </p>
       </div>
@@ -114,7 +118,10 @@
           <span class="participation-side-bullet"></span>
           <div>
             <strong>Un solo strumento</strong>
-            <p>Porta un solo strumento principale e mantieni il setup essenziale e leggibile.</p>
+            <p>
+              Porta un solo strumento principale e mantieni il setup essenziale
+              e leggibile.
+            </p>
           </div>
         </div>
 
@@ -122,7 +129,10 @@
           <span class="participation-side-bullet"></span>
           <div>
             <strong>Un effetto massimo</strong>
-            <p>Se ti serve, aggiungi un solo effetto e tieni la catena semplice da gestire.</p>
+            <p>
+              Se ti serve, aggiungi un solo effetto e tieni la catena semplice
+              da gestire.
+            </p>
           </div>
         </div>
 
@@ -130,7 +140,10 @@
           <span class="participation-side-bullet"></span>
           <div>
             <strong>Cavi e corrente</strong>
-            <p>Porta connessioni audio sufficienti, alimentatore e ciabatta: in loco sara disponibile solo un outlet.</p>
+            <p>
+              Porta connessioni audio sufficienti, alimentatore e ciabatta: in
+              loco sarà disponibile solo un outlet.
+            </p>
           </div>
         </div>
 
@@ -138,7 +151,10 @@
           <span class="participation-side-bullet"></span>
           <div>
             <strong>Sync se ti serve</strong>
-            <p>Se il tuo setup lo prevede, assicurati di poter andare in sync tramite collegamento MIDI.</p>
+            <p>
+              Se il tuo setup lo prevede, assicurati di poter andare in sync
+              tramite collegamento MIDI.
+            </p>
           </div>
         </div>
 
@@ -146,7 +162,10 @@
           <span class="participation-side-bullet"></span>
           <div>
             <strong>Setup pronto a entrare</strong>
-            <p>Arriva con tutto il necessario per collegarti al mixer rapidamente e lasciare fluido il cambio tra uno slot e l'altro.</p>
+            <p>
+              Arriva con tutto il necessario per collegarti al mixer rapidamente
+              e lasciare fluido il cambio tra uno slot e l'altro.
+            </p>
           </div>
         </div>
 
@@ -154,7 +173,10 @@
           <span class="participation-side-bullet"></span>
           <div>
             <strong>Turni e regia</strong>
-            <p>Ogni jam avra turni costruiti sulle adesioni e una supervisione in sala per tenere insieme mixer, tempi e passaggi.</p>
+            <p>
+              Ogni jam avrà turni costruiti sulle adesioni e una supervisione in
+              sala per tenere insieme mixer, tempi e passaggi.
+            </p>
           </div>
         </div>
       </div>
@@ -175,7 +197,11 @@
 
       <div class="field-shell">
         <span class="field-label">Puoi partecipare il {{ eventDateLabel }}?</span>
-        <input type="hidden" name="attendance" [value]="form.controls.attendance.value" />
+        <input
+          type="hidden"
+          name="attendance"
+          [value]="form.controls.attendance.value"
+        />
         <div class="participation-choice-grid">
           @for (option of attendanceOptions; track option.value) {
             <button
@@ -276,7 +302,11 @@
 
       <div class="field-shell">
         <span class="field-label">Hai un effetto?</span>
-        <input type="hidden" name="hasEffect" [value]="form.controls.hasEffect.value" />
+        <input
+          type="hidden"
+          name="hasEffect"
+          [value]="form.controls.hasEffect.value"
+        />
         <div class="participation-toggle-row">
           <button
             class="participation-toggle"
@@ -285,7 +315,7 @@
             [class.is-selected]="form.controls.hasEffect.value === 'yes'"
             (click)="selectHasEffect('yes')"
           >
-            Si
+            Sì
           </button>
 
           <button
@@ -315,7 +345,9 @@
             Se porti un effetto, scrivilo qui.
           </span>
           @if (form.controls.effectDetails.invalid && form.controls.effectDetails.touched) {
-            <span class="field-error">Se scegli si, dicci anche che effetto porti.</span>
+            <span class="field-error">
+              Se scegli sì, dicci anche che effetto porti.
+            </span>
           }
         </label>
       }
@@ -342,7 +374,9 @@
         <span>Ho capito le regole della jam.</span>
       </label>
       @if (form.controls.rulesConfirmed.invalid && form.controls.rulesConfirmed.touched) {
-        <span class="field-error">Conferma di aver capito le regole della jam per continuare.</span>
+        <span class="field-error">
+          Conferma di aver capito le regole della jam per continuare.
+        </span>
       }
 
       <label class="participation-consent">
@@ -354,7 +388,8 @@
           formControlName="consent"
         />
         <span>
-          Acconsento al trattamento dei dati inviati per essere ricontattato in merito alla jam.
+          Acconsento al trattamento dei dati inviati per essere ricontattato in
+          merito alla jam.
         </span>
       </label>
       @if (form.controls.consent.invalid && form.controls.consent.touched) {

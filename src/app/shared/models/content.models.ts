@@ -20,3 +20,26 @@ export interface ContactChannel {
   icon: IconDefinition;
   external?: boolean;
 }
+
+export interface BlogPostBlock {
+  heading: string;
+  paragraphs: string[];
+  snippets?: BlogPostSnippet[];
+}
+
+export interface BlogPostSnippet {
+  label: string;
+  kind: 'code' | 'terminal' | 'latex';
+  language: string;
+  content: string;
+}
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  publishedLabel: string;
+  readingTime: string;
+  tags: string[];
+  blocks: BlogPostBlock[];
+}

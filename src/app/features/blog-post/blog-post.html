@@ -1,0 +1,61 @@
+@if (post(); as article) {
+  <article class="blog-post-page" aria-labelledby="blog-post-title">
+    <a class="blog-back-link" routerLink="/blog">Polyblog</a>
+
+    <header class="blog-post-header readable-copy-card">
+      <div class="blog-post-meta">
+        <span>{{ article.publishedLabel }}</span>
+        <span>{{ article.readingTime }}</span>
+      </div>
+
+      <h1 id="blog-post-title" class="display-font">{{ article.title }}</h1>
+      <p>{{ article.excerpt }}</p>
+
+      <div class="blog-post-tags" aria-label="Tag">
+        @for (tag of article.tags; track tag) {
+          <span>{{ tag }}</span>
+        }
+      </div>
+    </header>
+
+    <div class="blog-post-body">
+      @for (block of article.blocks; track block.heading) {
+        <section>
+          <h2>{{ block.heading }}</h2>
+          @for (paragraph of block.paragraphs; track paragraph) {
+            <p>{{ paragraph }}</p>
+          }
+
+          @for (snippet of block.snippets ?? []; track snippet.label) {
+            <figure
+              class="snippet-frame"
+              [class.is-terminal]="snippet.kind === 'terminal'"
+              [class.is-latex]="snippet.kind === 'latex'"
+            >
+              <figcaption>
+                <span>{{ snippet.label }}</span>
+                <span>{{ snippet.language }}</span>
+              </figcaption>
+              @if (snippet.kind === 'latex') {
+                <div
+                  class="latex-preview"
+                  [innerHTML]="snippet.content | latexPreview"
+                ></div>
+              }
+              <pre><code>{{ snippet.content }}</code></pre>
+            </figure>
+          }
+        </section>
+      }
+    </div>
+  </article>
+} @else {
+  <section class="blog-post-page" aria-labelledby="blog-post-title">
+    <div class="blog-post-header readable-copy-card">
+      <p class="blog-post-kicker">Polyblog</p>
+      <h1 id="blog-post-title" class="display-font">Appunto non trovato</h1>
+      <p>Questo appunto non è disponibile o deve ancora essere pubblicato.</p>
+      <a class="blog-back-link" routerLink="/blog">Torna al Polyblog</a>
+    </div>
+  </section>
+}

@@ -1,0 +1,33 @@
+<section class="blog-page" aria-labelledby="blog-title">
+  <header class="blog-header readable-copy-card">
+    <p class="blog-kicker">Polyblog</p>
+    <h1 id="blog-title" class="display-font">Lorem ipsum research log</h1>
+    <p>
+      Frammenti provvisori con formule, terminali e codice: abbastanza veri da
+      testare la forma, abbastanza finti da poterli riscrivere senza rimpianti.
+    </p>
+  </header>
+
+  <div class="blog-list" aria-label="Articoli">
+    @for (post of posts; track post.slug) {
+      <article class="blog-card">
+        <div class="blog-card-meta">
+          <span>{{ post.publishedLabel }}</span>
+          <span>{{ post.readingTime }}</span>
+        </div>
+
+        <h2>
+          <a [routerLink]="['/blog', post.slug]">{{ post.title }}</a>
+        </h2>
+
+        <p>{{ post.excerpt }}</p>
+
+        <div class="blog-tags" aria-label="Tag">
+          @for (tag of post.tags; track tag) {
+            <span>{{ tag }}</span>
+          }
+        </div>
+      </article>
+    }
+  </div>
+</section>

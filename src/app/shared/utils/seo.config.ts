@@ -6,7 +6,7 @@ export const SITE_LOCALE = 'it_IT';
 export const DEFAULT_SEO: SeoData = {
   title: SITE_NAME,
   description:
-    'Polyrhythmic Glider e uno spazio per musica, codice ed esperimenti digitali tra ricerca sonora, live coding e sistemi aperti.',
+    'Polyrhythmic Glider è uno spazio per musica, codice ed esperimenti digitali tra ricerca sonora, live coding e sistemi aperti.',
   keywords: [
     'polyrhythmic glider',
     'musica',
