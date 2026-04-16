@@ -8,7 +8,7 @@
 
 Frontend Angular di Polyrhythmic Glider.
 
-Live: https://polyglider.com
+Live: <https://polyglider.com>
 
 ---
 
@@ -25,7 +25,7 @@ npm install
 npm start
 ```
 
-Open: http://localhost:4200
+Open: <http://localhost:4200>
 
 ---
 
