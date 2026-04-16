@@ -10,27 +10,6 @@
   <app-contact></app-contact>
 </section>
 
-<section class="page-section page-section-resources" id="resources">
-  <app-section-shell
-    kicker="Risorse"
-    title="Percorsi laterali"
-    description="Materiali già attivi ma tenuti fuori dalla navigazione principale: appunti, esperimenti, pagine operative e piccoli sistemi da attraversare."
-  >
-    <nav class="resources-nav" aria-label="Risorse nascoste">
-      @for (resource of resources; track resource.path) {
-        <a class="resource-link" [routerLink]="resource.path">
-          <span class="resource-link-eyebrow">{{ resource.eyebrow }}</span>
-          <span class="resource-link-body">
-            <strong>{{ resource.label }}</strong>
-            <span>{{ resource.description }}</span>
-          </span>
-          <span class="resource-link-arrow" aria-hidden="true">→</span>
-        </a>
-      }
-    </nav>
-  </app-section-shell>
-</section>
-
 <section class="page-section page-section-footer" id="footer">
   <app-footer></app-footer>
 </section>

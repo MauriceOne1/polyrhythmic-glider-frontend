@@ -3,6 +3,13 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NAV_ITEMS } from '../../../shared/utils/site-content';
 
+interface ResourceLink {
+  readonly label: string;
+  readonly path: string;
+  readonly eyebrow: string;
+  readonly description: string;
+}
+
 @Component({
   selector: 'app-footer',
   imports: [RouterLink],
@@ -12,6 +19,36 @@ import { NAV_ITEMS } from '../../../shared/utils/site-content';
 export class Footer {
   readonly currentYear = new Date().getFullYear();
   readonly navItems = NAV_ITEMS;
+  readonly resources: ResourceLink[] = [
+    {
+      label: 'Polyblog',
+      path: '/blog',
+      eyebrow: 'Appunti',
+      description:
+        'Bozze tecniche, formule, codice e frammenti da trasformare in articoli veri.',
+    },
+    {
+      label: 'BYOS!',
+      path: '/partecipa',
+      eyebrow: 'Jam',
+      description:
+        'Form di partecipazione per la synth jam con setup, presenza e intenzioni musicali.',
+    },
+    {
+      label: 'Live coding sandbox',
+      path: '/experimental',
+      eyebrow: 'Studio',
+      description:
+        'Ambiente Strudel per pattern ritmici, sketch performativi e prove rapide.',
+    },
+    {
+      label: 'Game of Life',
+      path: '/game-of-life',
+      eyebrow: 'Simulazione',
+      description:
+        'Esperimento visuale con automa cellulare e background generativo dedicato.',
+    },
+  ];
 
   private readonly router = inject(Router);
   private readonly viewportScroller = inject(ViewportScroller);
