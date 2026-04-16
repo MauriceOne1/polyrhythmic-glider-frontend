@@ -83,22 +83,39 @@ h1 {
 
 .description,
 .note,
+.rules-list,
 .value {
   margin: 0;
 }
 
 .description,
-.note {
+.note,
+.rules-list {
   max-width: 42rem;
   line-height: 1.65;
   color: rgba(247, 247, 251, 0.76);
 }
 
 .game-of-life-details {
-  width: min(100%, 34rem);
+  width: min(100%, 48rem);
   padding: 24px;
   display: grid;
+  gap: 22px;
+}
+
+.details-section {
+  display: grid;
   gap: 10px;
+}
+
+.rules-list {
+  display: grid;
+  gap: 8px;
+  padding-left: 1.15rem;
+}
+
+.rules-list li::marker {
+  color: rgba(217, 255, 142, 0.82);
 }
 
 .value {
