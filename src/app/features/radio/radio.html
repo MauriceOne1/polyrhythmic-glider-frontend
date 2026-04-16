@@ -1,45 +1,142 @@
+<app-radio-background
+  [bpm]="currentTrack.bpm"
+  [mode]="mode()"
+  [status]="currentProgram.status"
+  [isActive]="isRadioPlaying()"
+></app-radio-background>
+
 <section class="radio-console" aria-labelledby="radio-title">
   <header class="radio-topbar">
     <div>
       <p class="kicker">Radio room</p>
-      <h1 id="radio-title">Canale unico in diretta</h1>
+      <h1 id="radio-title">Polyradio</h1>
     </div>
 
     <div class="status-strip" aria-label="Stato canale">
       <div class="signal-chip">
         <span class="status-dot" aria-hidden="true"></span>
+        <fa-icon [icon]="onAirIcon" aria-hidden="true"></fa-icon>
         <span>On air</span>
       </div>
-      <span class="ghost-chip" aria-disabled="true">Registered</span>
-      <span class="ghost-chip" aria-disabled="true">Playlist</span>
+      <span class="ghost-chip" aria-disabled="true">
+        <fa-icon [icon]="registeredIcon" aria-hidden="true"></fa-icon>
+        Registered
+      </span>
+      <span class="ghost-chip" aria-disabled="true">
+        <fa-icon [icon]="playlistIcon" aria-hidden="true"></fa-icon>
+        Playlist
+      </span>
     </div>
   </header>
 
   <div class="console-grid">
     <section class="panel now-panel" aria-labelledby="now-title">
-      <p class="kicker">Ora</p>
-      <h2 id="now-title">{{ currentProgram.title }}</h2>
-      <p class="muted">{{ currentProgram.description }}</p>
+      <header class="now-header">
+        <p class="kicker">Ora</p>
+        <h2 id="now-title">{{ currentProgram.title }}</h2>
+      </header>
 
-      <div class="song-now" aria-label="Brano in onda">
-        <span>In onda</span>
-        <strong>{{ currentTrack.title }}</strong>
-        <small>{{ currentTrack.artist }} / {{ currentTrack.mood }}</small>
+      <button
+        class="song-now"
+        [class.is-selected]="isProgramSelected(currentProgram)"
+        type="button"
+        aria-label="Torna al dettaglio del brano in onda"
+        (click)="selectProgram(currentProgram)"
+      >
+        <span class="info-card-label">
+          <span class="info-card-icon">
+            <fa-icon [icon]="radioIcon" aria-hidden="true"></fa-icon>
+          </span>
+          <span>In onda</span>
+        </span>
+        <dl class="now-track-list">
+          <div>
+            <dt>Traccia</dt>
+            <dd>{{ currentTrack.title }}</dd>
+          </div>
+          <div>
+            <dt>Artista</dt>
+            <dd>{{ currentTrack.artist }}</dd>
+          </div>
+          <div>
+            <dt>Album</dt>
+            <dd>{{ currentTrack.album }}</dd>
+          </div>
+          <div>
+            <dt>Etichetta</dt>
+            <dd>{{ currentTrack.label }}</dd>
+          </div>
+        </dl>
+      </button>
+
+      <section class="track-card" aria-label="Dati del brano">
+        <header class="track-card-heading">
+          <span class="info-card-label">
+            <span class="info-card-icon">
+              <fa-icon [icon]="dataIcon" aria-hidden="true"></fa-icon>
+            </span>
+            <span>Dati</span>
+          </span>
+        </header>
+        <dl class="track-stat-grid">
+          <div class="track-stat track-stat-main">
+            <dt>
+              <fa-icon [icon]="musicIcon" aria-hidden="true"></fa-icon>
+              Mood
+            </dt>
+            <dd>{{ currentTrack.mood }}</dd>
+          </div>
+          <div class="track-stat">
+            <dt>
+              <fa-icon [icon]="keyIcon" aria-hidden="true"></fa-icon>
+              Tonalita
+            </dt>
+            <dd>{{ currentTrack.key }}</dd>
+          </div>
+          <div class="track-stat">
+            <dt>
+              <fa-icon [icon]="dataIcon" aria-hidden="true"></fa-icon>
+              BPM
+            </dt>
+            <dd>{{ currentTrack.bpm ?? 'N/D' }}</dd>
+          </div>
+          <div class="track-stat">
+            <dt>
+              <fa-icon [icon]="clockIcon" aria-hidden="true"></fa-icon>
+              Durata
+            </dt>
+            <dd>{{ currentTrack.duration }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <div class="mode-card" role="group" aria-label="Modalita radio">
+        <span class="info-card-label">
+          <span class="info-card-icon">
+            <fa-icon [icon]="modeIcon" aria-hidden="true"></fa-icon>
+          </span>
+          <span>Modalita</span>
+        </span>
+        <div>
+          <button type="button" [class.is-active]="mode() === 'audio'" (click)="setMode('audio')">
+            <fa-icon [icon]="radioIcon" aria-hidden="true"></fa-icon>
+            Audio
+          </button>
+          <button
+            type="button"
+            [class.is-active]="mode() === 'video'"
+            [disabled]="!videoSource"
+            (click)="setMode('video')"
+          >
+            <fa-icon [icon]="videoIcon" aria-hidden="true"></fa-icon>
+            Video
+          </button>
+        </div>
+        <small>{{ videoSource ? 'Feed video disponibile.' : 'Video disattivato: nessuna diretta video.' }}</small>
       </div>
-
-      <dl class="track-facts">
-        <div>
-          <dt>BPM</dt>
-          <dd>{{ currentTrack.bpm }}</dd>
-        </div>
-        <div>
-          <dt>Durata</dt>
-          <dd>{{ currentTrack.duration }}</dd>
-        </div>
-      </dl>
     </section>
 
-    <section class="panel stage-panel" aria-label="Player radio">
+    <section class="stage-panel" aria-label="Player radio">
       @if (mode() === 'video' && videoSource) {
         <video [src]="videoSource" controls preload="metadata" playsinline></video>
       } @else if (mode() === 'video') {
@@ -54,12 +151,22 @@
           <span class="ring ring-two"></span>
           <span class="ring ring-three"></span>
           <div>
-            <p class="kicker">Solo audio</p>
+            <p class="kicker">Audio</p>
             <strong>{{ currentTrack.title }}</strong>
             <small>{{ currentProgram.host }}</small>
           </div>
         </div>
       }
+
+      <aside class="stage-detail" aria-label="Cosa stiamo ascoltando">
+        <span class="stage-card-label">
+          <fa-icon [icon]="programStatusIcon(selectedProgram().status)" aria-hidden="true"></fa-icon>
+          {{ programStatusLabel(selectedProgram().status) }}
+        </span>
+        <strong>{{ selectedProgram().title }}</strong>
+        <small>{{ selectedProgram().host }} / {{ selectedProgram().time }}</small>
+        <p>{{ selectedProgram().description }}</p>
+      </aside>
     </section>
 
     <aside class="panel schedule-panel" aria-labelledby="schedule-title">
@@ -69,52 +176,38 @@
       <ol class="program-list">
         @for (program of upcomingPrograms; track program.id) {
           <li>
-            <time>{{ program.time }}</time>
-            <span>
-              <strong>
-                {{ program.title }}
-                <em [class]="'program-status is-' + program.status">
-                  {{ programStatusLabel(program.status) }}
-                </em>
-              </strong>
-              <small>{{ program.description }}</small>
-            </span>
+            <button
+              class="program-item"
+              [class.is-on-air]="program.status === 'on-air'"
+              [class.is-playlist]="program.status === 'playlist'"
+              [class.is-registered]="program.status === 'registered'"
+              [class.is-selected]="isProgramSelected(program)"
+              type="button"
+              (click)="selectProgram(program)"
+            >
+              <time>{{ program.time }}</time>
+              <span class="program-copy">
+                <span class="program-meta">
+                  <em class="program-status">
+                    <fa-icon [icon]="programStatusIcon(program.status)" aria-hidden="true"></fa-icon>
+                    {{ programStatusLabel(program.status) }}
+                  </em>
+                  <span>{{ program.host }}</span>
+                </span>
+                <strong>{{ program.title }}</strong>
+                <small>{{ program.summary }}</small>
+              </span>
+            </button>
           </li>
         }
       </ol>
     </aside>
   </div>
 
-  <footer class="radio-player" aria-label="Player radio">
-    <div class="player-copy">
-      <span class="player-label">{{ mode() === 'audio' ? 'Solo audio' : 'Video' }}</span>
-      <strong>{{ currentTrack.title }}</strong>
-      <small>{{ currentProgram.title }} / {{ currentProgram.host }}</small>
-    </div>
-
-    <div class="native-player">
-      @if (mode() === 'audio') {
-        <audio [src]="audioSource" controls preload="metadata"></audio>
-      } @else if (videoSource) {
-        <video [src]="videoSource" controls preload="metadata" playsinline></video>
-      } @else {
-        <div class="video-feed-note" role="status">Feed video fisso non collegato.</div>
-      }
-    </div>
-
-    <div class="player-actions">
-      <div class="mode-switch" role="group" aria-label="Modalita player">
-        <button type="button" [class.is-active]="mode() === 'audio'" (click)="setMode('audio')">
-          Audio
-        </button>
-        <button
-          type="button"
-          [class.is-active]="mode() === 'video'"
-          (click)="setMode('video')"
-        >
-          Video
-        </button>
-      </div>
-    </div>
-  </footer>
+  <app-radio-player
+    [audioSource]="audioSource"
+    [videoSource]="videoSource"
+    [mode]="mode()"
+    (playbackChange)="setRadioPlaying($event)"
+  ></app-radio-player>
 </section>

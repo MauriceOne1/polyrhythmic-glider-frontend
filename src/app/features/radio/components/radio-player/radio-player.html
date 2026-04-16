@@ -1,0 +1,67 @@
+<section class="radio-deck" aria-label="Player radio">
+  <audio
+    #audioElement
+    [src]="audioSource"
+    preload="metadata"
+    (play)="updateMediaState($event)"
+    (pause)="updateMediaState($event)"
+    (timeupdate)="updateProgress($event)"
+    (loadedmetadata)="updateProgress($event)"
+  ></audio>
+
+  @if (videoSource) {
+    <video
+      #videoElement
+      [src]="videoSource"
+      preload="metadata"
+      playsinline
+      (play)="updateMediaState($event)"
+      (pause)="updateMediaState($event)"
+      (timeupdate)="updateProgress($event)"
+      (loadedmetadata)="updateProgress($event)"
+    ></video>
+  }
+
+  <div class="transport">
+    <button
+      class="play-button"
+      type="button"
+      [disabled]="mode === 'video' && !videoSource"
+      [attr.aria-label]="isPlaying() ? 'Metti in pausa' : 'Riproduci'"
+      (click)="togglePlayback()"
+    >
+      <fa-icon [icon]="isPlaying() ? pauseIcon : playIcon" aria-hidden="true"></fa-icon>
+    </button>
+
+    <div class="timeline">
+      <span>{{ elapsedLabel() }}</span>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        step="0.1"
+        [value]="progress()"
+        aria-label="Avanzamento player"
+        (input)="seek($event)"
+      />
+      <span>{{ durationLabel() }}</span>
+    </div>
+  </div>
+
+  <div class="deck-controls">
+    <label class="volume-control">
+      <span aria-hidden="true">
+        <fa-icon [icon]="volume() === 0 ? volumeMutedIcon : volumeHighIcon"></fa-icon>
+      </span>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        [value]="volume()"
+        aria-label="Volume player"
+        (input)="changeVolume($event)"
+      />
+    </label>
+  </div>
+</section>

@@ -1,77 +1,87 @@
 import { Component, signal } from '@angular/core';
-
-type RadioMode = 'audio' | 'video';
-
-interface RadioTrack {
-  readonly id: string;
-  readonly title: string;
-  readonly artist: string;
-  readonly duration: string;
-  readonly mood: string;
-  readonly bpm: number;
-}
-
-interface ProgramSlot {
-  readonly id: string;
-  readonly title: string;
-  readonly host: string;
-  readonly time: string;
-  readonly description: string;
-  readonly status: 'on-air' | 'playlist' | 'registered';
-}
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faClock,
+  faCompactDisc,
+  faGaugeHigh,
+  faKey,
+  faListUl,
+  faMusic,
+  faRadio,
+  faSliders,
+  faTowerBroadcast,
+  faVideo,
+} from '@fortawesome/free-solid-svg-icons';
+import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { RadioBackground } from './components/radio-background/radio-background';
+import { RadioPlayer } from './components/radio-player/radio-player';
+import type { ProgramSlot, RadioMode, RadioTrack } from './radio.models';
 
 @Component({
   selector: 'app-radio',
-  imports: [],
+  imports: [FontAwesomeModule, RadioBackground, RadioPlayer],
   templateUrl: './radio.html',
   styleUrl: './radio.css',
 })
 export class Radio {
   readonly audioSource = '/assets/audio/protoclusta.mp3';
   readonly videoSource: string | null = null;
+  readonly onAirIcon = faTowerBroadcast;
+  readonly playlistIcon = faListUl;
+  readonly radioIcon = faRadio;
+  readonly registeredIcon = faCompactDisc;
+  readonly videoIcon = faVideo;
+  readonly clockIcon = faClock;
+  readonly dataIcon = faGaugeHigh;
+  readonly keyIcon = faKey;
+  readonly musicIcon = faMusic;
+  readonly modeIcon = faSliders;
 
   readonly currentProgram: ProgramSlot = {
     id: 'studio-aperto',
     title: 'Studio aperto',
     host: 'Polyrhythmic Glider',
     time: 'Ora',
-    description: 'Flusso unico con musica, appunti sonori e interventi brevi.',
+    summary: 'Origin Of Chaos EP in rotazione.',
+    description:
+      'Erotic Cafe su Neosignal Recordings / NËU Music: drum & bass, neurofunk e sound design avanzato.',
     status: 'on-air',
   };
 
   readonly currentTrack: RadioTrack = {
     id: 'protoclusta',
     title: 'Protoclusta',
-    artist: 'Polyrhythmic Glider',
-    duration: '04:42',
-    mood: 'Generative pulse',
-    bpm: 128,
+    artist: "Erotic Cafe'",
+    album: 'Origin Of Chaos EP',
+    label: 'Neosignal Recordings / NËU Music',
+    duration: '04:53',
+    key: 'N/D',
+    mood: 'Drum & Bass / Neurofunk',
+    bpm: null,
   };
 
   readonly playedTracks: readonly RadioTrack[] = [
     {
-      id: 'lattice-delay',
-      title: 'Lattice Delay',
-      artist: 'Archivio mock',
-      duration: '06:10',
-      mood: 'Dub system sketch',
-      bpm: 112,
+      id: 'hold-on-tight',
+      title: 'Hold On Tight',
+      artist: "Erotic Cafe'",
+      album: 'Origin Of Chaos EP',
+      label: 'Neosignal Recordings / NËU Music',
+      duration: '04:09',
+      key: 'N/D',
+      mood: 'Drum & Bass',
+      bpm: null,
     },
     {
-      id: 'phase-room',
-      title: 'Phase Room',
-      artist: 'Archivio mock',
-      duration: '05:26',
-      mood: 'Minimal drift',
-      bpm: 96,
-    },
-    {
-      id: 'grid-ritual',
-      title: 'Grid Ritual',
-      artist: 'Archivio mock',
-      duration: '07:34',
-      mood: 'Late night pattern',
-      bpm: 140,
+      id: 'sharp-edges',
+      title: 'Sharp Edges',
+      artist: "Erotic Cafe' / Syndel",
+      album: 'Origin Of Chaos EP',
+      label: 'Neosignal Recordings / NËU Music',
+      duration: '04:01',
+      key: 'N/D',
+      mood: 'Drum & Bass / Techno edge',
+      bpm: null,
     },
   ];
 
@@ -81,7 +91,9 @@ export class Radio {
       title: 'Listening room',
       host: 'Ospite da confermare',
       time: '21:30',
-      description: 'Blocchi di ascolto, commenti asciutti e transizioni lente.',
+      summary: 'Ascolti lenti, note essenziali e transizioni morbide.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non luctus mi. Donec vitae arcu sed lorem tempor volutpat.',
       status: 'playlist',
     },
     {
@@ -89,7 +101,9 @@ export class Radio {
       title: 'Patch notes live',
       host: 'Archivio',
       time: '23:00',
-      description: 'Aggiornamenti da studio, prove tecniche e frammenti registrati.',
+      summary: 'Diario da studio tra prove, frammenti e appunti tecnici.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent fermentum lacus et libero luctus, sed facilisis mi porta.',
       status: 'registered',
     },
     {
@@ -97,7 +111,9 @@ export class Radio {
       title: 'Night buffer',
       host: 'Automatico',
       time: '01:00',
-      description: 'Rotazione notturna senza interruzioni.',
+      summary: 'Rotazione notturna continua, senza parlato.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam erat volutpat, sed gravida sem.',
       status: 'playlist',
     },
     {
@@ -105,7 +121,9 @@ export class Radio {
       title: 'Low Frequency Courtyard',
       host: 'Marta N.',
       time: 'Dom 10:00',
-      description: 'Dub, field recording urbano e bassi larghi.',
+      summary: 'Dub, field recording urbano e basse frequenze.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam luctus nibh a magna gravida, vitae rutrum neque pulvinar.',
       status: 'registered',
     },
     {
@@ -113,7 +131,9 @@ export class Radio {
       title: 'Microtonal Breakfast',
       host: 'Sara Min',
       time: 'Dom 12:00',
-      description: 'Scale storte, folk sintetico e pattern leggeri.',
+      summary: 'Scale storte, folk sintetico e pattern leggeri.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Vivamus non augue eget justo tempor finibus.',
       status: 'playlist',
     },
     {
@@ -121,7 +141,9 @@ export class Radio {
       title: 'Warehouse Lullabies',
       host: 'Nico Tape',
       time: 'Dom 16:30',
-      description: 'Ambient industriale, nastri e droni morbidi.',
+      summary: 'Ambient industriale, nastri e droni morbidi.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel ipsum in risus viverra hendrerit non vitae orci.',
       status: 'registered',
     },
     {
@@ -129,7 +151,9 @@ export class Radio {
       title: 'Club Notes',
       host: 'Polyrhythmic Glider',
       time: 'Dom 20:00',
-      description: 'House ruvida, electro e percussioni elastiche.',
+      summary: 'House ruvida, electro e percussioni elastiche.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi elementum nibh sed neque congue, sit amet porttitor dui posuere.',
       status: 'on-air',
     },
     {
@@ -137,23 +161,35 @@ export class Radio {
       title: 'Jazz Machines',
       host: 'Archivio',
       time: 'Lun 18:00',
-      description: 'Fusion, drum machine e improvvisazioni modulari.',
+      summary: 'Fusion, drum machine e improvvisazioni modulari.',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lectus sit amet metus facilisis rhoncus at sit amet urna.',
       status: 'playlist',
-    },
-    {
-      id: 'no-input-hour',
-      title: 'No Input Hour',
-      host: 'Elena Feedback',
-      time: 'Mar 22:00',
-      description: 'Mixer, rumore controllato e segnali instabili.',
-      status: 'registered',
     },
   ];
 
   readonly mode = signal<RadioMode>('audio');
+  readonly selectedProgram = signal<ProgramSlot>(this.currentProgram);
+  readonly isRadioPlaying = signal(false);
 
   setMode(mode: RadioMode): void {
+    if (mode === 'video' && !this.videoSource) {
+      return;
+    }
+
     this.mode.set(mode);
+  }
+
+  setRadioPlaying(isPlaying: boolean): void {
+    this.isRadioPlaying.set(isPlaying);
+  }
+
+  selectProgram(program: ProgramSlot): void {
+    this.selectedProgram.set(program);
+  }
+
+  isProgramSelected(program: ProgramSlot): boolean {
+    return this.selectedProgram().id === program.id;
   }
 
   programStatusLabel(status: ProgramSlot['status']): string {
@@ -166,5 +202,17 @@ export class Radio {
     }
 
     return 'PLAYLIST';
+  }
+
+  programStatusIcon(status: ProgramSlot['status']): IconDefinition {
+    if (status === 'on-air') {
+      return this.onAirIcon;
+    }
+
+    if (status === 'registered') {
+      return this.registeredIcon;
+    }
+
+    return this.playlistIcon;
   }
 }
