@@ -10,6 +10,7 @@ interface ToastToneOption {
   readonly value: ToastTone;
   readonly label: string;
   readonly hint: string;
+  readonly textClass: string;
 }
 
 interface ToastPreset {
@@ -18,34 +19,6 @@ interface ToastPreset {
   readonly title: string;
   readonly message: string;
 }
-
-const TONE_OPTIONS: ToastToneOption[] = [
-  {
-    value: 'info',
-    label: 'Information',
-    hint: 'Aggiornamenti neutri, stato del sistema, conferme leggere.',
-  },
-  {
-    value: 'success',
-    label: 'Success',
-    hint: 'Azioni concluse, salvataggi, invii riusciti.',
-  },
-  {
-    value: 'warning',
-    label: 'Warning',
-    hint: 'Attenzione richiesta senza bloccare il flusso.',
-  },
-  {
-    value: 'danger',
-    label: 'Danger',
-    hint: 'Errori, blocchi, operazioni non riuscite.',
-  },
-  {
-    value: 'neutral',
-    label: 'Neutral',
-    hint: 'Messaggi tecnici, log, note di servizio.',
-  },
-];
 
 const TOAST_PRESETS: ToastPreset[] = [
   {
@@ -64,7 +37,7 @@ const TOAST_PRESETS: ToastPreset[] = [
     tone: 'warning',
     eyebrow: 'warning',
     title: 'Controlla i campi.',
-    message: 'Alcuni dati sembrano incompleti prima dell\'invio.',
+    message: "Alcuni dati sembrano incompleti prima dell'invio.",
   },
   {
     tone: 'danger',
@@ -76,9 +49,44 @@ const TOAST_PRESETS: ToastPreset[] = [
     tone: 'neutral',
     eyebrow: 'system',
     title: 'Evento registrato.',
-    message: 'La notifica e stata aggiunta allo stream corrente.',
+    message: 'La notifica è stata aggiunta allo stream corrente.',
   },
 ];
+
+const TONE_OPTIONS: ToastToneOption[] = [
+  {
+    value: 'info',
+    label: 'Information',
+    hint: 'Aggiornamenti neutri, stato del sistema, conferme leggere.',
+    textClass: 'text-sky-300',
+  },
+  {
+    value: 'success',
+    label: 'Success',
+    hint: 'Azioni concluse, salvataggi, invii riusciti.',
+    textClass: 'text-emerald-300',
+  },
+  {
+    value: 'warning',
+    label: 'Warning',
+    hint: 'Attenzione richiesta senza bloccare il flusso.',
+    textClass: 'text-amber-300',
+  },
+  {
+    value: 'danger',
+    label: 'Danger',
+    hint: 'Errori, blocchi, operazioni non riuscite.',
+    textClass: 'text-rose-300',
+  },
+  {
+    value: 'neutral',
+    label: 'Neutral',
+    hint: 'Messaggi tecnici, log, note di servizio.',
+    textClass: 'text-slate-300',
+  },
+];
+
+
 
 @Component({
   selector: 'app-toast-launcher',
@@ -218,4 +226,38 @@ export class ToastLauncher {
   private normalizeMilliseconds(value: number): number {
     return Math.round(Math.min(60000, Math.max(0, Number(value) || 0)));
   }
+
+
+  readonly isToneMenuOpen = signal(false);
+
+  toggleToneMenu(): void {
+    this.isToneMenuOpen.update(open => !open);
+  }
+
+  closeToneMenu(): void {
+    this.isToneMenuOpen.set(false);
+  }
+
+  selectTone(value: ToastTone): void {
+    this.form.controls.tone.setValue(value);
+    this.form.controls.tone.markAsDirty();
+    this.form.controls.tone.markAsTouched();
+    this.closeToneMenu();
+  }
+
+ getToneOption(value: ToastTone | null): ToastToneOption | undefined {
+  return this.toneOptions.find(t => t.value === value);
+}
+
+getToneTextClass(value: ToastTone | null): string {
+  return this.getToneOption(value)?.textClass ?? '';
+}
+
+getToneLabel(value: ToastTone | null): string {
+  return this.getToneOption(value)?.label ?? 'Seleziona tipo';
+}
+
+getToneHint(value: ToastTone | null): string {
+  return this.getToneOption(value)?.hint ?? '';
+}
 }

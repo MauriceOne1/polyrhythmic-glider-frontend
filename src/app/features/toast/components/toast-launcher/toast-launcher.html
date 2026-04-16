@@ -5,9 +5,7 @@
       <h2 class="display-font">Notification console</h2>
     </div>
 
-    <button class="ghost-button" type="button" (click)="clearAll()">
-      Clear all
-    </button>
+    <button class="ghost-button" type="button" (click)="clearAll()">Clear all</button>
   </div>
 
   <div class="tone-strip" aria-label="Lancia una notifica per tipo">
@@ -30,23 +28,70 @@
 
   <form class="toast-form" [formGroup]="form" (submit)="launchFromForm($event)">
     <div class="form-grid">
-      <label class="field-shell">
-        <span class="field-label">Tipo</span>
-        <select class="field-input" formControlName="tone">
-          @for (tone of toneOptions; track tone.value) {
-            <option [value]="tone.value">{{ tone.label }}</option>
+      <div class="field-shell">
+        <span id="toast-tone-label" class="field-label">Tipo</span>
+        <input type="hidden" name="tone" [value]="form.controls.tone.value" />
+
+        <div class="field-dropdown">
+         <button
+  id="toast-tone-trigger"
+  class="field-dropdown-trigger field-input flex items-center justify-between gap-3"
+  type="button"
+  aria-haspopup="listbox"
+  [attr.aria-expanded]="isToneMenuOpen()"
+  [attr.aria-controls]="isToneMenuOpen() ? 'toast-tone-menu' : null"
+  [attr.aria-labelledby]="'toast-tone-label toast-tone-value'"
+  (click)="toggleToneMenu()"
+>
+  <span id="toast-tone-value" class="flex items-center gap-2">
+    <span class="text-sm font-semibold" [class]="getToneTextClass(form.controls.tone.value)">
+      {{ getToneLabel(form.controls.tone.value) }}
+    </span>
+    <small class="text-xs opacity-70">
+      {{ getToneHint(form.controls.tone.value) }}
+    </small>
+  </span>
+
+  <span
+    class="field-dropdown-icon"
+    [class.is-open]="isToneMenuOpen()"
+    aria-hidden="true"
+  ></span>
+</button>
+
+          @if (isToneMenuOpen()) {
+            <div
+              id="toast-tone-menu"
+              class="field-dropdown-panel"
+              role="listbox"
+              aria-labelledby="toast-tone-label"
+            >
+              @for (tone of toneOptions; track tone.value) {
+  <button
+    class="field-dropdown-option flex items-center gap-2"
+    type="button"
+    role="option"
+    [attr.aria-selected]="form.controls.tone.value === tone.value"
+    [class.is-selected]="form.controls.tone.value === tone.value"
+    (click)="selectTone(tone.value)"
+  >
+    <span class="text-sm font-semibold" [class]="tone.textClass">
+      {{ tone.label }}
+    </span>
+
+    <small class="text-xs opacity-70">
+      {{ tone.hint }}
+    </small>
+  </button>
+}
+            </div>
           }
-        </select>
-      </label>
+        </div>
+      </div>
 
       <label class="field-shell">
         <span class="field-label">Eyebrow</span>
-        <input
-          class="field-input"
-          type="text"
-          formControlName="eyebrow"
-          placeholder="system"
-        />
+        <input class="field-input" type="text" formControlName="eyebrow" placeholder="system" />
       </label>
 
       <label class="field-shell field-wide">
@@ -70,9 +115,7 @@
           placeholder="Scrivi il contenuto della notifica"
         ></textarea>
         @if (form.controls.message.invalid && form.controls.message.touched) {
-          <span class="field-error">
-            Inserisci un messaggio, massimo 180 caratteri.
-          </span>
+          <span class="field-error"> Inserisci un messaggio, massimo 180 caratteri. </span>
         }
       </label>
 
@@ -119,9 +162,7 @@
 
     <div class="actions-row">
       <button class="button-primary" type="submit">Launch toast</button>
-      <button class="button-secondary" type="button" (click)="launchStack()">
-        Launch stack
-      </button>
+      <button class="button-secondary" type="button" (click)="launchStack()">Launch stack</button>
     </div>
   </form>
 
