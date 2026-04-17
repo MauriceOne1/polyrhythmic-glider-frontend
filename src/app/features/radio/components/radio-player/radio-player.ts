@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -25,7 +26,7 @@ import type { RadioMode } from '../../radio.models';
   templateUrl: './radio-player.html',
   styleUrl: './radio-player.css',
 })
-export class RadioPlayer implements OnChanges, OnDestroy {
+export class RadioPlayer implements AfterViewInit, OnChanges, OnDestroy {
   @Input({ required: true }) audioSource!: string;
   @Input() videoSource: string | null = null;
   @Input() externalVideoElement: HTMLVideoElement | null = null;
@@ -35,6 +36,9 @@ export class RadioPlayer implements OnChanges, OnDestroy {
 
   @ViewChild('audioElement') private readonly audioElement?: ElementRef<HTMLAudioElement>;
   private videoElement: HTMLVideoElement | null = null;
+  private audioContext: AudioContext | null = null;
+  private audioGain: GainNode | null = null;
+  private audioSourceNode: MediaElementAudioSourceNode | null = null;
 
   readonly isPlaying = signal(false);
   readonly progress = signal(0);
@@ -47,6 +51,11 @@ export class RadioPlayer implements OnChanges, OnDestroy {
   readonly volumeMutedIcon = faVolumeXmark;
   private readonly updateVideoState = (event: Event) => this.updateMediaState(event);
   private readonly updateVideoProgress = (event: Event) => this.updateProgress(event);
+
+  ngAfterViewInit(): void {
+    this.setupAudioGain();
+    this.syncVolume();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['externalVideoElement']) {
@@ -64,6 +73,9 @@ export class RadioPlayer implements OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.detachVideoEvents();
+    this.audioSourceNode?.disconnect();
+    this.audioGain?.disconnect();
+    void this.audioContext?.close().catch(() => undefined);
   }
 
   togglePlayback(): void {
@@ -74,6 +86,7 @@ export class RadioPlayer implements OnChanges, OnDestroy {
     }
 
     if (media.paused) {
+      this.resumeAudioContext();
       media.play().catch(() => this.isPlaying.set(false));
       return;
     }
@@ -139,15 +152,45 @@ export class RadioPlayer implements OnChanges, OnDestroy {
   }
 
   private syncVolume(): void {
+    this.setupAudioGain();
     const volume = this.volume();
 
     if (this.audioElement?.nativeElement) {
       this.audioElement.nativeElement.volume = volume;
     }
 
+    if (this.audioGain && this.audioContext?.state !== 'closed') {
+      this.audioGain.gain.value = volume;
+    }
+
     if (this.videoElement) {
       this.videoElement.volume = volume;
     }
+  }
+
+  private setupAudioGain(): void {
+    if (this.audioSourceNode || !this.audioElement?.nativeElement || typeof AudioContext === 'undefined') {
+      return;
+    }
+
+    try {
+      this.audioContext = new AudioContext();
+      this.audioSourceNode = this.audioContext.createMediaElementSource(this.audioElement.nativeElement);
+      this.audioGain = this.audioContext.createGain();
+      this.audioSourceNode.connect(this.audioGain).connect(this.audioContext.destination);
+    } catch {
+      this.audioContext = null;
+      this.audioGain = null;
+      this.audioSourceNode = null;
+    }
+  }
+
+  private resumeAudioContext(): void {
+    if (this.mode !== 'audio' || !this.audioContext || this.audioContext.state !== 'suspended') {
+      return;
+    }
+
+    void this.audioContext.resume();
   }
 
   private setExternalVideo(videoElement: HTMLVideoElement | null): void {
