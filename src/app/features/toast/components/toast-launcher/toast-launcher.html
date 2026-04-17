@@ -33,31 +33,34 @@
         <input type="hidden" name="tone" [value]="form.controls.tone.value" />
 
         <div class="field-dropdown">
-         <button
-  id="toast-tone-trigger"
-  class="field-dropdown-trigger field-input flex items-center justify-between gap-3"
-  type="button"
-  aria-haspopup="listbox"
-  [attr.aria-expanded]="isToneMenuOpen()"
-  [attr.aria-controls]="isToneMenuOpen() ? 'toast-tone-menu' : null"
-  [attr.aria-labelledby]="'toast-tone-label toast-tone-value'"
-  (click)="toggleToneMenu()"
->
-  <span id="toast-tone-value" class="flex items-center gap-2">
-    <span class="text-sm font-semibold" [class]="getToneTextClass(form.controls.tone.value)">
-      {{ getToneLabel(form.controls.tone.value) }}
-    </span>
-    <small class="text-xs opacity-70">
-      {{ getToneHint(form.controls.tone.value) }}
-    </small>
-  </span>
+          <button
+            id="toast-tone-trigger"
+            class="field-dropdown-trigger field-input flex items-center justify-between gap-3"
+            type="button"
+            aria-haspopup="listbox"
+            [attr.aria-expanded]="isToneMenuOpen()"
+            [attr.aria-controls]="isToneMenuOpen() ? 'toast-tone-menu' : null"
+            [attr.aria-labelledby]="'toast-tone-label toast-tone-value'"
+            (click)="toggleToneMenu()"
+          >
+            <span id="toast-tone-value" class="flex items-center gap-2">
+              <span
+                class="text-sm font-semibold"
+                [class]="getToneTextClass(form.controls.tone.value)"
+              >
+                {{ getToneLabel(form.controls.tone.value) }}
+              </span>
+              <small class="text-xs opacity-70">
+                {{ getToneHint(form.controls.tone.value) }}
+              </small>
+            </span>
 
-  <span
-    class="field-dropdown-icon"
-    [class.is-open]="isToneMenuOpen()"
-    aria-hidden="true"
-  ></span>
-</button>
+            <span
+              class="field-dropdown-icon"
+              [class.is-open]="isToneMenuOpen()"
+              aria-hidden="true"
+            ></span>
+          </button>
 
           @if (isToneMenuOpen()) {
             <div
@@ -67,23 +70,23 @@
               aria-labelledby="toast-tone-label"
             >
               @for (tone of toneOptions; track tone.value) {
-  <button
-    class="field-dropdown-option flex items-center gap-2"
-    type="button"
-    role="option"
-    [attr.aria-selected]="form.controls.tone.value === tone.value"
-    [class.is-selected]="form.controls.tone.value === tone.value"
-    (click)="selectTone(tone.value)"
-  >
-    <span class="text-sm font-semibold" [class]="tone.textClass">
-      {{ tone.label }}
-    </span>
+                <button
+                  class="field-dropdown-option flex items-center gap-2"
+                  type="button"
+                  role="option"
+                  [attr.aria-selected]="form.controls.tone.value === tone.value"
+                  [class.is-selected]="form.controls.tone.value === tone.value"
+                  (click)="selectTone(tone.value)"
+                >
+                  <span class="text-sm font-semibold" [class]="tone.textClass">
+                    {{ tone.label }}
+                  </span>
 
-    <small class="text-xs opacity-70">
-      {{ tone.hint }}
-    </small>
-  </button>
-}
+                  <small class="text-xs opacity-70">
+                    {{ tone.hint }}
+                  </small>
+                </button>
+              }
             </div>
           }
         </div>
