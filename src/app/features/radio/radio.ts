@@ -171,6 +171,7 @@ export class Radio {
   readonly mode = signal<RadioMode>('audio');
   readonly selectedProgram = signal<ProgramSlot>(this.currentProgram);
   readonly isRadioPlaying = signal(false);
+  readonly isScheduleOpen = signal(false);
 
   setMode(mode: RadioMode): void {
     if (mode === 'video' && !this.videoSource) {
@@ -186,6 +187,15 @@ export class Radio {
 
   selectProgram(program: ProgramSlot): void {
     this.selectedProgram.set(program);
+    this.isScheduleOpen.set(false);
+  }
+
+  openSchedule(): void {
+    this.isScheduleOpen.set(true);
+  }
+
+  closeSchedule(): void {
+    this.isScheduleOpen.set(false);
   }
 
   isProgramSelected(program: ProgramSlot): boolean {

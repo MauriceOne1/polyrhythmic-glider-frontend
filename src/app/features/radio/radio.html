@@ -27,6 +27,11 @@
         Playlist
       </span>
     </div>
+
+    <button class="mobile-schedule-button" type="button" (click)="openSchedule()">
+      <fa-icon [icon]="playlistIcon" aria-hidden="true"></fa-icon>
+      Programmi
+    </button>
   </header>
 
   <div class="console-grid">
@@ -132,7 +137,7 @@
             Video
           </button>
         </div>
-        <small>{{ videoSource ? 'Feed video disponibile.' : 'Video disattivato: nessuna diretta video.' }}</small>
+        <small class="text-center">{{ videoSource ? 'Feed video disponibile.' : 'Video disattivato: nessuna diretta video al momento.' }}</small>
       </div>
     </section>
 
@@ -169,9 +174,16 @@
       </aside>
     </section>
 
-    <aside class="panel schedule-panel" aria-labelledby="schedule-title">
+    <aside
+      class="panel schedule-panel"
+      [class.is-open]="isScheduleOpen()"
+      aria-labelledby="schedule-title"
+    >
       <p class="kicker">Dopo</p>
-      <h2 id="schedule-title">Prossimi programmi</h2>
+      <div class="schedule-heading">
+        <h2 id="schedule-title">Prossimi programmi</h2>
+        <button class="drawer-close" type="button" (click)="closeSchedule()">Chiudi</button>
+      </div>
 
       <ol class="program-list">
         @for (program of upcomingPrograms; track program.id) {
@@ -203,6 +215,10 @@
       </ol>
     </aside>
   </div>
+
+  @if (isScheduleOpen()) {
+    <button class="drawer-scrim" type="button" aria-label="Chiudi programmi" (click)="closeSchedule()"></button>
+  }
 
   <app-radio-player
     [audioSource]="audioSource"
