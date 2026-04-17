@@ -18,6 +18,12 @@
   width: min(1360px, calc(100% - 28px));
 }
 
+@media (max-width: 430px) {
+  .app-shell.is-radio-shell .main-content {
+    width: min(1360px, calc(100% - 14px));
+  }
+}
+
 .audio-controls {
   position: fixed;
   right: 20px;
