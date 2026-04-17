@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   Output,
   SimpleChanges,
   ViewChild,
@@ -24,15 +25,16 @@ import type { RadioMode } from '../../radio.models';
   templateUrl: './radio-player.html',
   styleUrl: './radio-player.css',
 })
-export class RadioPlayer implements OnChanges {
+export class RadioPlayer implements OnChanges, OnDestroy {
   @Input({ required: true }) audioSource!: string;
   @Input() videoSource: string | null = null;
+  @Input() externalVideoElement: HTMLVideoElement | null = null;
   @Input({ required: true }) mode!: RadioMode;
 
   @Output() readonly playbackChange = new EventEmitter<boolean>();
 
   @ViewChild('audioElement') private readonly audioElement?: ElementRef<HTMLAudioElement>;
-  @ViewChild('videoElement') private readonly videoElement?: ElementRef<HTMLVideoElement>;
+  private videoElement: HTMLVideoElement | null = null;
 
   readonly isPlaying = signal(false);
   readonly progress = signal(0);
@@ -43,15 +45,25 @@ export class RadioPlayer implements OnChanges {
   readonly playIcon = faPlay;
   readonly volumeHighIcon = faVolumeHigh;
   readonly volumeMutedIcon = faVolumeXmark;
+  private readonly updateVideoState = (event: Event) => this.updateMediaState(event);
+  private readonly updateVideoProgress = (event: Event) => this.updateProgress(event);
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['mode'] || changes['audioSource'] || changes['videoSource']) {
+    if (changes['externalVideoElement']) {
+      this.setExternalVideo(this.externalVideoElement);
+    }
+
+    if (changes['mode'] || changes['audioSource'] || changes['videoSource'] || changes['externalVideoElement']) {
       this.pauseAll();
       this.progress.set(0);
       this.elapsedLabel.set('0:00');
       this.durationLabel.set(this.mode === 'video' ? 'VIDEO' : 'LIVE');
       this.syncVolume();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.detachVideoEvents();
   }
 
   togglePlayback(): void {
@@ -113,7 +125,7 @@ export class RadioPlayer implements OnChanges {
 
   private activeMedia(): HTMLMediaElement | null {
     if (this.mode === 'video') {
-      return this.videoElement?.nativeElement ?? null;
+      return this.videoElement;
     }
 
     return this.audioElement?.nativeElement ?? null;
@@ -121,7 +133,7 @@ export class RadioPlayer implements OnChanges {
 
   private pauseAll(): void {
     this.audioElement?.nativeElement.pause();
-    this.videoElement?.nativeElement.pause();
+    this.videoElement?.pause();
     this.isPlaying.set(false);
     this.playbackChange.emit(false);
   }
@@ -133,9 +145,38 @@ export class RadioPlayer implements OnChanges {
       this.audioElement.nativeElement.volume = volume;
     }
 
-    if (this.videoElement?.nativeElement) {
-      this.videoElement.nativeElement.volume = volume;
+    if (this.videoElement) {
+      this.videoElement.volume = volume;
     }
+  }
+
+  private setExternalVideo(videoElement: HTMLVideoElement | null): void {
+    if (this.videoElement === videoElement) {
+      return;
+    }
+
+    this.detachVideoEvents();
+    this.videoElement = videoElement;
+
+    if (!this.videoElement) {
+      return;
+    }
+
+    this.videoElement.addEventListener('play', this.updateVideoState);
+    this.videoElement.addEventListener('pause', this.updateVideoState);
+    this.videoElement.addEventListener('timeupdate', this.updateVideoProgress);
+    this.videoElement.addEventListener('loadedmetadata', this.updateVideoProgress);
+  }
+
+  private detachVideoEvents(): void {
+    if (!this.videoElement) {
+      return;
+    }
+
+    this.videoElement.removeEventListener('play', this.updateVideoState);
+    this.videoElement.removeEventListener('pause', this.updateVideoState);
+    this.videoElement.removeEventListener('timeupdate', this.updateVideoProgress);
+    this.videoElement.removeEventListener('loadedmetadata', this.updateVideoProgress);
   }
 
   private formatTime(value: number): string {

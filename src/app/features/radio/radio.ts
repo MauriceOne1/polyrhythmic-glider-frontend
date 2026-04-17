@@ -25,7 +25,7 @@ import type { ProgramSlot, RadioMode, RadioTrack } from './radio.models';
 })
 export class Radio {
   readonly audioSource = '/assets/audio/protoclusta.mp3';
-  readonly videoSource: string | null = null;
+  readonly videoSource: string | null = '/assets/video/rickroll.mp4';
   readonly onAirIcon = faTowerBroadcast;
   readonly playlistIcon = faListUl;
   readonly radioIcon = faRadio;

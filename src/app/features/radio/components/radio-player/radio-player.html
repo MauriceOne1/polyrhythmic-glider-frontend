@@ -9,19 +9,6 @@
     (loadedmetadata)="updateProgress($event)"
   ></audio>
 
-  @if (videoSource) {
-    <video
-      #videoElement
-      [src]="videoSource"
-      preload="metadata"
-      playsinline
-      (play)="updateMediaState($event)"
-      (pause)="updateMediaState($event)"
-      (timeupdate)="updateProgress($event)"
-      (loadedmetadata)="updateProgress($event)"
-    ></video>
-  }
-
   <div class="transport">
     <button
       class="play-button"

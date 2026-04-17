@@ -54,24 +54,45 @@
           </span>
           <span>In onda</span>
         </span>
-        <dl class="now-track-list">
-          <div>
-            <dt>Traccia</dt>
-            <dd>{{ currentTrack.title }}</dd>
-          </div>
-          <div>
-            <dt>Artista</dt>
-            <dd>{{ currentTrack.artist }}</dd>
-          </div>
-          <div>
-            <dt>Album</dt>
-            <dd>{{ currentTrack.album }}</dd>
-          </div>
-          <div>
-            <dt>Etichetta</dt>
-            <dd>{{ currentTrack.label }}</dd>
-          </div>
-        </dl>
+        @if (mode() === 'video' && videoSource) {
+          <dl class="now-track-list">
+            <div>
+              <dt>Segnale</dt>
+              <dd>Video live</dd>
+            </div>
+            <div>
+              <dt>Regia</dt>
+              <dd>Polyradio</dd>
+            </div>
+            <div>
+              <dt>Controlli</dt>
+              <dd>Radio deck</dd>
+            </div>
+            <div>
+              <dt>Feed</dt>
+              <dd>Attivo</dd>
+            </div>
+          </dl>
+        } @else {
+          <dl class="now-track-list">
+            <div>
+              <dt>Traccia</dt>
+              <dd>{{ currentTrack.title }}</dd>
+            </div>
+            <div>
+              <dt>Artista</dt>
+              <dd>{{ currentTrack.artist }}</dd>
+            </div>
+            <div>
+              <dt>Album</dt>
+              <dd>{{ currentTrack.album }}</dd>
+            </div>
+            <div>
+              <dt>Etichetta</dt>
+              <dd>{{ currentTrack.label }}</dd>
+            </div>
+          </dl>
+        }
       </button>
 
       <section class="track-card" aria-label="Dati del brano">
@@ -142,24 +163,23 @@
     </section>
 
     <section class="stage-panel" aria-label="Player radio">
-      @if (mode() === 'video' && videoSource) {
-        <video [src]="videoSource" controls preload="metadata" playsinline></video>
-      } @else if (mode() === 'video') {
+      <video
+        #stageVideo
+        class="stage-video"
+        [class.is-active]="mode() === 'video' && !!videoSource"
+        [src]="videoSource ?? ''"
+        preload="metadata"
+        playsinline
+      ></video>
+
+      @if (mode() === 'video' && !videoSource) {
         <div class="video-stage">
           <span>Video</span>
           <strong>Regia in attesa</strong>
           <small>Qui arrivera' il feed fisso della diretta.</small>
         </div>
-      } @else {
+      } @else if (mode() === 'audio') {
         <div class="audio-stage">
-          <span class="ring ring-one"></span>
-          <span class="ring ring-two"></span>
-          <span class="ring ring-three"></span>
-          <div>
-            <p class="kicker">Audio</p>
-            <strong>{{ currentTrack.title }}</strong>
-            <small>{{ currentProgram.host }}</small>
-          </div>
         </div>
       }
 
@@ -223,6 +243,7 @@
   <app-radio-player
     [audioSource]="audioSource"
     [videoSource]="videoSource"
+    [externalVideoElement]="stageVideo"
     [mode]="mode()"
     (playbackChange)="setRadioPlaying($event)"
   ></app-radio-player>
