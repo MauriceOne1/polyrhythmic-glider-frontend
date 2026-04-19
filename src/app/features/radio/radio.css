@@ -18,96 +18,91 @@
 }
 
 .radio-topbar,
-.console-grid {
+.console-grid,
+.panel,
+.program-copy {
   min-width: 0;
 }
 
 .radio-topbar {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 18px;
-  align-items: center;
-}
-
-.kicker {
-  margin: 0 0 6px;
-  color: rgba(157, 231, 255, 0.78);
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
 }
 
 h1,
 h2,
-p {
-  margin-top: 0;
+p,
+.now-header .kicker,
+.now-header h2,
+.schedule-panel .kicker,
+.schedule-panel h2,
+.now-track-list,
+.now-track-list dt,
+.now-track-list dd,
+.track-stat dt,
+.track-stat dd,
+.stage-detail p,
+.program-list {
+  margin: 0;
 }
 
 h1 {
-  margin-bottom: 0;
   font-size: 2.45rem;
-  line-height: 1;
 }
 
 h2 {
   margin-bottom: 10px;
   font-size: 1.35rem;
-  line-height: 1.1;
 }
 
-.status-strip,
-.signal-chip,
+.kicker {
+  color: rgba(157, 231, 255, 0.78);
+}
+
+.kicker,
+.info-card-label,
+.track-stat dt,
+.stage-card-label,
+.program-meta,
+.program-status {
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.info-card-label,
+.track-stat dt,
+.stage-card-label,
+.program-status,
+.mode-card button,
+.mobile-schedule-button {
+  display: inline-flex;
+  align-items: center;
+}
+
+.panel,
+.song-now,
+.mode-card,
+.track-card,
+.track-stat,
+.audio-stage,
+.stage-detail,
+.program-item {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
 .panel,
 .song-now,
 .mode-card {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
   background: rgba(10, 12, 18, 0.76);
-  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(20px) saturate(140%);
-}
-
-.status-strip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px;
 }
 
 .mobile-schedule-button,
 .drawer-close,
 .drawer-scrim {
   display: none;
-}
-
-.signal-chip,
-.ghost-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 42px;
-  padding: 0 14px;
-  font-size: 0.82rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.signal-chip {
-  color: #b6ff69;
-}
-
-.ghost-chip {
-  color: rgba(247, 247, 251, 0.28);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.status-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #b6ff69;
-  box-shadow: 0 0 0 7px rgba(182, 255, 105, 0.12);
 }
 
 .console-grid {
@@ -119,21 +114,8 @@ h2 {
 
 .panel {
   min-height: 0;
-  min-width: 0;
   overflow: hidden;
   padding: 18px;
-}
-
-.muted,
-.song-now small,
-.program-list small,
-.track-card dt {
-  color: rgba(247, 247, 251, 0.62);
-}
-
-.muted {
-  margin-bottom: 16px;
-  line-height: 1.5;
 }
 
 .now-panel {
@@ -143,19 +125,24 @@ h2 {
   gap: 12px;
 }
 
-.now-header {
+.now-header,
+.song-now,
+.now-track-list,
+.now-track-list div,
+.track-card,
+.track-stat,
+.mode-card,
+.stage-detail,
+.schedule-panel,
+.program-copy {
   display: grid;
+}
+
+.now-header {
   gap: 7px;
 }
 
-.now-header .kicker,
-.now-header h2,
-.now-header .muted {
-  margin: 0;
-}
-
 .song-now {
-  display: grid;
   align-content: center;
   gap: 10px;
   width: 100%;
@@ -165,7 +152,6 @@ h2 {
   text-align: left;
   background: rgba(182, 255, 105, 0.09);
   cursor: pointer;
-  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
 }
 
 .song-now:hover,
@@ -174,21 +160,11 @@ h2 {
   background: rgba(182, 255, 105, 0.12);
 }
 
-.song-now.is-selected {
-  box-shadow:
-    inset 0 0 0 1px rgba(182, 255, 105, 0.16),
-    0 18px 54px rgba(0, 0, 0, 0.18);
-}
-
 .info-card-label {
-  display: inline-flex;
-  align-items: center;
   gap: 7px;
   width: fit-content;
   color: rgba(247, 247, 251, 0.72);
   font-size: 0.72rem;
-  font-weight: 900;
-  text-transform: uppercase;
 }
 
 .info-card-icon {
@@ -202,75 +178,64 @@ h2 {
 }
 
 .now-track-list {
-  display: grid;
   gap: 9px;
-  margin: 0;
 }
 
 .now-track-list div {
-  display: grid;
   gap: 2px;
-  min-width: 0;
 }
 
 .now-track-list dt,
-.now-track-list dd {
-  margin: 0;
+.track-stat dt,
+.song-now small,
+.program-list small {
+  color: rgba(247, 247, 251, 0.62);
 }
 
 .now-track-list dt {
-  color: rgba(247, 247, 251, 0.52);
   font-size: 0.66rem;
-  font-weight: 900;
-  text-transform: uppercase;
 }
 
-.now-track-list dd {
-  color: #f7f7fb;
-  font-size: 0.92rem;
-  font-weight: 850;
-  line-height: 1.14;
+.now-track-list dd,
+.track-stat dd,
+.program-list strong,
+.stage-detail strong {
   overflow-wrap: anywhere;
+  color: #f7f7fb;
+  font-weight: 900;
+}
+
+.now-track-list dd,
+.track-stat dd {
+  font-size: 0.92rem;
 }
 
 .now-track-list div:first-child dd {
   font-size: 1.48rem;
-  font-weight: 900;
-  line-height: 1;
 }
 
 .track-card {
-  display: grid;
-  align-content: stretch;
   grid-template-rows: auto minmax(0, 1fr);
   gap: 12px;
   min-height: 0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
   padding: 14px;
-  background:
-    linear-gradient(135deg, rgba(157, 231, 255, 0.09), transparent 54%),
-    rgba(255, 255, 255, 0.045);
-  backdrop-filter: blur(20px) saturate(140%);
+  background: rgba(255, 255, 255, 0.045);
 }
 
 .track-stat-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-content: stretch;
   gap: 8px;
   margin: 0;
 }
 
 .track-stat {
-  display: grid;
   align-content: center;
   gap: 8px;
-  min-height: 0;
   min-width: 0;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  min-height: 0;
   padding: 10px 9px;
+  border-color: rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.045);
 }
 
@@ -278,42 +243,16 @@ h2 {
   grid-column: 1 / -1;
   min-height: 76px;
   padding: 12px;
-  background:
-    linear-gradient(135deg, rgba(182, 255, 105, 0.12), transparent 58%),
-    rgba(255, 255, 255, 0.055);
-}
-
-.track-stat dt,
-.track-stat dd {
-  margin: 0;
+  background: rgba(182, 255, 105, 0.08);
 }
 
 .track-stat dt {
-  display: inline-flex;
-  align-items: center;
   gap: 6px;
   color: rgba(247, 247, 251, 0.52);
   font-size: 0.62rem;
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.track-stat dd {
-  overflow-wrap: anywhere;
-  color: #f7f7fb;
-  font-size: 0.92rem;
-  line-height: 1.08;
-  font-weight: 900;
-}
-
-.track-stat-main dd {
-  font-size: 1.05rem;
-  line-height: 1.12;
 }
 
 .mode-card {
-  display: grid;
   align-content: center;
   gap: 10px;
   min-height: 0;
@@ -327,9 +266,8 @@ h2 {
   gap: 8px;
 }
 
-.mode-card button {
-  display: inline-flex;
-  align-items: center;
+.mode-card button,
+.mobile-schedule-button {
   justify-content: center;
   gap: 7px;
   min-height: 40px;
@@ -346,26 +284,18 @@ h2 {
   background: #f7f7fb;
 }
 
-.mode-card button:disabled {
-  cursor: not-allowed;
-  color: rgba(247, 247, 251, 0.28);
-  background: rgba(255, 255, 255, 0.035);
-  opacity: 0.72;
-}
-
 .mode-card small {
   color: rgba(247, 247, 251, 0.58);
   font-size: 0.74rem;
-  line-height: 1.32;
 }
 
 .stage-panel {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   gap: 12px;
-  padding: 0;
   min-height: 0;
   overflow: hidden;
+  padding: 0;
 }
 
 .stage-panel video {
@@ -385,36 +315,26 @@ h2 {
 }
 
 .audio-stage {
-  position: relative;
   display: grid;
   place-items: center;
   min-height: 0;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
   text-align: center;
+}
+
+.audio-stage {
+  overflow: hidden;
   background: url('/assets/img/chaos.jpg') center / cover;
-  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(20px) saturate(140%);
 }
 
 .stage-detail {
   z-index: 2;
-  display: grid;
   gap: 6px;
-  border: 1px solid rgba(157, 231, 255, 0.24);
-  border-radius: 8px;
   padding: 14px;
-  background:
-    linear-gradient(135deg, rgba(157, 231, 255, 0.13), transparent 44%),
-    rgba(9, 11, 18, 0.9);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
-  backdrop-filter: blur(18px) saturate(150%);
+  border-color: rgba(157, 231, 255, 0.24);
+  background: rgba(9, 11, 18, 0.9);
 }
 
 .stage-card-label {
-  display: inline-flex;
-  align-items: center;
   gap: 6px;
   width: fit-content;
   border-radius: 999px;
@@ -422,13 +342,6 @@ h2 {
   color: #090b12;
   background: #9de7ff;
   font-size: 0.58rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.stage-detail strong {
-  font-size: 1.05rem;
-  line-height: 1.1;
 }
 
 .stage-detail small,
@@ -436,60 +349,23 @@ h2 {
   color: rgba(247, 247, 251, 0.68);
 }
 
-.stage-detail p {
-  margin: 0;
+.stage-detail p,
+.program-list small {
   display: -webkit-box;
   overflow: hidden;
-  font-size: 0.78rem;
-  line-height: 1.4;
   -webkit-box-orient: vertical;
+}
+
+.stage-detail p {
+  font-size: 0.78rem;
   -webkit-line-clamp: 2;
 }
 
-.video-stage {
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 10px;
-  min-height: 0;
-  padding: 24px;
-  text-align: center;
-  background:
-    linear-gradient(135deg, rgba(247, 247, 251, 0.1), transparent 38%),
-    linear-gradient(225deg, rgba(157, 231, 255, 0.14), transparent 42%),
-    #050607;
-}
-
-.video-stage span {
-  border-radius: 999px;
-  padding: 6px 10px;
-  color: #090b12;
-  background: #f7f7fb;
-  font-size: 0.72rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.video-stage strong {
-  font-size: 2.2rem;
-  line-height: 1;
-}
-
-.video-stage small {
-  color: rgba(247, 247, 251, 0.64);
-}
-
 .schedule-panel {
-  display: grid;
+  position: relative;
   grid-template-rows: auto auto minmax(0, 1fr);
   gap: 12px;
-  position: relative;
   overflow: hidden;
-}
-
-.schedule-panel .kicker,
-.schedule-panel h2 {
-  margin: 0;
 }
 
 .schedule-heading {
@@ -501,14 +377,12 @@ h2 {
   grid-template-rows: repeat(8, minmax(0, 1fr));
   gap: 8px;
   min-height: 0;
-  margin: 0;
   overflow: visible;
   padding: 0;
   list-style: none;
 }
 
 .program-item {
-  position: static;
   display: grid;
   grid-template-columns: 54px minmax(0, 1fr);
   gap: 9px;
@@ -516,32 +390,17 @@ h2 {
   width: 100%;
   height: 100%;
   min-height: 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-left-width: 4px;
-  border-radius: 8px;
   padding: 8px 8px 8px 12px;
-  background: rgba(255, 255, 255, 0.04);
   color: inherit;
   text-align: left;
   cursor: pointer;
-  transition: border-color 160ms ease, background 160ms ease;
 }
 
 .program-item.is-on-air {
   border-color: rgba(182, 255, 105, 0.32);
   border-left-color: #b6ff69;
   background: rgba(182, 255, 105, 0.08);
-}
-
-.program-item.is-selected {
-  border-color: rgba(247, 247, 251, 0.24);
-  border-left-color: #f7f7fb;
-  background: rgba(247, 247, 251, 0.105);
-  box-shadow: inset 0 0 0 1px rgba(247, 247, 251, 0.1);
-}
-
-.program-item:hover {
-  background: rgba(255, 255, 255, 0.035);
 }
 
 .program-item.is-playlist {
@@ -560,14 +419,10 @@ h2 {
   color: #9de7ff;
   font-size: 0.78rem;
   font-weight: 900;
-  line-height: 1.15;
 }
 
 .program-copy {
-  display: grid;
-  align-content: center;
   gap: 4px;
-  min-width: 0;
 }
 
 .program-meta {
@@ -577,39 +432,24 @@ h2 {
   align-items: center;
   color: rgba(247, 247, 251, 0.48);
   font-size: 0.58rem;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.program-list strong,
-.program-list small {
-  overflow-wrap: anywhere;
 }
 
 .program-list strong {
   font-size: 0.88rem;
-  line-height: 1.08;
 }
 
 .program-list small {
-  display: -webkit-box;
-  overflow: hidden;
   font-size: 0.7rem;
-  line-height: 1.18;
-  -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
 
 .program-status {
-  display: inline-flex;
-  align-items: center;
   gap: 4px;
   min-height: 18px;
   border-radius: 999px;
   padding: 2px 6px;
   font-size: 0.5rem;
   font-style: normal;
-  font-weight: 900;
 }
 
 .program-item.is-on-air .program-status {
@@ -629,15 +469,10 @@ h2 {
 
 @media (max-width: 680px) {
   :host {
-    height: 100dvh;
     min-height: 0;
-    overflow: hidden;
   }
 
   .radio-console {
-    min-height: 0;
-    height: 100%;
-    grid-template-rows: auto minmax(0, 1fr) auto;
     gap: 8px;
     padding: 8px 0;
   }
@@ -650,17 +485,13 @@ h2 {
 
   .mobile-schedule-button {
     display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 34px;
     align-self: end;
-    border: 1px solid rgba(157, 231, 255, 0.24);
-    border-radius: 8px;
+    min-height: 34px;
+    border-color: rgba(157, 231, 255, 0.24);
     padding: 0 10px;
     color: #090b12;
     background: #9de7ff;
     font-size: 0.7rem;
-    font-weight: 900;
     text-transform: uppercase;
   }
 
@@ -668,42 +499,9 @@ h2 {
     font-size: 1.45rem;
   }
 
-  h2 {
-    font-size: 0.96rem;
-  }
-
   .kicker {
     margin-bottom: 3px;
     font-size: 0.62rem;
-  }
-
-  .status-strip {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    width: 100%;
-    gap: 5px;
-    padding: 5px;
-  }
-
-  .signal-chip,
-  .ghost-chip {
-    justify-content: center;
-    gap: 4px;
-    min-height: 28px;
-    padding: 0 5px;
-    font-size: 0.54rem;
-  }
-
-  .signal-chip fa-icon,
-  .ghost-chip fa-icon {
-    font-size: 0.58rem;
-  }
-
-  .status-dot {
-    width: 6px;
-    height: 6px;
-    box-shadow: 0 0 0 3px rgba(182, 255, 105, 0.12);
   }
 
   .console-grid {
@@ -713,24 +511,14 @@ h2 {
     overflow-y: auto;
   }
 
-  .panel {
+  .panel,
+  .song-now {
     padding: 8px;
-  }
-
-  .now-panel,
-  .schedule-panel {
-    display: grid;
-    min-height: 0;
-    gap: 6px;
   }
 
   .now-panel {
     grid-template-rows: auto auto;
-  }
-
-  .song-now,
-  .mode-card {
-    padding: 8px;
+    gap: 6px;
   }
 
   .info-card-label {
@@ -744,11 +532,14 @@ h2 {
   }
 
   .now-track-list {
-    grid-template-columns: 1fr;
     gap: 4px;
   }
 
-  .now-track-list div:nth-child(n + 3) {
+  .now-track-list div:nth-child(n + 3),
+  .track-card,
+  .stage-detail,
+  .mode-card .info-card-label,
+  .mode-card small {
     display: none;
   }
 
@@ -765,16 +556,9 @@ h2 {
   }
 
   .mode-card {
-    border: 0;
     padding: 0;
+    border: 0;
     background: transparent;
-    box-shadow: none;
-    backdrop-filter: none;
-  }
-
-  .mode-card .info-card-label,
-  .mode-card small {
-    display: none;
   }
 
   .mode-card button {
@@ -786,12 +570,6 @@ h2 {
   .stage-panel {
     order: -1;
     grid-template-rows: minmax(0, 1fr);
-    gap: 8px;
-  }
-
-  .track-card,
-  .stage-detail {
-    display: none;
   }
 
   .schedule-panel {
@@ -802,6 +580,7 @@ h2 {
     bottom: 104px;
     width: min(330px, calc(100% - 28px));
     grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 6px;
     transform: translateX(calc(100% + 16px));
     transition: transform 180ms ease;
   }
@@ -812,9 +591,9 @@ h2 {
 
   .schedule-heading {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 10px;
-    align-items: center;
   }
 
   .drawer-close {
@@ -845,8 +624,8 @@ h2 {
   .program-item {
     grid-template-columns: 38px minmax(0, 1fr);
     gap: 5px;
-    padding: 5px;
     border-left-width: 3px;
+    padding: 5px;
   }
 
   .program-list time {
@@ -866,7 +645,6 @@ h2 {
 
   .program-list strong {
     font-size: 0.68rem;
-    line-height: 1.05;
   }
 }
 
@@ -876,16 +654,8 @@ h2 {
     padding: 6px 0;
   }
 
-  .status-strip {
-    display: none;
-  }
-
-  .console-grid { gap: 6px; }
-
-  .now-header {
-    display: none;
-  }
-
+  .status-strip,
+  .now-header,
   .now-track-list div:nth-child(n + 2) {
     display: none;
   }
