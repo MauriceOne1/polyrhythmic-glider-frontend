@@ -1,7 +1,7 @@
 <section class="radio-deck" aria-label="Player radio">
   <audio
     #audioElement
-    [src]="audioSource"
+    [src]="audioSource()"
     preload="metadata"
     (play)="updateMediaState($event)"
     (pause)="updateMediaState($event)"
@@ -13,7 +13,7 @@
     <button
       class="play-button"
       type="button"
-      [disabled]="mode === 'video' && !videoSource"
+      [disabled]="mode() === 'video' && !videoSource()"
       [attr.aria-label]="isPlaying() ? 'Metti in pausa' : 'Riproduci'"
       (click)="togglePlayback()"
     >

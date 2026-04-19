@@ -1,23 +1,11 @@
 ﻿import { Routes } from '@angular/router';
-import { Home } from './features/home/home';
-import { Experimental } from './features/experimental/experimental';
-import { Snake } from './features/snake/snake';
-import { GameOfLife } from './features/game-of-life/game-of-life';
-import { Admin } from './features/admin/admin';
-import { Login } from './features/login/login';
-import { Participation } from './features/participation/participation';
-import { Blog } from './features/blog/blog';
-import { BlogPost } from './features/blog-post/blog-post';
-import { HackerManifesto } from './features/hacker-manifesto/hacker-manifesto';
-import { Radio } from './features/radio/radio';
-import { Toast } from './features/toast/toast';
 import { blogAccessGuard } from './core/identity/blog-access.guard';
 import { identityGuard } from './core/identity/identity.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    component: Home,
+    loadComponent: () => import('./features/home/home').then((m) => m.Home),
     data: {
       seo: {
         title: 'Polyrhythmic Glider | Musica, codice ed esperimenti digitali',
@@ -29,7 +17,8 @@ export const routes: Routes = [
   },
   {
     path: 'experimental',
-    component: Experimental,
+    loadComponent: () =>
+      import('./features/experimental/experimental').then((m) => m.Experimental),
     data: {
       seo: {
         title: 'Experimental | Polyrhythmic Glider',
@@ -41,7 +30,7 @@ export const routes: Routes = [
   },
   {
     path: 'snake',
-    component: Snake,
+    loadComponent: () => import('./features/snake/snake').then((m) => m.Snake),
     data: {
       seo: {
         title: 'Snake | Polyrhythmic Glider',
@@ -53,7 +42,8 @@ export const routes: Routes = [
   },
   {
     path: 'game-of-life',
-    component: GameOfLife,
+    loadComponent: () =>
+      import('./features/game-of-life/game-of-life').then((m) => m.GameOfLife),
     data: {
       seo: {
         title: 'Game of Life | Polyrhythmic Glider',
@@ -65,7 +55,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: Login,
+    loadComponent: () => import('./features/login/login').then((m) => m.Login),
     data: {
       seo: {
         title: 'Login | Polyrhythmic Glider',
@@ -78,7 +68,10 @@ export const routes: Routes = [
   },
   {
     path: 'partecipa',
-    component: Participation,
+    loadComponent: () =>
+      import('./features/participation/participation').then(
+        (m) => m.Participation
+      ),
     data: {
       seo: {
         title: 'Partecipa | BYOS! an electronic synth jam',
@@ -90,7 +83,7 @@ export const routes: Routes = [
   },
   {
     path: 'blog',
-    component: Blog,
+    loadComponent: () => import('./features/blog/blog').then((m) => m.Blog),
     canActivate: [blogAccessGuard],
     data: {
       seo: {
@@ -109,7 +102,8 @@ export const routes: Routes = [
   },
   {
     path: 'blog/:slug',
-    component: BlogPost,
+    loadComponent: () =>
+      import('./features/blog-post/blog-post').then((m) => m.BlogPost),
     canActivate: [blogAccessGuard],
     data: {
       seo: {
@@ -128,7 +122,7 @@ export const routes: Routes = [
   },
   {
     path: 'radio',
-    component: Radio,
+    loadComponent: () => import('./features/radio/radio').then((m) => m.Radio),
     data: {
       seo: {
         title: 'Radio | Polyrhythmic Glider',
@@ -141,7 +135,7 @@ export const routes: Routes = [
   },
   {
     path: 'toast',
-    component: Toast,
+    loadComponent: () => import('./features/toast/toast').then((m) => m.Toast),
     data: {
       seo: {
         title: 'Toast | Polyrhythmic Glider',
@@ -154,7 +148,10 @@ export const routes: Routes = [
   },
   {
     path: 'hacker-manifesto',
-    component: HackerManifesto,
+    loadComponent: () =>
+      import('./features/hacker-manifesto/hacker-manifesto').then(
+        (m) => m.HackerManifesto
+      ),
     data: {
       seo: {
         title: 'The Hacker Manifesto | Polyrhythmic Glider',
@@ -167,7 +164,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    component: Admin,
+    loadComponent: () => import('./features/admin/admin').then((m) => m.Admin),
     canActivate: [identityGuard],
     data: {
       seo: {

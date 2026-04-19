@@ -1,15 +1,15 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
   OnDestroy,
-  Output,
-  SimpleChanges,
   ViewChild,
+  effect,
+  input,
+  output,
   signal,
+  untracked,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -25,14 +25,15 @@ import type { RadioMode } from '../../radio.models';
   imports: [FontAwesomeModule],
   templateUrl: './radio-player.html',
   styleUrl: './radio-player.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RadioPlayer implements AfterViewInit, OnChanges, OnDestroy {
-  @Input({ required: true }) audioSource!: string;
-  @Input() videoSource: string | null = null;
-  @Input() externalVideoElement: HTMLVideoElement | null = null;
-  @Input({ required: true }) mode!: RadioMode;
+export class RadioPlayer implements AfterViewInit, OnDestroy {
+  readonly audioSource = input.required<string>();
+  readonly videoSource = input<string | null>(null);
+  readonly externalVideoElement = input<HTMLVideoElement | null>(null);
+  readonly mode = input.required<RadioMode>();
 
-  @Output() readonly playbackChange = new EventEmitter<boolean>();
+  readonly playbackChange = output<boolean>();
 
   @ViewChild('audioElement') private readonly audioElement?: ElementRef<HTMLAudioElement>;
   private videoElement: HTMLVideoElement | null = null;
@@ -52,23 +53,27 @@ export class RadioPlayer implements AfterViewInit, OnChanges, OnDestroy {
   private readonly updateVideoState = (event: Event) => this.updateMediaState(event);
   private readonly updateVideoProgress = (event: Event) => this.updateProgress(event);
 
+  constructor() {
+    effect(() => {
+      const externalVideoElement = this.externalVideoElement();
+      const mode = this.mode();
+      this.audioSource();
+      this.videoSource();
+
+      untracked(() => {
+        this.setExternalVideo(externalVideoElement);
+        this.pauseAll();
+        this.progress.set(0);
+        this.elapsedLabel.set('0:00');
+        this.durationLabel.set(mode === 'video' ? 'VIDEO' : 'LIVE');
+        this.syncVolume();
+      });
+    });
+  }
+
   ngAfterViewInit(): void {
     this.setupAudioGain();
     this.syncVolume();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['externalVideoElement']) {
-      this.setExternalVideo(this.externalVideoElement);
-    }
-
-    if (changes['mode'] || changes['audioSource'] || changes['videoSource'] || changes['externalVideoElement']) {
-      this.pauseAll();
-      this.progress.set(0);
-      this.elapsedLabel.set('0:00');
-      this.durationLabel.set(this.mode === 'video' ? 'VIDEO' : 'LIVE');
-      this.syncVolume();
-    }
   }
 
   ngOnDestroy(): void {
@@ -108,7 +113,7 @@ export class RadioPlayer implements AfterViewInit, OnChanges, OnDestroy {
     if (!Number.isFinite(media.duration) || media.duration <= 0) {
       this.progress.set(0);
       this.elapsedLabel.set(this.formatTime(media.currentTime));
-      this.durationLabel.set(this.mode === 'video' ? 'VIDEO' : 'LIVE');
+      this.durationLabel.set(this.mode() === 'video' ? 'VIDEO' : 'LIVE');
       return;
     }
 
@@ -137,7 +142,7 @@ export class RadioPlayer implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   private activeMedia(): HTMLMediaElement | null {
-    if (this.mode === 'video') {
+    if (this.mode() === 'video') {
       return this.videoElement;
     }
 
@@ -186,7 +191,7 @@ export class RadioPlayer implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   private resumeAudioContext(): void {
-    if (this.mode !== 'audio' || !this.audioContext || this.audioContext.state !== 'suspended') {
+    if (this.mode() !== 'audio' || !this.audioContext || this.audioContext.state !== 'suspended') {
       return;
     }
 

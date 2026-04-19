@@ -1,12 +1,13 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Input,
-  OnChanges,
   OnDestroy,
-  SimpleChanges,
   ViewChild,
+  effect,
+  input,
+  untracked,
 } from '@angular/core';
 import type { ProgramSlot, RadioMode } from '../../radio.models';
 
@@ -24,12 +25,13 @@ type Particle = {
   imports: [],
   templateUrl: './radio-background.html',
   styleUrl: './radio-background.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RadioBackground implements AfterViewInit, OnChanges, OnDestroy {
-  @Input({ required: true }) bpm!: number | null;
-  @Input({ required: true }) mode!: RadioMode;
-  @Input({ required: true }) status!: ProgramSlot['status'];
-  @Input({ required: true }) isActive!: boolean;
+export class RadioBackground implements AfterViewInit, OnDestroy {
+  readonly bpm = input.required<number | null>();
+  readonly mode = input.required<RadioMode>();
+  readonly status = input.required<ProgramSlot['status']>();
+  readonly isActive = input.required<boolean>();
 
   @ViewChild('canvas') private readonly canvas?: ElementRef<HTMLCanvasElement>;
 
@@ -49,6 +51,17 @@ export class RadioBackground implements AfterViewInit, OnChanges, OnDestroy {
     this.syncParticleDensity();
   };
 
+  constructor() {
+    effect(() => {
+      this.bpm();
+      this.mode();
+      this.status();
+      this.isActive();
+
+      untracked(() => this.syncReactiveState());
+    });
+  }
+
   ngAfterViewInit(): void {
     const canvas = this.canvas?.nativeElement;
     const ctx = canvas?.getContext('2d');
@@ -66,21 +79,16 @@ export class RadioBackground implements AfterViewInit, OnChanges, OnDestroy {
     this.animate();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['bpm'] || changes['mode'] || changes['status'] || changes['isActive']) {
-      this.syncReactiveState();
-    }
-  }
-
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.resizeHandler);
     cancelAnimationFrame(this.animationId);
   }
 
   private syncReactiveState(): void {
-    const normalizedBpm = Math.min(180, Math.max(70, this.bpm || 120));
-    this.targetPulse = this.isActive ? normalizedBpm / 120 : 0.28;
-    this.modeBoost = this.isActive && this.mode === 'video' ? 1.32 : 1;
+    const isActive = this.isActive();
+    const normalizedBpm = Math.min(180, Math.max(70, this.bpm() || 120));
+    this.targetPulse = isActive ? normalizedBpm / 120 : 0.28;
+    this.modeBoost = isActive && this.mode() === 'video' ? 1.32 : 1;
   }
 
   private resizeCanvas(): void {
@@ -161,16 +169,16 @@ export class RadioBackground implements AfterViewInit, OnChanges, OnDestroy {
     const height = window.innerHeight;
     const elapsedSeconds = (performance.now() - this.startedAt) / 1000;
     const beatPhase = Math.sin(
-      elapsedSeconds * (Math.PI * 2) * ((this.bpm || 120) / 60)
+      elapsedSeconds * (Math.PI * 2) * ((this.bpm() || 120) / 60)
     );
-    const beatEnergy = this.isActive ? Math.max(0, beatPhase) : 0;
+    const beatEnergy = this.isActive() ? Math.max(0, beatPhase) : 0;
 
     this.pulse += (this.targetPulse - this.pulse) * 0.04;
 
-    const statusGlow = this.isActive
-      ? this.status === 'on-air'
+    const statusGlow = this.isActive()
+      ? this.status() === 'on-air'
         ? 1
-        : this.status === 'playlist'
+        : this.status() === 'playlist'
           ? 0.76
           : 0.55
       : 0.36;

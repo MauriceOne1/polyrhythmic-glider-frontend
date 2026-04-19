@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faClock,
@@ -22,6 +22,7 @@ import type { ProgramSlot, RadioMode, RadioTrack } from './radio.models';
   imports: [FontAwesomeModule, RadioBackground, RadioPlayer],
   templateUrl: './radio.html',
   styleUrl: './radio.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Radio {
   readonly audioSource = '/assets/audio/protoclusta.mp3';
@@ -93,7 +94,7 @@ export class Radio {
       time: '21:30',
       summary: 'Ascolti lenti, note essenziali e transizioni morbide.',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non luctus mi. Donec vitae arcu sed lorem tempor volutpat.',
+        'Sessione di ascolto guidato con selezioni lente, note sintetiche e passaggi pensati per lasciare spazio al dettaglio.',
       status: 'playlist',
     },
     {
@@ -103,7 +104,7 @@ export class Radio {
       time: '23:00',
       summary: 'Diario da studio tra prove, frammenti e appunti tecnici.',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent fermentum lacus et libero luctus, sed facilisis mi porta.',
+        'Appunti sonori da studio: take incompleti, prove di catena, errori utili e piccoli cambi di setup raccontati in diretta.',
       status: 'registered',
     },
     {
@@ -113,7 +114,7 @@ export class Radio {
       time: '01:00',
       summary: 'Rotazione notturna continua, senza parlato.',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam erat volutpat, sed gravida sem.',
+        'Flusso automatico per la notte con brani in sequenza, dinamica bassa e nessun intervento parlato.',
       status: 'playlist',
     },
     {
@@ -123,7 +124,7 @@ export class Radio {
       time: 'Dom 10:00',
       summary: 'Dub, field recording urbano e basse frequenze.',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam luctus nibh a magna gravida, vitae rutrum neque pulvinar.',
+        'Dub, field recording urbano e basse frequenze montate come una camminata lenta tra cortili, risonanze e traffico distante.',
       status: 'registered',
     },
     {
@@ -133,7 +134,7 @@ export class Radio {
       time: 'Dom 12:00',
       summary: 'Scale storte, folk sintetico e pattern leggeri.',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Vivamus non augue eget justo tempor finibus.',
+        'Scale microtonali, strumenti sintetici e pattern leggeri per una fascia diurna piu curiosa che aggressiva.',
       status: 'playlist',
     },
     {
@@ -143,7 +144,7 @@ export class Radio {
       time: 'Dom 16:30',
       summary: 'Ambient industriale, nastri e droni morbidi.',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel ipsum in risus viverra hendrerit non vitae orci.',
+        'Ambient industriale, nastri consumati e droni morbidi, con texture lente e rumori lasciati respirare.',
       status: 'registered',
     },
     {
@@ -153,7 +154,7 @@ export class Radio {
       time: 'Dom 20:00',
       summary: 'House ruvida, electro e percussioni elastiche.',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi elementum nibh sed neque congue, sit amet porttitor dui posuere.',
+        'House ruvida, electro e percussioni elastiche per chiudere la domenica con un passo piu fisico.',
       status: 'on-air',
     },
     {
@@ -163,7 +164,7 @@ export class Radio {
       time: 'Lun 18:00',
       summary: 'Fusion, drum machine e improvvisazioni modulari.',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu lectus sit amet metus facilisis rhoncus at sit amet urna.',
+        'Fusion, drum machine e improvvisazioni modulari raccolte in una scaletta breve, nervosa e piena di cambi di direzione.',
       status: 'playlist',
     },
   ];

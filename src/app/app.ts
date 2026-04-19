@@ -42,6 +42,16 @@ export class App {
     return `Volume ${Math.round(normalizedVolume * 100)} percento`;
   }
 
+  setBackgroundVolume(event: Event, background: Background): void {
+    const input = event.target;
+
+    if (!(input instanceof HTMLInputElement)) {
+      return;
+    }
+
+    background.setVolume(input.value);
+  }
+
   constructor() {
     if (this.redirectIdentityHashToLogin()) {
       return;
