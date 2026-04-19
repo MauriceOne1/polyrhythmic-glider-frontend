@@ -1,33 +1,118 @@
 <section class="blog-page" aria-labelledby="blog-title">
-  <header class="blog-header readable-copy-card">
-    <p class="blog-kicker">Polyblog</p>
-    <h1 id="blog-title" class="display-font">Research log</h1>
-    <p>
-      Frammenti provvisori con formule, terminali e codice: abbastanza veri da
-      testare la forma, abbastanza finti da poterli riscrivere senza rimpianti.
-    </p>
+  <header class="blog-hero">
+    <div class="blog-hero-copy readable-copy-card">
+      <p class="blog-kicker">Polyblog</p>
+      <h1 id="blog-title" class="display-font">Research log</h1>
+      <p>
+        Appunti finiti su suono, codice, interfacce e archivi vivi: materiale
+        pronto da leggere, filtrare e rimettere in circolo.
+      </p>
+    </div>
+
+    @if (featuredPost(); as featured) {
+      <a class="featured-post" [routerLink]="['/blog', featured.slug]">
+        <img src="/assets/img/chaos.jpg" alt="Onde astratte e luce verde in movimento" />
+        <span class="featured-post-overlay" aria-hidden="true"></span>
+        <span class="featured-post-content">
+          <span class="featured-label">In evidenza</span>
+          <strong>{{ featured.title }}</strong>
+          <span>{{ featured.excerpt }}</span>
+        </span>
+      </a>
+    }
   </header>
 
-  <div class="blog-list" aria-label="Articoli">
-    @for (post of posts; track post.slug) {
-      <article class="blog-card">
-        <div class="blog-card-meta">
-          <span>{{ post.publishedLabel }}</span>
-          <span>{{ post.readingTime }}</span>
-        </div>
+  <section class="blog-dashboard" aria-label="Archivio blog">
+    <div class="blog-stat">
+      <span>Articoli</span>
+      <strong>{{ posts.length }}</strong>
+    </div>
+    <div class="blog-stat">
+      <span>Tag</span>
+      <strong>{{ tags.length - 1 }}</strong>
+    </div>
+    <div class="blog-stat">
+      <span>Lettura</span>
+      <strong>{{ totalReadingMinutes }} min</strong>
+    </div>
+  </section>
 
-        <h2>
-          <a [routerLink]="['/blog', post.slug]">{{ post.title }}</a>
-        </h2>
+  <section class="blog-tools" aria-label="Ricerca e ordinamento">
+    <label class="blog-search">
+      <span>Cerca nel blog</span>
+      <input
+        type="search"
+        [value]="query()"
+        (input)="updateQuery($event)"
+        placeholder="Cerca titolo, tag, categoria..."
+      />
+    </label>
 
-        <p>{{ post.excerpt }}</p>
+    <label class="blog-sort">
+      <span>Ordina</span>
+      <select [value]="selectedSort()" (change)="updateSort($event)">
+        <option value="newest">Piu recenti</option>
+        <option value="oldest">Meno recenti</option>
+        <option value="readingTime">Lettura breve</option>
+        <option value="title">Titolo A-Z</option>
+      </select>
+    </label>
+  </section>
 
-        <div class="blog-tags" aria-label="Tag">
-          @for (tag of post.tags; track tag) {
-            <span>{{ tag }}</span>
-          }
-        </div>
-      </article>
+  <nav class="blog-tag-filter" aria-label="Filtra per tag">
+    @for (tag of tags; track tag) {
+      <button
+        type="button"
+        [class.is-active]="selectedTag() === tag"
+        (click)="selectTag(tag)"
+      >
+        {{ tag }}
+      </button>
+    }
+  </nav>
+
+  <div class="blog-results-bar">
+    <p>{{ resultLabel() }}</p>
+    @if (query() || selectedTag() !== 'Tutti' || selectedSort() !== 'newest') {
+      <button type="button" (click)="clearFilters()">Reset filtri</button>
     }
   </div>
+
+  @if (visiblePosts().length > 0) {
+    <div class="blog-list" aria-label="Articoli">
+      @for (post of visiblePosts(); track post.slug) {
+        <article class="blog-card">
+          <div class="blog-card-meta">
+            <span>{{ post.category }}</span>
+            <span>{{ post.publishedLabel }}</span>
+            <span>{{ post.readingTime }}</span>
+          </div>
+
+          <h2>
+            <a [routerLink]="['/blog', post.slug]">{{ post.title }}</a>
+          </h2>
+
+          <p>{{ post.excerpt }}</p>
+
+          <div class="blog-card-footer">
+            <div class="blog-tags" aria-label="Tag">
+              @for (tag of post.tags; track tag) {
+                <span>{{ tag }}</span>
+              }
+            </div>
+            <a class="blog-read-link" [routerLink]="['/blog', post.slug]">
+              Leggi
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <section class="blog-empty readable-copy-card" aria-live="polite">
+      <p class="blog-kicker">Nessun risultato</p>
+      <h2 class="display-font">La ricerca non ha trovato appunti.</h2>
+      <p>Prova un tag diverso o torna all archivio completo.</p>
+      <button type="button" (click)="clearFilters()">Mostra tutto</button>
+    </section>
+  }
 </section>

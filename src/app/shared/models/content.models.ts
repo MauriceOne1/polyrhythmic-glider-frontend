@@ -39,7 +39,9 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   publishedLabel: string;
+  publishedAt: string;
   readingTime: string;
+  category: string;
   tags: string[];
   blocks: BlogPostBlock[];
 }
