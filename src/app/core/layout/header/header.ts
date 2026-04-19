@@ -1,5 +1,12 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, HostListener, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
@@ -11,6 +18,7 @@ import { NAV_ITEMS } from '../../../shared/utils/site-content';
   imports: [RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
   readonly navItems = NAV_ITEMS;

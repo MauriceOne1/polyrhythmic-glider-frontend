@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SectionShell } from '../../shared/components/section-shell/section-shell';
 import {
   ABOUT_MANIFESTO_CARDS,
@@ -10,6 +10,7 @@ import {
   imports: [SectionShell],
   templateUrl: './about.html',
   styleUrl: './about.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class About {
   readonly manifestoCards = ABOUT_MANIFESTO_CARDS;

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   OnDestroy,
   computed,
@@ -19,6 +20,7 @@ type StatusKind = 'idle' | 'success' | 'error';
   imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login implements OnDestroy {
   readonly identity = inject(IdentityService);

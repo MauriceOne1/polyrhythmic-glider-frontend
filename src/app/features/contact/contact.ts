@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { ContactForm } from '../../shared/components/contact-form/contact-form';
@@ -11,6 +11,7 @@ import { CONTACT_CHANNELS, HERO_TAGS } from '../../shared/utils/site-content';
   imports: [ContactForm, FontAwesomeModule, ReadableKeyPipe, SectionShell],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Contact {
   readonly channels = CONTACT_CHANNELS;

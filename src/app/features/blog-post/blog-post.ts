@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
@@ -10,6 +10,7 @@ import { findBlogPostBySlug } from '../../shared/utils/blog-content';
   imports: [RouterLink, LatexPreviewPipe],
   templateUrl: './blog-post.html',
   styleUrl: './blog-post.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BlogPost {
   private readonly route = inject(ActivatedRoute);

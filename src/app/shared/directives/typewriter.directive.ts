@@ -1,15 +1,13 @@
-import { Directive, ElementRef, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core';
 
 @Directive({
-  selector: '[typewriter]'
+  selector: '[typewriter]',
 })
 export class TypewriterDirective implements AfterViewInit {
-
-  constructor(private el: ElementRef) {}
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   ngAfterViewInit(): void {
-
-    const element = this.el.nativeElement as HTMLElement;
+    const element = this.elementRef.nativeElement;
     const text = element.innerText;
 
     element.innerText = '';

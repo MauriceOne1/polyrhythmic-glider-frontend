@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NAV_ITEMS } from '../../../shared/utils/site-content';
 
@@ -15,6 +15,7 @@ interface ResourceLink {
   imports: [RouterLink],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer {
   readonly currentYear = new Date().getFullYear();

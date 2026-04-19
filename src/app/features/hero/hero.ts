@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnDestroy,
@@ -16,6 +17,7 @@ import { HERO_TERMINAL_COMMAND_GROUPS } from '../../shared/utils/site-content';
   imports: [FontAwesomeModule],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero implements OnInit, AfterViewInit, OnDestroy {
   private static readonly MAX_TERMINAL_HISTORY = 8;

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,6 +7,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
   imports: [FontAwesomeModule],
   templateUrl: './game-of-life.html',
   styleUrl: './game-of-life.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameOfLife {
   readonly isContentVisible = signal(true);

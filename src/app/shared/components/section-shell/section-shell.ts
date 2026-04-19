@@ -1,8 +1,9 @@
-import { booleanAttribute, Component, input } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-section-shell',
   templateUrl: './section-shell.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SectionShell {
   readonly kicker = input.required<string>();

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core';
 import { Contact } from '../contact/contact';
 import { Hero } from '../hero/hero';
 import { About } from '../about/about';
@@ -10,6 +10,7 @@ import { Footer } from '../../core/layout/footer/footer';
   imports: [CommonModule, About, Hero, Contact, Footer],
   templateUrl: './home.html',
   styleUrl: './home.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home implements AfterViewInit {
   ngAfterViewInit(): void {

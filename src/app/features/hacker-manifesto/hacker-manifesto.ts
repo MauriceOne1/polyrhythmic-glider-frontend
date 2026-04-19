@@ -1,4 +1,10 @@
-import { Component, OnInit, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  computed,
+  signal,
+} from '@angular/core';
 
 type ManifestoId = 'it-filosottile' | 'en-phrack';
 type ManifestoDocumentStatus = 'idle' | 'loading' | 'loaded' | 'error';
@@ -138,6 +144,7 @@ const INITIAL_DOCUMENTS: ManifestoDocumentMap = {
   imports: [],
   templateUrl: './hacker-manifesto.html',
   styleUrl: './hacker-manifesto.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HackerManifesto implements OnInit {
   readonly sources = MANIFESTO_SOURCES;
