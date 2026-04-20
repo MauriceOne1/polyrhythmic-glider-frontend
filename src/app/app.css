@@ -10,24 +10,18 @@
 }
 
 .main-content {
-  width: min(1100px, calc(100% - 32px));
+  width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
   margin: 0 auto;
 }
 
 .app-shell.is-radio-shell .main-content {
-  width: min(1360px, calc(100% - 28px));
-}
-
-@media (max-width: 430px) {
-  .app-shell.is-radio-shell .main-content {
-    width: min(1360px, calc(100% - 14px));
-  }
+  width: min(var(--content-wide-max), calc(100% - (var(--page-gutter-compact) * 2)));
 }
 
 .audio-controls {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
   z-index: 9999;
 
   display: flex;
@@ -70,4 +64,16 @@
 
 .global-volume-slider {
   width: 110px;
+}
+
+@media (max-width: 480px) {
+  .audio-controls {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    max-width: calc(100vw - 24px);
+  }
+
+  .global-volume-slider {
+    width: min(96px, 28vw);
+  }
 }

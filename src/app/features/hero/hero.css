@@ -3,6 +3,8 @@
   --m2: 520ms cubic-bezier(0.22, 1, 0.36, 1);
   --m3: 280ms ease;
   display: block;
+  width: 100%;
+  min-height: inherit;
 }
 
 .hero {
@@ -23,14 +25,12 @@
 .hero-copy {
   min-width: 0;
   max-width: 40rem;
-  transition: transform var(--m1);
 }
 
 .hero-copy-card {
   min-width: 0;
   container-type: inline-size;
   transform-origin: center;
-  transition: transform var(--m1), padding var(--m1);
 }
 
 h1 {
@@ -46,12 +46,6 @@ h1 {
   gap: 0.08em;
   max-width: 100%;
   letter-spacing: -0.025em;
-  transition:
-    font-size var(--m2),
-    line-height var(--m2),
-    letter-spacing var(--m2),
-    transform var(--m2),
-    filter var(--m2);
 }
 
 .hero-title-line {
@@ -74,7 +68,7 @@ h1 {
 
 .description {
   max-width: 38rem;
-  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-size: clamp(1.05rem, 3.4cqi, 1.2rem);
   line-height: 1.7;
   color: rgba(247, 247, 251, 0.8);
   transition:
@@ -421,6 +415,10 @@ h1 {
 }
 
 @media (max-width: 639px) {
+  .hero {
+    padding: 28px 0 22px;
+  }
+
   .hero-title {
     font-size: clamp(2.95rem, 14.25cqi, 5rem);
     line-height: 0.93;
@@ -437,24 +435,20 @@ h1 {
 
 @media (max-width: 1023px) {
   .hero {
-    min-height: auto;
+    min-height: inherit;
     grid-template-columns: 1fr;
-    justify-content: center;
-    justify-items: center;
-    align-items: start;
-    align-content: start;
+    align-items: center;
+    align-content: center;
     padding: 40px 0 24px;
   }
 
   .hero-copy {
-    width: min(100%, 42rem);
-    max-width: 42rem;
-    margin-inline: auto;
+    width: 100%;
+    max-width: none;
   }
 
   .hero-copy-card {
     width: 100%;
-    margin-inline: auto;
   }
 
   .hero-title {

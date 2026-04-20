@@ -6,6 +6,7 @@
   display: grid;
   gap: 32px;
   padding: 44px 0 64px;
+  container-type: inline-size;
 }
 
 .toast-hero {
@@ -25,8 +26,9 @@
 h1 {
   margin: 0;
   color: #fff;
-  font-size: clamp(2.9rem, 7vw, 5.8rem);
+  font-size: clamp(2.8rem, 10cqi, 5.8rem);
   line-height: 0.9;
+  text-wrap: balance;
 }
 
 p {

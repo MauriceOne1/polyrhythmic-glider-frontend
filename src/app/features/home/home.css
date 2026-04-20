@@ -9,6 +9,10 @@
   scroll-margin-top: 96px;
 }
 
+.page-section > * {
+  width: 100%;
+}
+
 .page-section-footer {
   min-height: auto;
 }
@@ -21,6 +25,18 @@
   }
 
   .page-section:first-child {
+    min-height: calc(100dvh - 76px);
+    align-items: center;
     padding-top: 0;
+  }
+
+  .page-section:first-child > app-hero {
+    min-height: inherit;
+  }
+}
+
+@media (max-width: 900px) {
+  .page-section:first-child {
+    min-height: calc(100dvh - 68px);
   }
 }

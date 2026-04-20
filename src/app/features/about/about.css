@@ -21,6 +21,7 @@
     rgba(255, 255, 255, 0.05);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.14);
   backdrop-filter: blur(22px) saturate(145%);
+  container-type: inline-size;
 }
 
 .manifesto-card::before {
@@ -70,7 +71,7 @@
 
 .manifesto-card-index {
   font-family: Bahnschrift, Aptos, 'Segoe UI', sans-serif;
-  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-size: clamp(2rem, 13cqi, 2.8rem);
   line-height: 0.9;
   font-weight: 700;
   letter-spacing: -0.05em;

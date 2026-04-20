@@ -3,6 +3,7 @@
   display: grid;
   place-items: center;
   padding: 48px 0;
+  container-type: inline-size;
 }
 
 .admin-shell {
@@ -11,7 +12,7 @@
 
 .admin-title {
   margin: 0;
-  font-size: clamp(3.2rem, 9vw, 7.5rem);
+  font-size: clamp(3rem, 12cqi, 7.5rem);
   line-height: 0.94;
   letter-spacing: -0.05em;
   text-transform: uppercase;

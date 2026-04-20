@@ -8,6 +8,7 @@
   display: grid;
   gap: 28px;
   padding: 48px 0 72px;
+  container-type: inline-size;
 }
 
 .blog-back-link {
@@ -52,8 +53,9 @@
 .blog-post-header h1 {
   margin: 0;
   color: #fff;
-  font-size: 3rem;
+  font-size: clamp(2.45rem, 9cqi, 4.8rem);
   line-height: 0.92;
+  text-wrap: balance;
 }
 
 .blog-post-header p {
@@ -254,10 +256,6 @@
 }
 
 @media (min-width: 760px) {
-  .blog-post-header h1 {
-    font-size: 4.8rem;
-  }
-
   .blog-post-body h2 {
     font-size: 2rem;
   }

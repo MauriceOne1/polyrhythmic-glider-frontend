@@ -25,6 +25,7 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 1.8rem;
+  container-type: inline-size;
 }
 
 .participation-kicker {
@@ -50,11 +51,11 @@
 .participation-date-line,
 .participation-byos-line {
   display: block;
-  font-size: clamp(3.4rem, 8vw, 6.8rem);
+  font-size: clamp(3.4rem, 17cqi, 6.8rem);
 }
 
 .participation-date-line {
-  font-size: clamp(2.6rem, 6.2vw, 4.8rem);
+  font-size: clamp(2.6rem, 12cqi, 4.8rem);
 }
 
 .participation-title-divider {
@@ -88,10 +89,8 @@
 .participation-title-tagline {
   display: block;
   margin-top: 0.7rem;
-  width: max-content;
-  max-width: none;
   white-space: nowrap;
-  font-size: clamp(1.08rem, 2vw, 1.34rem);
+  font-size: clamp(1.08rem, 3.4cqi, 1.34rem);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(247, 247, 251, 0.78);
@@ -100,10 +99,8 @@
 .participation-title-subtitle {
   display: block;
   margin-top: 0.35rem;
-  width: max-content;
-  max-width: none;
   white-space: nowrap;
-  font-size: clamp(0.82rem, 1.45vw, 0.98rem);
+  font-size: clamp(0.82rem, 2.6cqi, 0.98rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(247, 247, 251, 0.42);
@@ -490,7 +487,7 @@
 
   .participation-date-line,
   .participation-byos-line {
-    font-size: clamp(2.9rem, 15vw, 4rem);
+    font-size: clamp(2.9rem, 16cqi, 4rem);
   }
 
   .participation-title {
@@ -498,13 +495,15 @@
   }
 
   .participation-title-tagline {
-    font-size: clamp(0.92rem, 4vw, 1.02rem);
+    font-size: clamp(0.92rem, 4cqi, 1.02rem);
     letter-spacing: 0.14em;
+    white-space: normal;
   }
 
   .participation-title-subtitle {
-    font-size: clamp(0.72rem, 3.2vw, 0.84rem);
+    font-size: clamp(0.72rem, 3.2cqi, 0.84rem);
     letter-spacing: 0.09em;
+    white-space: normal;
   }
 
   .participation-inline-meta-card {

@@ -5,6 +5,7 @@
 .toast-tool {
   display: grid;
   gap: 24px;
+  container-type: inline-size;
 }
 
 .tool-header,
@@ -38,8 +39,9 @@ h3 {
 }
 
 h2 {
-  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-size: clamp(2rem, 8cqi, 3.8rem);
   line-height: 0.94;
+  text-wrap: balance;
 }
 
 h3 {

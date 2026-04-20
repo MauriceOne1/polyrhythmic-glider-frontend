@@ -7,6 +7,7 @@
   display: grid;
   gap: 28px;
   padding: 48px 0 72px;
+  container-type: inline-size;
 }
 
 .blog-hero {
@@ -39,8 +40,9 @@
 
 .blog-hero h1 {
   margin: 0;
-  font-size: 3rem;
+  font-size: clamp(2.5rem, 8cqi, 4.4rem);
   line-height: 0.95;
+  text-wrap: balance;
 }
 
 .blog-hero p {
@@ -101,8 +103,9 @@
 .featured-post strong {
   max-width: 34rem;
   font-family: Bahnschrift, Aptos, 'Segoe UI', sans-serif;
-  font-size: 2rem;
+  font-size: clamp(1.65rem, 4cqi, 2rem);
   line-height: 1.05;
+  text-wrap: balance;
 }
 
 .featured-post span:last-child {
@@ -355,7 +358,7 @@
   width: fit-content;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 720px) {
   .blog-dashboard {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -369,10 +372,6 @@
 @media (min-width: 760px) {
   .blog-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .blog-hero h1 {
-    font-size: 4.4rem;
   }
 }
 
