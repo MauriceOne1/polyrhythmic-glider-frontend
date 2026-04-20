@@ -1,5 +1,5 @@
 <app-radio-background
-  [bpm]="currentTrack.bpm"
+  [bpm]="currentTrack().bpm"
   [mode]="mode()"
   [status]="currentProgram.status"
   [isActive]="isRadioPlaying()"
@@ -9,20 +9,78 @@
   <header class="radio-topbar">
     <div>
       <p class="kicker">Radio room</p>
-      <h1 id="radio-title">Polyradio</h1>
+      <h1 id="radio-title">Polyradio test for Link Academy</h1>
     </div>
 
-    <div class="status-strip" aria-label="Stato canale">
-      <div class="signal-chip">
-        <span class="status-dot" aria-hidden="true"></span>
+    <div
+      class="status-strip"
+      aria-label="Stato canale"
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        grid-column: 1 / -1;
+        gap: 8px;
+        justify-content: flex-start;
+      "
+    >
+      <div
+        class="signal-chip"
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          color: #b6ff69;
+          font-size: 0.68rem;
+          font-weight: 900;
+          text-transform: uppercase;
+          white-space: nowrap;
+        "
+      >
+        <span
+          class="status-dot"
+          aria-hidden="true"
+          style="
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+          "
+        ></span>
         <fa-icon [icon]="onAirIcon" aria-hidden="true"></fa-icon>
         <span>On air</span>
       </div>
-      <span class="ghost-chip" aria-disabled="true">
+      <span
+        class="ghost-chip"
+        aria-disabled="true"
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          color: rgba(247, 247, 251, 0.72);
+          font-size: 0.68rem;
+          font-weight: 900;
+          text-transform: uppercase;
+          white-space: nowrap;
+        "
+      >
         <fa-icon [icon]="registeredIcon" aria-hidden="true"></fa-icon>
         Registered
       </span>
-      <span class="ghost-chip" aria-disabled="true">
+      <span
+        class="ghost-chip"
+        aria-disabled="true"
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          color: rgba(247, 247, 251, 0.72);
+          font-size: 0.68rem;
+          font-weight: 900;
+          text-transform: uppercase;
+          white-space: nowrap;
+        "
+      >
         <fa-icon [icon]="playlistIcon" aria-hidden="true"></fa-icon>
         Playlist
       </span>
@@ -77,19 +135,19 @@
           <dl class="now-track-list">
             <div>
               <dt>Traccia</dt>
-              <dd>{{ currentTrack.title }}</dd>
+              <dd>{{ currentTrack().title }}</dd>
             </div>
             <div>
               <dt>Artista</dt>
-              <dd>{{ currentTrack.artist }}</dd>
+              <dd>{{ currentTrack().artist }}</dd>
             </div>
             <div>
               <dt>Album</dt>
-              <dd>{{ currentTrack.album }}</dd>
+              <dd>{{ currentTrack().album }}</dd>
             </div>
             <div>
-              <dt>Etichetta</dt>
-              <dd>{{ currentTrack.label }}</dd>
+              <dt>Playlist</dt>
+              <dd>{{ currentTrack().label }}</dd>
             </div>
           </dl>
         }
@@ -110,28 +168,28 @@
               <fa-icon [icon]="musicIcon" aria-hidden="true"></fa-icon>
               Mood
             </dt>
-            <dd>{{ currentTrack.mood }}</dd>
+            <dd>{{ currentTrack().mood }}</dd>
           </div>
           <div class="track-stat">
             <dt>
               <fa-icon [icon]="keyIcon" aria-hidden="true"></fa-icon>
               Tonalita
             </dt>
-            <dd>{{ currentTrack.key }}</dd>
+            <dd>{{ currentTrack().key }}</dd>
           </div>
           <div class="track-stat">
             <dt>
               <fa-icon [icon]="dataIcon" aria-hidden="true"></fa-icon>
               BPM
             </dt>
-            <dd>{{ currentTrack.bpm ?? 'N/D' }}</dd>
+            <dd>{{ currentTrack().bpm ?? 'N/D' }}</dd>
           </div>
           <div class="track-stat">
             <dt>
               <fa-icon [icon]="clockIcon" aria-hidden="true"></fa-icon>
               Durata
             </dt>
-            <dd>{{ currentTrack.duration }}</dd>
+            <dd>{{ currentTrack().duration }}</dd>
           </div>
         </dl>
       </section>
@@ -183,7 +241,12 @@
           <small>Qui arrivera' il feed fisso della diretta.</small>
         </div>
       } @else if (mode() === 'audio') {
-        <div class="audio-stage"></div>
+        <div class="audio-stage">
+          <img
+            [src]="currentTrack().artworkUrl ?? fallbackArtworkUrl"
+            [alt]="'Artwork ' + currentTrack().title"
+          />
+        </div>
       }
 
       <aside class="stage-detail" aria-label="Cosa stiamo ascoltando">

@@ -10,6 +10,7 @@ export interface RadioTrack {
   readonly key: string;
   readonly mood: string;
   readonly bpm: number | null;
+  readonly artworkUrl?: string | null;
 }
 
 export interface ProgramSlot {

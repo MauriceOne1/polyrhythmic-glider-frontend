@@ -323,7 +323,6 @@ h2 {
 
 .audio-stage {
   overflow: hidden;
-  background: url('/assets/img/chaos.jpg') center / cover;
 }
 
 .stage-detail {
@@ -481,10 +480,6 @@ h2 {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 8px;
-  }
-
-  .status-strip {
-    display: none;
   }
 
   .mobile-schedule-button {
@@ -658,7 +653,6 @@ h2 {
     padding: 6px 0;
   }
 
-  .status-strip,
   .now-header,
   .now-track-list div:nth-child(n + 2) {
     display: none;

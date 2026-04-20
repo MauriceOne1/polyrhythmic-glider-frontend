@@ -11,7 +11,6 @@
 
     @if (featuredPost(); as featured) {
       <a class="featured-post" [routerLink]="['/blog', featured.slug]">
-        <img src="/assets/img/chaos.jpg" alt="Onde astratte e luce verde in movimento" />
         <span class="featured-post-overlay" aria-hidden="true"></span>
         <span class="featured-post-content">
           <span class="featured-label">In evidenza</span>

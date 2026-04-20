@@ -133,8 +133,7 @@ export const routes: Routes = [
     data: {
       seo: {
         title: 'Radio | Polyrhythmic Glider',
-        description:
-          'Canale radio sperimentale con player audio, dirette mock e prova locale video.',
+        description: 'Canale radio sperimentale con player audio live e prova locale video.',
         keywords: ['radio', 'live stream', 'audio', 'video', 'polyrhythmic glider'],
         robots: 'noindex,nofollow',
       },

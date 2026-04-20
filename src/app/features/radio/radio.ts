@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faClock,
@@ -17,6 +17,8 @@ import { RadioBackground } from './components/radio-background/radio-background'
 import { RadioPlayer } from './components/radio-player/radio-player';
 import type { ProgramSlot, RadioMode, RadioTrack } from './radio.models';
 
+type JsonRecord = Record<string, unknown>;
+
 @Component({
   selector: 'app-radio',
   imports: [FontAwesomeModule, RadioBackground, RadioPlayer],
@@ -24,8 +26,10 @@ import type { ProgramSlot, RadioMode, RadioTrack } from './radio.models';
   styleUrl: './radio.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Radio {
-  readonly audioSource = '/assets/audio/protoclusta.mp3';
+export class Radio implements OnInit, OnDestroy {
+  readonly audioSource = 'https://srv467120.hstgr.cloud:8000/radio.mp3';
+  readonly fallbackArtworkUrl =
+    'https://www.linkacademyradio.com/wp-content/uploads/2022/07/LOGO_LINK_Academy_2_black_white.png';
   readonly videoSource: string | null = '/assets/video/rickroll.mp4';
   readonly onAirIcon = faTowerBroadcast;
   readonly playlistIcon = faListUl;
@@ -39,27 +43,28 @@ export class Radio {
   readonly modeIcon = faSliders;
 
   readonly currentProgram: ProgramSlot = {
-    id: 'studio-aperto',
-    title: 'Studio aperto',
-    host: 'Polyrhythmic Glider',
+    id: 'link-academy-radio',
+    title: 'Link Academy Radio',
+    host: 'Link Academy',
     time: 'Ora',
-    summary: 'Origin Of Chaos EP in rotazione.',
+    summary: 'Flusso live da linkacademyradio.com.',
     description:
-      'Erotic Cafe su Neosignal Recordings / NËU Music: drum & bass, neurofunk e sound design avanzato.',
+      'Diretta audio di Link Academy Radio: selezioni elettroniche, archivio e programmazione live.',
     status: 'on-air',
   };
 
-  readonly currentTrack: RadioTrack = {
-    id: 'protoclusta',
-    title: 'Protoclusta',
-    artist: "Erotic Cafe'",
-    album: 'Origin Of Chaos EP',
-    label: 'Neosignal Recordings / NËU Music',
-    duration: '04:53',
+  readonly currentTrack = signal<RadioTrack>({
+    id: 'link-academy-radio-live',
+    title: 'Live stream',
+    artist: 'Link Academy Radio',
+    album: 'Diretta',
+    label: 'Link Academy',
+    duration: 'LIVE',
     key: 'N/D',
-    mood: 'Drum & Bass / Neurofunk',
+    mood: 'Electronic Music',
     bpm: null,
-  };
+    artworkUrl: this.fallbackArtworkUrl,
+  });
 
   readonly playedTracks: readonly RadioTrack[] = [
     {
@@ -173,6 +178,22 @@ export class Radio {
   readonly selectedProgram = signal<ProgramSlot>(this.currentProgram);
   readonly isRadioPlaying = signal(false);
   readonly isScheduleOpen = signal(false);
+  private readonly nowPlayingEndpoint =
+    'https://srv467120.hstgr.cloud/api/nowplaying/link_academy_radio';
+  private metadataRefreshId: number | null = null;
+
+  ngOnInit(): void {
+    void this.refreshNowPlaying();
+    this.metadataRefreshId = window.setInterval(() => void this.refreshNowPlaying(), 30000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.metadataRefreshId === null) {
+      return;
+    }
+
+    window.clearInterval(this.metadataRefreshId);
+  }
 
   setMode(mode: RadioMode): void {
     if (mode === 'video' && !this.videoSource) {
@@ -225,5 +246,96 @@ export class Radio {
     }
 
     return this.playlistIcon;
+  }
+
+  private async refreshNowPlaying(): Promise<void> {
+    try {
+      const response = await fetch(this.nowPlayingEndpoint, {
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        return;
+      }
+
+      const track = this.mapNowPlaying(await response.json());
+
+      if (track) {
+        this.currentTrack.set(track);
+      }
+    } catch {
+      return;
+    }
+  }
+
+  private mapNowPlaying(payload: unknown): RadioTrack | null {
+    if (!this.isRecord(payload)) {
+      return null;
+    }
+
+    const nowPlaying = this.readRecord(payload, 'now_playing');
+    const song = nowPlaying ? this.readRecord(nowPlaying, 'song') : null;
+
+    if (!song) {
+      return null;
+    }
+
+    const currentTrack = this.currentTrack();
+    const title = this.readString(song, 'title') ?? this.readString(song, 'text') ?? 'Live stream';
+    const artist = this.readString(song, 'artist') ?? 'Link Academy Radio';
+    const playlist = nowPlaying ? this.readString(nowPlaying, 'playlist') : null;
+
+    return {
+      id: this.readString(song, 'id') ?? `${artist}-${title}`,
+      title,
+      artist,
+      album: this.readString(song, 'album') ?? 'Diretta',
+      label: playlist ?? 'Link Academy',
+      duration: this.formatDuration(this.readNumber(nowPlaying, 'duration')),
+      key: currentTrack.key,
+      mood: this.readString(song, 'genre') ?? currentTrack.mood,
+      bpm: currentTrack.bpm,
+      artworkUrl: this.readString(song, 'art') ?? this.fallbackArtworkUrl,
+    };
+  }
+
+  private formatDuration(seconds: number | null): string {
+    if (!seconds || seconds <= 0) {
+      return 'LIVE';
+    }
+
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60)
+      .toString()
+      .padStart(2, '0');
+
+    return `${minutes}:${remainingSeconds}`;
+  }
+
+  private readRecord(record: JsonRecord, key: string): JsonRecord | null {
+    const value = record[key];
+    return this.isRecord(value) ? value : null;
+  }
+
+  private readString(record: JsonRecord, key: string): string | null {
+    const value = record[key];
+
+    if (typeof value !== 'string') {
+      return null;
+    }
+
+    const trimmedValue = value.trim();
+    return trimmedValue ? trimmedValue : null;
+  }
+
+  private readNumber(record: JsonRecord | null, key: string): number | null {
+    const value = record?.[key];
+    return typeof value === 'number' && Number.isFinite(value) ? value : null;
+  }
+
+  private isRecord(value: unknown): value is JsonRecord {
+    return typeof value === 'object' && value !== null;
   }
 }
