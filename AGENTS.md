@@ -64,6 +64,7 @@ When making changes:
 - explain briefly what changed
 - list touched files
 - mention any follow-up needed
+- always suggest a commit message that passes commitlint, using Conventional Commits
 
 ## Language
 
