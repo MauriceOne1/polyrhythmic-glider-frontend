@@ -31,7 +31,7 @@ describe('App', () => {
     fixture.detectChanges();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.brand')?.textContent).toContain('polyrythmic');
+    expect(compiled.querySelector('.brand')?.textContent).toContain('polyrhythmic');
     expect(compiled.querySelector('.brand')?.textContent).toContain('glider');
     expect(compiled.querySelector('.audio-button')?.textContent).toContain('Play');
   });
