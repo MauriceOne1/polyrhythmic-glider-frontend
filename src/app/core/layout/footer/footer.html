@@ -13,8 +13,6 @@
     </div>
 
     <div class="resources-block">
-      <h3 class="resources-title">Percorsi laterali</h3>
-
       <nav class="resources-nav" aria-label="Percorsi laterali">
         @for (resource of resources; track resource.path) {
           <a class="resource-link" [routerLink]="resource.path">
@@ -23,7 +21,9 @@
               <strong>{{ resource.label }}</strong>
               <span>{{ resource.description }}</span>
             </span>
-            <span class="resource-link-arrow" aria-hidden="true">-></span>
+            <span class="resource-link-arrow" aria-hidden="true">
+              <span class="resource-link-arrow-line"></span>
+            </span>
           </a>
         }
       </nav>
