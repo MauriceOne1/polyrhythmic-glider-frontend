@@ -194,14 +194,14 @@ app-root {
   }
 
   .glass-panel {
-    @apply rounded-[28px] border border-white/12 bg-white/[0.07] shadow-[0_20px_80px_rgba(0,0,0,0.16)];
+    @apply rounded-[28px] border border-white/12 bg-white/7 shadow-[0_20px_80px_rgba(0,0,0,0.16)];
     min-width: 0;
     border-radius: var(--card-radius);
     backdrop-filter: blur(24px) saturate(145%);
   }
 
   .readable-copy-card {
-    @apply rounded-[28px] border border-white/12 bg-white/[0.08] px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.16)] md:px-7 md:py-6;
+    @apply rounded-[28px] border border-white/12 bg-white/8 px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.16)] md:px-7 md:py-6;
     min-width: 0;
     border-radius: var(--card-radius);
     padding: var(--card-padding);
@@ -209,7 +209,7 @@ app-root {
   }
 
   .readable-copy-card-compact {
-    @apply rounded-[28px] border border-white/12 bg-white/[0.07] px-5 py-5 shadow-[0_16px_48px_rgba(0,0,0,0.14)] md:px-6;
+    @apply rounded-[28px] border border-white/12 bg-white/7 px-5 py-5 shadow-[0_16px_48px_rgba(0,0,0,0.14)] md:px-6;
     min-width: 0;
     border-radius: var(--card-radius);
     padding: var(--card-padding);
@@ -217,7 +217,7 @@ app-root {
   }
 
   .soft-card {
-    @apply rounded-[28px] border border-white/12 bg-white/[0.06] p-5 shadow-[0_14px_40px_rgba(0,0,0,0.12)] transition duration-200 hover:border-white/20 hover:bg-white/[0.1] md:p-6;
+    @apply rounded-[28px] border border-white/12 bg-white/6 p-5 shadow-[0_14px_40px_rgba(0,0,0,0.12)] transition duration-200 hover:border-white/20 hover:bg-white/10 md:p-6;
     min-width: 0;
     border-radius: var(--card-radius);
     padding: var(--card-padding);
@@ -229,7 +229,7 @@ app-root {
   }
 
   .contact-channel-card {
-    @apply min-h-[192px] rounded-[28px] border border-white/12 bg-white/[0.07] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] transition duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.11] md:min-h-[216px] md:p-7;
+    @apply min-h-[192px] rounded-[28px] border border-white/12 bg-white/7 p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] transition duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/11 md:min-h-[216px] md:p-7;
     min-width: 0;
     border-radius: var(--card-radius);
     padding: var(--card-padding);
@@ -237,15 +237,15 @@ app-root {
   }
 
   .button-primary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-white px-5 py-3 font-semibold text-ink-950 transition hover:translate-y-[-1px] hover:bg-signal-300 disabled:cursor-not-allowed disabled:opacity-70;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-white px-5 py-3 font-semibold text-ink-950 transition hover:-translate-y-px hover:bg-signal-300 disabled:cursor-not-allowed disabled:opacity-70;
   }
 
   .button-secondary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] px-5 py-3 font-semibold text-white transition hover:bg-white/[0.1] disabled:cursor-not-allowed disabled:opacity-70;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-white/10 bg-white/6 px-5 py-3 font-semibold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-70;
   }
 
   .pill-tag {
-    @apply rounded-full border border-white/12 bg-white/[0.06] px-3 py-2 text-xs uppercase tracking-[0.16em] text-white/65;
+    @apply rounded-full border border-white/12 bg-white/6 px-3 py-2 text-xs uppercase tracking-[0.16em] text-white/65;
     min-width: 0;
     overflow-wrap: anywhere;
     backdrop-filter: blur(14px) saturate(135%);
@@ -260,7 +260,7 @@ app-root {
   }
 
   .field-input {
-    @apply rounded-2xl border border-white/12 bg-white/[0.06] px-4 py-3 text-white outline-none transition placeholder:text-white/28 focus:border-frost-300/40 focus:bg-white/[0.1];
+    @apply rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-white outline-none transition placeholder:text-white/28 focus:border-frost-300/40 focus:bg-white/10;
     min-width: 0;
     backdrop-filter: blur(14px) saturate(135%);
   }
@@ -285,7 +285,7 @@ app-root {
   }
 
   .field-dropdown-trigger {
-    @apply flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-white/12 bg-white/[0.06] px-4 py-3 text-left text-white outline-none transition hover:bg-white/[0.09] focus:border-frost-300/40 focus:bg-white/[0.1];
+    @apply flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-white/12 bg-white/6 px-4 py-3 text-left text-white outline-none transition hover:bg-white/9 focus:border-frost-300/40 focus:bg-white/10;
     backdrop-filter: blur(14px) saturate(135%);
   }
 
@@ -295,7 +295,7 @@ app-root {
   }
 
   .field-dropdown-option {
-    @apply flex min-h-11 w-full items-center rounded-full px-4 py-3 text-left text-sm text-white/78 transition hover:bg-white/[0.08] hover:text-white;
+    @apply flex min-h-11 w-full items-center rounded-full px-4 py-3 text-left text-sm text-white/78 transition hover:bg-white/8 hover:text-white;
   }
 
   .field-dropdown-option.is-selected {
