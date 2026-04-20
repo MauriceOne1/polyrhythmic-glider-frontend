@@ -1,10 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  ToastRequest,
-  ToastService,
-  ToastTone,
-} from '../../../../core/toast/toast.service';
+import { ToastRequest, ToastService, ToastTone } from '../../../../core/toast/toast.service';
 
 interface ToastToneOption {
   readonly value: ToastTone;
@@ -86,8 +82,6 @@ const TONE_OPTIONS: ToastToneOption[] = [
   },
 ];
 
-
-
 @Component({
   selector: 'app-toast-launcher',
   imports: [ReactiveFormsModule],
@@ -113,14 +107,8 @@ export class ToastLauncher {
       'Questo messaggio e generato dal laboratorio toast.',
       [Validators.required, Validators.maxLength(180)],
     ],
-    durationMs: [
-      6000,
-      [Validators.required, Validators.min(0), Validators.max(60000)],
-    ],
-    delayMs: [
-      0,
-      [Validators.required, Validators.min(0), Validators.max(30000)],
-    ],
+    durationMs: [6000, [Validators.required, Validators.min(0), Validators.max(60000)]],
+    delayMs: [0, [Validators.required, Validators.min(0), Validators.max(30000)]],
     toastId: [''],
     dismissible: [true],
   });
@@ -180,7 +168,7 @@ export class ToastLauncher {
           durationMs: this.normalizeMilliseconds(this.form.controls.durationMs.value),
           dismissible: this.form.controls.dismissible.value,
         },
-        index * delayStep
+        index * delayStep,
       );
 
       if (index === this.presets.length - 1) {
@@ -210,10 +198,7 @@ export class ToastLauncher {
 
   private launch(request: ToastRequest): void {
     const delayMs = this.normalizeMilliseconds(this.form.controls.delayMs.value);
-    const id =
-      delayMs > 0
-        ? this.toast.showAfter(request, delayMs)
-        : this.toast.show(request);
+    const id = delayMs > 0 ? this.toast.showAfter(request, delayMs) : this.toast.show(request);
 
     this.lastToastId.set(id);
   }
@@ -227,11 +212,10 @@ export class ToastLauncher {
     return Math.round(Math.min(60000, Math.max(0, Number(value) || 0)));
   }
 
-
   readonly isToneMenuOpen = signal(false);
 
   toggleToneMenu(): void {
-    this.isToneMenuOpen.update(open => !open);
+    this.isToneMenuOpen.update((open) => !open);
   }
 
   closeToneMenu(): void {
@@ -245,19 +229,19 @@ export class ToastLauncher {
     this.closeToneMenu();
   }
 
- getToneOption(value: ToastTone | null): ToastToneOption | undefined {
-  return this.toneOptions.find(t => t.value === value);
-}
+  getToneOption(value: ToastTone | null): ToastToneOption | undefined {
+    return this.toneOptions.find((t) => t.value === value);
+  }
 
-getToneTextClass(value: ToastTone | null): string {
-  return this.getToneOption(value)?.textClass ?? '';
-}
+  getToneTextClass(value: ToastTone | null): string {
+    return this.getToneOption(value)?.textClass ?? '';
+  }
 
-getToneLabel(value: ToastTone | null): string {
-  return this.getToneOption(value)?.label ?? 'Seleziona tipo';
-}
+  getToneLabel(value: ToastTone | null): string {
+    return this.getToneOption(value)?.label ?? 'Seleziona tipo';
+  }
 
-getToneHint(value: ToastTone | null): string {
-  return this.getToneOption(value)?.hint ?? '';
-}
+  getToneHint(value: ToastTone | null): string {
+    return this.getToneOption(value)?.hint ?? '';
+  }
 }

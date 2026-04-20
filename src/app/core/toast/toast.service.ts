@@ -1,11 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 
-export type ToastTone =
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'neutral';
+export type ToastTone = 'info' | 'success' | 'warning' | 'danger' | 'neutral';
 
 export interface ToastMessage {
   readonly id: string;
@@ -35,17 +30,19 @@ export class ToastService {
 
     this.clearTimer(message.id);
     this.clearDelayedTimer(message.id);
-    this.messages.update((messages) => [
-      message,
-      ...messages.filter((item) => item.id !== message.id),
-    ].slice(0, this.maxVisibleMessages));
+    this.messages.update((messages) =>
+      [message, ...messages.filter((item) => item.id !== message.id)].slice(
+        0,
+        this.maxVisibleMessages,
+      ),
+    );
 
     const durationMs = message.durationMs ?? 10000;
 
     if (durationMs > 0) {
       this.timers.set(
         message.id,
-        setTimeout(() => this.dismiss(message.id), durationMs)
+        setTimeout(() => this.dismiss(message.id), durationMs),
       );
     }
 
@@ -68,7 +65,7 @@ export class ToastService {
       setTimeout(() => {
         this.delayedTimers.delete(message.id);
         this.show(message);
-      }, delay)
+      }, delay),
     );
 
     return message.id;
@@ -97,9 +94,7 @@ export class ToastService {
   dismiss(id: string): void {
     this.clearTimer(id);
     this.clearDelayedTimer(id);
-    this.messages.update((messages) =>
-      messages.filter((message) => message.id !== id)
-    );
+    this.messages.update((messages) => messages.filter((message) => message.id !== id));
   }
 
   clearAll(): void {

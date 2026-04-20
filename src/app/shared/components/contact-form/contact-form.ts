@@ -36,10 +36,7 @@ export class ContactForm {
   readonly statusKind = signal<'idle' | 'success' | 'error'>('idle');
   readonly form = this.formBuilder.nonNullable.group({
     name: [createEmptyContactFormValue().name, [Validators.required]],
-    email: [
-      createEmptyContactFormValue().email,
-      [Validators.required, Validators.email],
-    ],
+    email: [createEmptyContactFormValue().email, [Validators.required, Validators.email]],
     subject: [createEmptyContactFormValue().subject, [Validators.required]],
     message: [
       createEmptyContactFormValue().message,
@@ -122,9 +119,7 @@ export class ContactForm {
       }
 
       this.statusKind.set('success');
-      this.statusMessage.set(
-        'Messaggio inviato correttamente. Ti rispondero appena possibile.'
-      );
+      this.statusMessage.set('Messaggio inviato correttamente. Ti rispondero appena possibile.');
       this.form.reset(createEmptyContactFormValue());
       this.isSubjectMenuOpen.set(false);
       this.form.markAsPristine();
@@ -132,7 +127,7 @@ export class ContactForm {
     } catch {
       this.statusKind.set('error');
       this.statusMessage.set(
-        'Invio non riuscito. Riprova tra un attimo o scrivi a info@polyglider.com.'
+        'Invio non riuscito. Riprova tra un attimo o scrivi a info@polyglider.com.',
       );
     } finally {
       this.isSubmitting.set(false);

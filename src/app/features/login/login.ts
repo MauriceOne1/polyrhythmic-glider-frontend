@@ -28,9 +28,7 @@ export class Login implements OnDestroy {
   readonly isSubmitting = signal(false);
   readonly statusKind = signal<StatusKind>('idle');
   readonly statusMessage = signal('');
-  readonly isPasswordAction = computed(() =>
-    this.mode() === 'reset' || this.mode() === 'invite'
-  );
+  readonly isPasswordAction = computed(() => this.mode() === 'reset' || this.mode() === 'invite');
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
@@ -127,7 +125,7 @@ export class Login implements OnDestroy {
       await this.identity.sendPasswordRecovery(email);
       this.setStatus(
         'success',
-        'Se questa email esiste, riceverai il link per scegliere una nuova password.'
+        'Se questa email esiste, riceverai il link per scegliere una nuova password.',
       );
     } catch {
       this.setStatus('idle', '');
@@ -224,10 +222,7 @@ export class Login implements OnDestroy {
   }
 
   private showRouteNotice(): void {
-    if (
-      this.route.snapshot.queryParamMap.get('notice') !==
-      'polyblog-construction'
-    ) {
+    if (this.route.snapshot.queryParamMap.get('notice') !== 'polyblog-construction') {
       return;
     }
 

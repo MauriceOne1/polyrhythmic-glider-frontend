@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  computed,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, signal } from '@angular/core';
 
 type ManifestoId = 'it-filosottile' | 'en-phrack';
 type ManifestoDocumentStatus = 'idle' | 'loading' | 'loaded' | 'error';
@@ -194,16 +188,12 @@ export class HackerManifesto implements OnInit {
     void this.loadDocument(this.selectedId(), true);
   }
 
-  private async loadDocument(
-    id: ManifestoId,
-    forceRefresh = false
-  ): Promise<void> {
+  private async loadDocument(id: ManifestoId, forceRefresh = false): Promise<void> {
     const currentDocument = this.documents()[id];
 
     if (
       !forceRefresh &&
-      (currentDocument.status === 'loading' ||
-        currentDocument.status === 'loaded')
+      (currentDocument.status === 'loading' || currentDocument.status === 'loaded')
     ) {
       return;
     }
@@ -250,10 +240,7 @@ export class HackerManifesto implements OnInit {
     }
   }
 
-  private updateDocument(
-    id: ManifestoId,
-    documentState: ManifestoDocumentState
-  ): void {
+  private updateDocument(id: ManifestoId, documentState: ManifestoDocumentState): void {
     this.documents.update((documents) => ({
       ...documents,
       [id]: documentState,
@@ -272,9 +259,6 @@ export class HackerManifesto implements OnInit {
   }
 
   private getSource(id: ManifestoId): ManifestoSource {
-    return (
-      MANIFESTO_SOURCES.find((source) => source.id === id) ??
-      MANIFESTO_SOURCES[0]
-    );
+    return MANIFESTO_SOURCES.find((source) => source.id === id) ?? MANIFESTO_SOURCES[0];
   }
 }

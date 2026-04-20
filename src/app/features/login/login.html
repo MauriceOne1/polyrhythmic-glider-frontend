@@ -4,14 +4,10 @@
 
     @if (identity.isProcessingCallback()) {
       <h1 class="login-title">Controllo il link</h1>
-      <p class="login-copy">
-        Un attimo: sto preparando il passaggio sicuro.
-      </p>
+      <p class="login-copy">Un attimo: sto preparando il passaggio sicuro.</p>
     } @else if (mode() === 'reset') {
       <h1 class="login-title">Scegli una nuova password</h1>
-      <p class="login-copy">
-        Inserisci una password nuova per completare il recupero.
-      </p>
+      <p class="login-copy">Inserisci una password nuova per completare il recupero.</p>
 
       <form class="login-form" [formGroup]="passwordForm" (ngSubmit)="submitPasswordAction()">
         <label class="login-field">
@@ -44,9 +40,7 @@
       </form>
     } @else if (mode() === 'invite') {
       <h1 class="login-title">Completa l'invito</h1>
-      <p class="login-copy">
-        Crea la password per attivare il tuo account.
-      </p>
+      <p class="login-copy">Crea la password per attivare il tuo account.</p>
 
       <form class="login-form" [formGroup]="passwordForm" (ngSubmit)="submitPasswordAction()">
         <label class="login-field">
@@ -79,9 +73,7 @@
       </form>
     } @else if (mode() === 'forgot') {
       <h1 class="login-title">Recupera password</h1>
-      <p class="login-copy">
-        Ti mando un link per scegliere una nuova password.
-      </p>
+      <p class="login-copy">Ti mando un link per scegliere una nuova password.</p>
 
       <form class="login-form" [formGroup]="forgotForm" (ngSubmit)="submitForgot()">
         <label class="login-field">
@@ -94,19 +86,13 @@
         </button>
       </form>
 
-      <button class="login-link" type="button" (click)="setMode('login')">
-        Torna al login
-      </button>
+      <button class="login-link" type="button" (click)="setMode('login')">Torna al login</button>
     } @else if (mode() === 'status') {
       <h1 class="login-title">Accesso confermato</h1>
-      <p class="login-copy">
-        Ti sto portando alla pagina richiesta.
-      </p>
+      <p class="login-copy">Ti sto portando alla pagina richiesta.</p>
     } @else {
       <h1 class="login-title">Entra in Polyrhythmic Glider</h1>
-      <p class="login-copy">
-        Accedi con email e password.
-      </p>
+      <p class="login-copy">Accedi con email e password.</p>
 
       <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
         <label class="login-field">
@@ -116,11 +102,7 @@
 
         <label class="login-field">
           <span>Password</span>
-          <input
-            type="password"
-            formControlName="password"
-            autocomplete="current-password"
-          />
+          <input type="password" formControlName="password" autocomplete="current-password" />
         </label>
 
         <button class="login-action primary" type="submit" [disabled]="isSubmitting()">

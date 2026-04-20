@@ -6,7 +6,7 @@
 >
   <div class="section-body">
     <app-contact-form></app-contact-form>
-    <div class="flex flex-wrap gap-3" style="margin-top: 20px;">
+    <div class="flex flex-wrap gap-3" style="margin-top: 20px">
       @for (area of areas; track area) {
         <span class="pill-tag">{{ area | readableKey }}</span>
       }

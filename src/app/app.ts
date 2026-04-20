@@ -14,7 +14,7 @@ import type { SeoData } from './shared/models/seo.models';
   selector: 'app-root',
   imports: [RouterOutlet, Header, Background, GameOfLifeBackground, ToastHost],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   private readonly router = inject(Router);
@@ -25,17 +25,13 @@ export class App {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       map(() => this.router.url),
-      startWith(this.router.url)
+      startWith(this.router.url),
     ),
-    { initialValue: this.router.url }
+    { initialValue: this.router.url },
   );
 
-  readonly isGameOfLifeRoute = computed(() =>
-    this.currentUrl().startsWith('/game-of-life')
-  );
-  readonly isRadioRoute = computed(() =>
-    this.currentUrl().startsWith('/radio')
-  );
+  readonly isGameOfLifeRoute = computed(() => this.currentUrl().startsWith('/game-of-life'));
+  readonly isRadioRoute = computed(() => this.currentUrl().startsWith('/radio'));
 
   formatVolumeValue(volume: number | string): string {
     const normalizedVolume = Math.min(1, Math.max(0, Number(volume) / 0.2));
@@ -63,7 +59,7 @@ export class App {
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
         startWith(null),
-        takeUntilDestroyed()
+        takeUntilDestroyed(),
       )
       .subscribe(() => {
         const activeRoute = this.getLeafRoute(this.activatedRoute);

@@ -48,7 +48,7 @@ const OPPOSITE_DIRECTIONS: Record<Direction, Direction> = {
 
 export function createInitialState(
   config: SnakeGameConfig = DEFAULT_SNAKE_CONFIG,
-  randomNumber: () => number = Math.random
+  randomNumber: () => number = Math.random,
 ): SnakeGameState {
   const snake = createStartingSnake(config);
 
@@ -66,7 +66,7 @@ export function createInitialState(
         columns: config.columns,
       },
       snake,
-      randomNumber
+      randomNumber,
     ),
     score: 0,
     status: 'ready',
@@ -102,10 +102,7 @@ export function togglePause(state: SnakeGameState): SnakeGameState {
   };
 }
 
-export function setDirection(
-  state: SnakeGameState,
-  nextDirection: Direction
-): SnakeGameState {
+export function setDirection(state: SnakeGameState, nextDirection: Direction): SnakeGameState {
   if (OPPOSITE_DIRECTIONS[state.direction] === nextDirection) {
     return state;
   }
@@ -118,7 +115,7 @@ export function setDirection(
 
 export function advanceGame(
   state: SnakeGameState,
-  randomNumber: () => number = Math.random
+  randomNumber: () => number = Math.random,
 ): SnakeGameState {
   if (state.status !== 'running') {
     return state;
@@ -145,9 +142,7 @@ export function advanceGame(
     nextSnake.pop();
   }
 
-  const nextFood = willGrow
-    ? placeFood(state.board, nextSnake, randomNumber)
-    : state.food;
+  const nextFood = willGrow ? placeFood(state.board, nextSnake, randomNumber) : state.food;
 
   return {
     ...state,
@@ -163,7 +158,7 @@ export function advanceGame(
 export function placeFood(
   board: SnakeBoard,
   snake: SnakeCell[],
-  randomNumber: () => number = Math.random
+  randomNumber: () => number = Math.random,
 ): SnakeCell | null {
   const occupied = new Set(snake.map((cell) => toCellKey(cell)));
   const availableCells: SnakeCell[] = [];
@@ -184,7 +179,7 @@ export function placeFood(
 
   const index = Math.min(
     availableCells.length - 1,
-    Math.floor(randomNumber() * availableCells.length)
+    Math.floor(randomNumber() * availableCells.length),
   );
 
   return availableCells[index];
@@ -192,10 +187,7 @@ export function placeFood(
 
 function createStartingSnake(config: SnakeGameConfig): SnakeCell[] {
   const centerRow = Math.floor(config.rows / 2);
-  const headColumn = Math.max(
-    config.initialLength - 1,
-    Math.floor(config.columns / 2)
-  );
+  const headColumn = Math.max(config.initialLength - 1, Math.floor(config.columns / 2));
   const snake: SnakeCell[] = [];
 
   for (let index = 0; index < config.initialLength; index++) {
@@ -218,12 +210,7 @@ function moveCell(cell: SnakeCell, direction: Direction): SnakeCell {
 }
 
 function isOutsideBoard(cell: SnakeCell, board: SnakeBoard): boolean {
-  return (
-    cell.row < 0 ||
-    cell.row >= board.rows ||
-    cell.column < 0 ||
-    cell.column >= board.columns
-  );
+  return cell.row < 0 || cell.row >= board.rows || cell.column < 0 || cell.column >= board.columns;
 }
 
 function cellsMatch(first: SnakeCell, second: SnakeCell): boolean {

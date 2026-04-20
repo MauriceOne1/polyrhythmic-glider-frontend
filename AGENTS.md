@@ -47,6 +47,8 @@ Package manager: npm
 - Build: `npm run build`
 - Run tests: `npm test`
 - Run lint: `npm run lint`
+- Format files: `npm run format`
+- Check formatting: `npm run format:check`
 
 ## Before finishing
 
@@ -56,6 +58,7 @@ Always verify:
 - there are no obvious TypeScript errors
 - imports are clean
 - no dead code or debug logs remain
+- formatting passes with `npm run format:check`
 
 ## Output expectations
 

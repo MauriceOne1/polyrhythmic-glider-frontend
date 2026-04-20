@@ -158,7 +158,11 @@
             Video
           </button>
         </div>
-        <small class="text-center">{{ videoSource ? 'Feed video disponibile.' : 'Video disattivato: nessuna diretta video al momento.' }}</small>
+        <small class="text-center">{{
+          videoSource
+            ? 'Feed video disponibile.'
+            : 'Video disattivato: nessuna diretta video al momento.'
+        }}</small>
       </div>
     </section>
 
@@ -179,13 +183,15 @@
           <small>Qui arrivera' il feed fisso della diretta.</small>
         </div>
       } @else if (mode() === 'audio') {
-        <div class="audio-stage">
-        </div>
+        <div class="audio-stage"></div>
       }
 
       <aside class="stage-detail" aria-label="Cosa stiamo ascoltando">
         <span class="stage-card-label">
-          <fa-icon [icon]="programStatusIcon(selectedProgram().status)" aria-hidden="true"></fa-icon>
+          <fa-icon
+            [icon]="programStatusIcon(selectedProgram().status)"
+            aria-hidden="true"
+          ></fa-icon>
           {{ programStatusLabel(selectedProgram().status) }}
         </span>
         <strong>{{ selectedProgram().title }}</strong>
@@ -221,7 +227,10 @@
               <span class="program-copy">
                 <span class="program-meta">
                   <em class="program-status">
-                    <fa-icon [icon]="programStatusIcon(program.status)" aria-hidden="true"></fa-icon>
+                    <fa-icon
+                      [icon]="programStatusIcon(program.status)"
+                      aria-hidden="true"
+                    ></fa-icon>
                     {{ programStatusLabel(program.status) }}
                   </em>
                   <span>{{ program.host }}</span>
@@ -237,7 +246,12 @@
   </div>
 
   @if (isScheduleOpen()) {
-    <button class="drawer-scrim" type="button" aria-label="Chiudi programmi" (click)="closeSchedule()"></button>
+    <button
+      class="drawer-scrim"
+      type="button"
+      aria-label="Chiudi programmi"
+      (click)="closeSchedule()"
+    ></button>
   }
 
   <app-radio-player

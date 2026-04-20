@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-game-of-life-background',
@@ -89,32 +83,14 @@ export class GameOfLifeBackground implements AfterViewInit, OnDestroy {
       this.grid[index] = Math.random() < randomDensity ? 1 : 0;
     }
 
-    this.injectGlider(
-      Math.floor(this.columns * 0.2),
-      Math.floor(this.rows * 0.2)
-    );
-    this.injectGlider(
-      Math.floor(this.columns * 0.72),
-      Math.floor(this.rows * 0.28),
-      true
-    );
-    this.injectGlider(
-      Math.floor(this.columns * 0.34),
-      Math.floor(this.rows * 0.66)
-    );
-    this.injectGlider(
-      Math.floor(this.columns * 0.8),
-      Math.floor(this.rows * 0.72),
-      true
-    );
+    this.injectGlider(Math.floor(this.columns * 0.2), Math.floor(this.rows * 0.2));
+    this.injectGlider(Math.floor(this.columns * 0.72), Math.floor(this.rows * 0.28), true);
+    this.injectGlider(Math.floor(this.columns * 0.34), Math.floor(this.rows * 0.66));
+    this.injectGlider(Math.floor(this.columns * 0.8), Math.floor(this.rows * 0.72), true);
     this.liveCells = this.countAlive(this.grid);
   }
 
-  private injectGlider(
-    column: number,
-    row: number,
-    flipHorizontally = false
-  ): void {
+  private injectGlider(column: number, row: number, flipHorizontally = false): void {
     const pattern = flipHorizontally
       ? [
           [0, 1],
@@ -132,8 +108,7 @@ export class GameOfLifeBackground implements AfterViewInit, OnDestroy {
         ];
 
     for (const [rowOffset, columnOffset] of pattern) {
-      const targetColumn =
-        (column + columnOffset + this.columns) % this.columns;
+      const targetColumn = (column + columnOffset + this.columns) % this.columns;
       const targetRow = (row + rowOffset + this.rows) % this.rows;
       this.grid[this.toIndex(targetColumn, targetRow)] = 1;
     }
@@ -239,15 +214,14 @@ export class GameOfLifeBackground implements AfterViewInit, OnDestroy {
 
         const x = column * this.cellSize;
         const y = row * this.cellSize;
-        const intensity =
-          0.5 + ((column * 7 + row * 13 + this.generation) % 20) / 40;
+        const intensity = 0.5 + ((column * 7 + row * 13 + this.generation) % 20) / 40;
 
         this.ctx.fillStyle = `hsla(${155 + hueShift * 0.12 + ((row + column) % 9)}, 100%, ${66 + intensity * 10}%, ${0.55 + intensity * 0.22})`;
         this.ctx.fillRect(
           x + 1.2,
           y + 1.2,
           Math.max(2, this.cellSize - 2.4),
-          Math.max(2, this.cellSize - 2.4)
+          Math.max(2, this.cellSize - 2.4),
         );
       }
     }
@@ -259,7 +233,7 @@ export class GameOfLifeBackground implements AfterViewInit, OnDestroy {
     this.ctx.fillText(
       `Generation ${this.generation} - Live ${this.liveCells}`,
       width - 18,
-      height - 20
+      height - 20,
     );
   }
 
@@ -272,8 +246,7 @@ export class GameOfLifeBackground implements AfterViewInit, OnDestroy {
           continue;
         }
 
-        const targetColumn =
-          (column + columnOffset + this.columns) % this.columns;
+        const targetColumn = (column + columnOffset + this.columns) % this.columns;
         const targetRow = (row + rowOffset + this.rows) % this.rows;
         neighbours += this.grid[this.toIndex(targetColumn, targetRow)];
       }

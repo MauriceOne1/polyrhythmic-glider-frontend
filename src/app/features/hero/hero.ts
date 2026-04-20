@@ -110,8 +110,7 @@ export class Hero implements OnInit, AfterViewInit, OnDestroy {
       this.terminalHistory().length >= Hero.MAX_TERMINAL_HISTORY
     ) {
       this.terminalHistory.set([]);
-      this.commandGroupIndex =
-        (this.commandGroupIndex + 1) % this.terminalCommandGroups.length;
+      this.commandGroupIndex = (this.commandGroupIndex + 1) % this.terminalCommandGroups.length;
     }
 
     const terminalCommands = this.terminalCommandGroups[this.commandGroupIndex];
@@ -178,10 +177,7 @@ export class Hero implements OnInit, AfterViewInit, OnDestroy {
     const activeElement = document.activeElement;
     const terminalPanel = this.terminalPanel?.nativeElement;
 
-    if (
-      activeElement instanceof HTMLElement &&
-      terminalPanel?.contains(activeElement)
-    ) {
+    if (activeElement instanceof HTMLElement && terminalPanel?.contains(activeElement)) {
       activeElement.blur();
     }
   }

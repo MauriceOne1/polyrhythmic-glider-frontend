@@ -60,10 +60,7 @@ export class IdentityService {
     try {
       await requestPasswordRecovery(email);
     } catch (error) {
-      this.setAuthError(
-        error,
-        'Non sono riuscito a inviare la mail di recupero password.'
-      );
+      this.setAuthError(error, 'Non sono riuscito a inviare la mail di recupero password.');
       throw error;
     }
   }
@@ -171,7 +168,7 @@ export class IdentityService {
     } catch (error) {
       this.setAuthError(
         error,
-        'Non sono riuscito a completare il link di accesso. Potrebbe essere scaduto.'
+        'Non sono riuscito a completare il link di accesso. Potrebbe essere scaduto.',
       );
     } finally {
       this.isProcessingCallback.set(false);
@@ -223,7 +220,7 @@ export class IdentityService {
     }
 
     return /^#(confirmation_token|recovery_token|invite_token|email_change_token|access_token)=/.test(
-      window.location.hash
+      window.location.hash,
     );
   }
 
@@ -244,7 +241,7 @@ export class IdentityService {
     window.history.replaceState(
       window.history.state,
       this.documentTitle(),
-      `${window.location.pathname}${window.location.search}`
+      `${window.location.pathname}${window.location.search}`,
     );
   }
 

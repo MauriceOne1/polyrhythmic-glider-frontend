@@ -28,7 +28,10 @@ export class LatexPreviewPipe implements PipeTransform {
     rendered = rendered
       .replace(/\\operatorname\{([^}]+)\}/g, '<span class="latex-operator">$1</span>')
       .replace(/\\mathcal\{N\}/g, '<span class="latex-symbol">𝒩</span>')
-      .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '<span class="latex-frac"><span>$1</span><span>$2</span></span>')
+      .replace(
+        /\\frac\{([^{}]+)\}\{([^{}]+)\}/g,
+        '<span class="latex-frac"><span>$1</span><span>$2</span></span>',
+      )
       .replace(/\\arg\\max/g, '<span class="latex-operator">arg max</span>')
       .replace(/\\sin/g, '<span class="latex-operator">sin</span>')
       .replace(/\\max/g, '<span class="latex-operator">max</span>')

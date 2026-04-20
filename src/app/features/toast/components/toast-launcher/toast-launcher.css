@@ -84,9 +84,7 @@ h3 {
   padding: 1rem;
   border: 1px solid color-mix(in srgb, var(--tone-accent) 28%, transparent);
   border-radius: 8px;
-  background:
-    linear-gradient(180deg, var(--tone-bg), transparent),
-    rgba(247, 247, 251, 0.045);
+  background: linear-gradient(180deg, var(--tone-bg), transparent), rgba(247, 247, 251, 0.045);
   color: inherit;
   text-align: left;
 }

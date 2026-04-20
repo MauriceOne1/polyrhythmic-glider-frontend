@@ -1,10 +1,4 @@
-import {
-  advanceGame,
-  createInitialState,
-  placeFood,
-  setDirection,
-  startGame,
-} from './snake-game';
+import { advanceGame, createInitialState, placeFood, setDirection, startGame } from './snake-game';
 import type { SnakeGameState } from './snake-game';
 
 describe('snake-game', () => {
@@ -15,7 +9,7 @@ describe('snake-game', () => {
         columns: 6,
         initialLength: 3,
       },
-      () => 0
+      () => 0,
     );
 
     expect(state.snake).toEqual([
@@ -108,7 +102,7 @@ describe('snake-game', () => {
         { row: 0, column: 1 },
         { row: 1, column: 0 },
       ],
-      () => 0
+      () => 0,
     );
 
     expect(food).toEqual({ row: 1, column: 1 });

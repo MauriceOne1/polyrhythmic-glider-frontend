@@ -41,10 +41,12 @@ Output:
 dist/polyrhythmic-glider-frontend/browser
 ```
 
- ## Build on Podman (Docker)
+## Build on Podman (Docker)
+
 ```bash
 podman build -t polyrhytmic-glider .
 ```
+
 ```bash
 podman run -p 4200:4200 polyrhytmic-glider
 ```

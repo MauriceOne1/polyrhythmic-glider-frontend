@@ -2,9 +2,7 @@
   <header class="manifesto-hero">
     <p class="manifesto-kicker">Archivio nascosto</p>
     <h1 id="manifesto-title" class="display-font">The Hacker Manifesto</h1>
-    <p>
-      The Mentor, Phrack Volume One Issue 7.
-    </p>
+    <p>The Mentor, Phrack Volume One Issue 7.</p>
   </header>
 
   <div class="manifesto-toolbar" aria-label="Selezione versione">
@@ -73,8 +71,7 @@
   <article
     class="manifesto-reader"
     [attr.aria-busy]="
-      selectedDocument().status === 'idle' ||
-      selectedDocument().status === 'loading'
+      selectedDocument().status === 'idle' || selectedDocument().status === 'loading'
         ? 'true'
         : 'false'
     "
@@ -86,17 +83,12 @@
       </div>
     </header>
 
-    @if (
-      selectedDocument().status === 'idle' ||
-      selectedDocument().status === 'loading'
-    ) {
+    @if (selectedDocument().status === 'idle' || selectedDocument().status === 'loading') {
       <div class="reader-state" role="status">Caricamento manifesto...</div>
     } @else if (selectedDocument().status === 'error') {
       <div class="reader-state reader-error" role="alert">
         <p>{{ selectedDocument().errorMessage }}</p>
-        <button class="retry-button" type="button" (click)="retry()">
-          Riprova
-        </button>
+        <button class="retry-button" type="button" (click)="retry()">Riprova</button>
       </div>
     } @else {
       <pre class="manifesto-text">{{ selectedDocument().text }}</pre>

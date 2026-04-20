@@ -18,20 +18,21 @@ export class Blog {
   readonly selectedTag = signal('Tutti');
   readonly selectedSort = signal<BlogSort>('newest');
 
-  readonly featuredPost = computed(() =>
-    [...this.posts].sort((first, second) =>
-      second.publishedAt.localeCompare(first.publishedAt)
-    )[0]
+  readonly featuredPost = computed(
+    () =>
+      [...this.posts].sort((first, second) =>
+        second.publishedAt.localeCompare(first.publishedAt),
+      )[0],
   );
   readonly tags = [
     'Tutti',
     ...Array.from(new Set(this.posts.flatMap((post) => post.tags))).sort((a, b) =>
-      a.localeCompare(b)
+      a.localeCompare(b),
     ),
   ];
   readonly totalReadingMinutes = this.posts.reduce(
     (total, post) => total + this.readingMinutes(post),
-    0
+    0,
   );
 
   readonly visiblePosts = computed(() => {
@@ -40,13 +41,9 @@ export class Blog {
     const filtered = this.posts.filter((post) => {
       const matchesTag = tag === 'Tutti' || post.tags.includes(tag);
       const searchableContent = this.normalize(
-        [
-          post.title,
-          post.excerpt,
-          post.category,
-          post.publishedLabel,
-          post.tags.join(' '),
-        ].join(' ')
+        [post.title, post.excerpt, post.category, post.publishedLabel, post.tags.join(' ')].join(
+          ' ',
+        ),
       );
 
       return matchesTag && (!query || searchableContent.includes(query));

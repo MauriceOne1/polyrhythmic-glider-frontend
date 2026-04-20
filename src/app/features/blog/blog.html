@@ -4,8 +4,8 @@
       <p class="blog-kicker">Polyblog</p>
       <h1 id="blog-title" class="display-font">Research log</h1>
       <p>
-        Appunti finiti su suono, codice, interfacce e archivi vivi: materiale
-        pronto da leggere, filtrare e rimettere in circolo.
+        Appunti finiti su suono, codice, interfacce e archivi vivi: materiale pronto da leggere,
+        filtrare e rimettere in circolo.
       </p>
     </div>
 
@@ -61,11 +61,7 @@
 
   <nav class="blog-tag-filter" aria-label="Filtra per tag">
     @for (tag of tags; track tag) {
-      <button
-        type="button"
-        [class.is-active]="selectedTag() === tag"
-        (click)="selectTag(tag)"
-      >
+      <button type="button" [class.is-active]="selectedTag() === tag" (click)="selectTag(tag)">
         {{ tag }}
       </button>
     }
@@ -100,9 +96,7 @@
                 <span>{{ tag }}</span>
               }
             </div>
-            <a class="blog-read-link" [routerLink]="['/blog', post.slug]">
-              Leggi
-            </a>
+            <a class="blog-read-link" [routerLink]="['/blog', post.slug]"> Leggi </a>
           </div>
         </article>
       }

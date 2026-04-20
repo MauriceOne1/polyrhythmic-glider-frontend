@@ -2,12 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import type { SeoData } from '../../shared/models/seo.models';
-import {
-  DEFAULT_SEO,
-  SITE_LOCALE,
-  SITE_NAME,
-  SITE_URL,
-} from '../../shared/utils/seo.config';
+import { DEFAULT_SEO, SITE_LOCALE, SITE_NAME, SITE_URL } from '../../shared/utils/seo.config';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {
@@ -60,7 +55,7 @@ export class SeoService {
 
   private updateCanonicalLink(url: string): void {
     let canonicalLink = this.document.querySelector(
-      'link[rel="canonical"]'
+      'link[rel="canonical"]',
     ) as HTMLLinkElement | null;
 
     if (!canonicalLink) {
@@ -80,10 +75,7 @@ export class SeoService {
     this.meta.updateTag({ name, content });
   }
 
-  private updatePropertyTag(
-    property: string,
-    content: string | undefined
-  ): void {
+  private updatePropertyTag(property: string, content: string | undefined): void {
     if (!content) {
       return;
     }

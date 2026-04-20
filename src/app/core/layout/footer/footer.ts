@@ -25,8 +25,7 @@ export class Footer {
       label: 'Polyblog',
       path: '/blog',
       eyebrow: 'Appunti',
-      description:
-        'Bozze tecniche, formule, codice e frammenti di articoli.',
+      description: 'Bozze tecniche, formule, codice e frammenti di articoli.',
     },
     {
       label: 'BYOS!',
@@ -39,15 +38,13 @@ export class Footer {
       label: 'Live coding sandbox',
       path: '/experimental',
       eyebrow: 'Studio',
-      description:
-        'Ambiente Strudel per pattern ritmici, sketch performativi e prove rapide.',
+      description: 'Ambiente Strudel per pattern ritmici, sketch performativi e prove rapide.',
     },
     {
       label: 'Game of Life',
       path: '/game-of-life',
       eyebrow: 'Simulazione',
-      description:
-        'Esperimento visuale con automa cellulare e background generativo dedicato.',
+      description: 'Esperimento visuale con automa cellulare e background generativo dedicato.',
     },
   ];
 

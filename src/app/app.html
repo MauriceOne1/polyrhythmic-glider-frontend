@@ -4,27 +4,21 @@
   <app-background #bg></app-background>
 
   <div class="audio-controls" role="group" aria-labelledby="audio-controls-title">
-    <span id="audio-controls-title" class="sr-only">
-      Controlli audio di sottofondo
-    </span>
+    <span id="audio-controls-title" class="sr-only"> Controlli audio di sottofondo </span>
 
     <button
       class="audio-button"
       type="button"
       [attr.aria-pressed]="bg.isPlaying"
       [attr.aria-label]="
-        bg.isPlaying
-          ? 'Metti in pausa l\'audio di sottofondo'
-          : 'Riproduci l\'audio di sottofondo'
+        bg.isPlaying ? 'Metti in pausa l\'audio di sottofondo' : 'Riproduci l\'audio di sottofondo'
       "
       (click)="bg.toggleAudio()"
     >
       {{ bg.isPlaying ? 'Pause' : 'Play' }}
     </button>
 
-    <label class="sr-only" for="global-volume-slider">
-      Volume audio di sottofondo
-    </label>
+    <label class="sr-only" for="global-volume-slider"> Volume audio di sottofondo </label>
     <input
       id="global-volume-slider"
       class="global-volume-slider"

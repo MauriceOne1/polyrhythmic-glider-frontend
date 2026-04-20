@@ -133,14 +133,13 @@ export class RadioBackground implements AfterViewInit, OnDestroy {
   }
 
   private getTargetParticleCount(): number {
-    const areaRatio =
-      (window.innerWidth * window.innerHeight) / this.referenceViewportArea;
+    const areaRatio = (window.innerWidth * window.innerHeight) / this.referenceViewportArea;
 
     return Math.round(
       Math.min(
         this.maxParticleCount,
-        Math.max(this.minParticleCount, this.maxParticleCount * areaRatio)
-      )
+        Math.max(this.minParticleCount, this.maxParticleCount * areaRatio),
+      ),
     );
   }
 
@@ -168,9 +167,7 @@ export class RadioBackground implements AfterViewInit, OnDestroy {
     const width = window.innerWidth;
     const height = window.innerHeight;
     const elapsedSeconds = (performance.now() - this.startedAt) / 1000;
-    const beatPhase = Math.sin(
-      elapsedSeconds * (Math.PI * 2) * ((this.bpm() || 120) / 60)
-    );
+    const beatPhase = Math.sin(elapsedSeconds * (Math.PI * 2) * ((this.bpm() || 120) / 60));
     const beatEnergy = this.isActive() ? Math.max(0, beatPhase) : 0;
 
     this.pulse += (this.targetPulse - this.pulse) * 0.04;

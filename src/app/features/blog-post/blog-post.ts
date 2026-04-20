@@ -14,10 +14,9 @@ import { BLOG_POSTS, findBlogPostBySlug } from '../../shared/utils/blog-content'
 })
 export class BlogPost {
   private readonly route = inject(ActivatedRoute);
-  private readonly slug = toSignal(
-    this.route.paramMap.pipe(map((params) => params.get('slug'))),
-    { initialValue: this.route.snapshot.paramMap.get('slug') }
-  );
+  private readonly slug = toSignal(this.route.paramMap.pipe(map((params) => params.get('slug'))), {
+    initialValue: this.route.snapshot.paramMap.get('slug'),
+  });
 
   readonly post = computed(() => findBlogPostBySlug(this.slug()));
   readonly relatedPosts = computed(() => {

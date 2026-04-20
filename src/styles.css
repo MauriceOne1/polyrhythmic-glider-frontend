@@ -98,15 +98,22 @@ app-root {
 }
 
 .typing-active::after {
-  content: "_";
+  content: '_';
   margin-left: 4px;
-  color: rgba(180,220,255,0.8);
+  color: rgba(180, 220, 255, 0.8);
   animation: cursor-blink 1s infinite;
 }
 
 @keyframes cursor-blink {
-  0%,50%,100% { opacity: 1; }
-  25%,75% { opacity: 0; }
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
 }
 
 @layer base {
@@ -123,7 +130,7 @@ app-root {
   input,
   textarea,
   select,
-  [tabindex]:not([tabindex="-1"]) {
+  [tabindex]:not([tabindex='-1']) {
     outline: none;
   }
 
@@ -132,7 +139,7 @@ app-root {
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible,
-  [tabindex]:not([tabindex="-1"]):focus-visible {
+  [tabindex]:not([tabindex='-1']):focus-visible {
     outline: 3px solid rgba(157, 231, 255, 0.92);
     outline-offset: 3px;
   }
@@ -267,7 +274,9 @@ app-root {
       calc(100% - 1.35rem) calc(50% - 2px),
       calc(100% - 0.95rem) calc(50% - 2px);
     background-repeat: no-repeat;
-    background-size: 8px 8px, 8px 8px;
+    background-size:
+      8px 8px,
+      8px 8px;
     padding-right: 3.25rem;
   }
 

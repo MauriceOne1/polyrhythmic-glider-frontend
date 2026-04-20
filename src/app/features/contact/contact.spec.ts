@@ -26,7 +26,7 @@ describe('ContactSection', () => {
 
     expect(element.querySelector('form')).toBeTruthy();
     expect(element.querySelectorAll('a.contact-channel-card').length).toBe(
-      component.channels.length
+      component.channels.length,
     );
     expect(element.textContent).toContain('Costruiamo qualcosa insieme.');
   });

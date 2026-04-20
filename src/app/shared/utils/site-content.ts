@@ -1,10 +1,6 @@
 ﻿import { faGithub, faInstagram, faSoundcloud } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import type {
-  ContactChannel,
-  FeatureCard,
-  NavItem,
-} from '../models/content.models';
+import type { ContactChannel, FeatureCard, NavItem } from '../models/content.models';
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', fragment: 'hero' },
@@ -12,12 +8,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Contact', fragment: 'contact' },
 ];
 
-export const HERO_TAGS = [
-  'shared-process',
-  'living-archive',
-  'open-systems',
-  'sound-research',
-];
+export const HERO_TAGS = ['shared-process', 'living-archive', 'open-systems', 'sound-research'];
 
 export const HERO_TERMINAL_COMMAND_GROUPS = [
   [
@@ -63,7 +54,7 @@ export const ABOUT_PILLARS: FeatureCard[] = [
     eyebrow: 'Documentation',
     title: "La documentazione è parte dell'opera",
     description:
-      "Ogni sistema o esperimento deve restare leggibile, tracciabile e riutilizzabile: se non è documentato, non può davvero evolvere.",
+      'Ogni sistema o esperimento deve restare leggibile, tracciabile e riutilizzabile: se non è documentato, non può davvero evolvere.',
   },
   {
     eyebrow: 'Archive',

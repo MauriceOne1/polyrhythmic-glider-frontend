@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 
 type Particle = {
   x: number;
@@ -154,14 +148,13 @@ export class Background implements AfterViewInit, OnDestroy {
   }
 
   private getTargetParticleCount(): number {
-    const areaRatio =
-      (window.innerWidth * window.innerHeight) / this.referenceViewportArea;
+    const areaRatio = (window.innerWidth * window.innerHeight) / this.referenceViewportArea;
 
     return Math.round(
       Math.min(
         this.maxParticleCount,
-        Math.max(this.minParticleCount, this.maxParticleCount * areaRatio)
-      )
+        Math.max(this.minParticleCount, this.maxParticleCount * areaRatio),
+      ),
     );
   }
 
@@ -189,9 +182,7 @@ export class Background implements AfterViewInit, OnDestroy {
       this.analyser = this.audioContext.createAnalyser();
       this.analyser.fftSize = 256;
 
-      this.frequencyData = new Uint8Array(
-        new ArrayBuffer(this.analyser.frequencyBinCount)
-      );
+      this.frequencyData = new Uint8Array(new ArrayBuffer(this.analyser.frequencyBinCount));
 
       this.source = this.audioContext.createMediaElementSource(this.audio);
 
@@ -201,7 +192,6 @@ export class Background implements AfterViewInit, OnDestroy {
       this.source.connect(this.analyser);
       this.analyser.connect(this.gainNode);
       this.gainNode.connect(this.audioContext.destination);
-
     } catch (error) {
       console.error('Audio setup error:', error);
     }
@@ -244,21 +234,16 @@ export class Background implements AfterViewInit, OnDestroy {
     const viewportScale = Math.min(1, Math.max(0.7, width / 1024));
     const speedBoost = 1 + this.lowEnergy * 3;
     const pointRadius = 0.9 + this.lowEnergy * 1.5;
-    const lineDistance =
-      100 * viewportScale + this.midEnergy * 160 * viewportScale;
-    const lineOpacityBoost =
-      0.2 * viewportScale + this.midEnergy * 0.5 * viewportScale;
-    const glowOpacity =
-      0.02 * viewportScale + this.energy * 0.1 * viewportScale;
+    const lineDistance = 100 * viewportScale + this.midEnergy * 160 * viewportScale;
+    const lineOpacityBoost = 0.2 * viewportScale + this.midEnergy * 0.5 * viewportScale;
+    const glowOpacity = 0.02 * viewportScale + this.energy * 0.1 * viewportScale;
 
     this.ctx.fillStyle = `rgba(255,255,255,${glowOpacity})`;
     this.ctx.fillRect(0, 0, width, height);
 
     for (const p of this.particles) {
-      p.vx =
-        p.baseVx * speedBoost + (Math.random() - 0.5) * this.highEnergy * 0.5;
-      p.vy =
-        p.baseVy * speedBoost + (Math.random() - 0.5) * this.highEnergy * 0.5;
+      p.vx = p.baseVx * speedBoost + (Math.random() - 0.5) * this.highEnergy * 0.5;
+      p.vy = p.baseVy * speedBoost + (Math.random() - 0.5) * this.highEnergy * 0.5;
 
       p.x += p.vx;
       p.y += p.vy;
@@ -280,10 +265,7 @@ export class Background implements AfterViewInit, OnDestroy {
         const dist = Math.hypot(a.x - b.x, a.y - b.y);
 
         if (dist < lineDistance) {
-          const alpha = Math.max(
-            0,
-            lineOpacityBoost - dist / (lineDistance * 2)
-          );
+          const alpha = Math.max(0, lineOpacityBoost - dist / (lineDistance * 2));
 
           this.ctx.beginPath();
           this.ctx.moveTo(a.x, a.y);

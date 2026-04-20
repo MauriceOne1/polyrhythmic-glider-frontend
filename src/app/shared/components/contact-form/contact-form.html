@@ -22,9 +22,7 @@
         placeholder="Il tuo nome"
         [attr.aria-invalid]="form.controls.name.invalid && form.controls.name.touched"
         [attr.aria-describedby]="
-          form.controls.name.invalid && form.controls.name.touched
-            ? 'contact-name-error'
-            : null
+          form.controls.name.invalid && form.controls.name.touched ? 'contact-name-error' : null
         "
       />
       @if (form.controls.name.invalid && form.controls.name.touched) {
@@ -44,15 +42,11 @@
         placeholder="studio@example.com"
         [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
         [attr.aria-describedby]="
-          form.controls.email.invalid && form.controls.email.touched
-            ? 'contact-email-error'
-            : null
+          form.controls.email.invalid && form.controls.email.touched ? 'contact-email-error' : null
         "
       />
       @if (form.controls.email.invalid && form.controls.email.touched) {
-        <span id="contact-email-error" class="field-error">
-          Inserisci una email valida.
-        </span>
+        <span id="contact-email-error" class="field-error"> Inserisci una email valida. </span>
       }
     </label>
   </div>
@@ -127,9 +121,7 @@
       class="flex items-center justify-between gap-3 text-xs text-white/45"
     >
       <span>Più dettagli dai, meglio posso risponderti.</span>
-      <span id="contact-message-count">
-        {{ messageLength() }}/{{ minimumMessageLength }}
-      </span>
+      <span id="contact-message-count"> {{ messageLength() }}/{{ minimumMessageLength }} </span>
     </div>
     @if (form.controls.message.invalid && form.controls.message.touched) {
       <span id="contact-message-error" class="field-error">
@@ -148,9 +140,7 @@
       name="consent"
       value="accepted"
       formControlName="consent"
-      [attr.aria-invalid]="
-        form.controls.consent.invalid && form.controls.consent.touched
-      "
+      [attr.aria-invalid]="form.controls.consent.invalid && form.controls.consent.touched"
       [attr.aria-describedby]="
         form.controls.consent.invalid && form.controls.consent.touched
           ? 'contact-consent-error'

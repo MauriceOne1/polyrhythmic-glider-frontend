@@ -14,8 +14,7 @@
   padding: 9px 12px;
   background:
     linear-gradient(90deg, rgba(157, 231, 255, 0.12), transparent 34%),
-    linear-gradient(270deg, rgba(182, 255, 105, 0.1), transparent 38%),
-    rgba(7, 8, 12, 0.88);
+    linear-gradient(270deg, rgba(182, 255, 105, 0.1), transparent 38%), rgba(7, 8, 12, 0.88);
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.26);
   backdrop-filter: blur(22px) saturate(150%);
 }

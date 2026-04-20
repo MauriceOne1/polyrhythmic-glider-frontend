@@ -149,10 +149,7 @@ export class Snake implements OnInit, OnDestroy {
     const snakeCells = new Map<string, BoardCellKind>();
 
     state.snake.forEach((segment, index) => {
-      snakeCells.set(
-        this.toCellKey(segment),
-        index === 0 ? 'snake-head' : 'snake-body'
-      );
+      snakeCells.set(this.toCellKey(segment), index === 0 ? 'snake-head' : 'snake-body');
     });
 
     const foodCell = state.food ? this.toCellKey(state.food) : null;

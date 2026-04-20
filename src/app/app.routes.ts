@@ -11,14 +11,19 @@ export const routes: Routes = [
         title: 'Polyrhythmic Glider | Musica, codice ed esperimenti digitali',
         description:
           'Polyrhythmic Glider è uno spazio per musica, codice ed esperimenti digitali tra ricerca sonora, documentazione e sistemi aperti.',
-        keywords: ['polyrhythmic glider', 'musica', 'codice', 'esperimenti digitali', 'ricerca sonora'],
+        keywords: [
+          'polyrhythmic glider',
+          'musica',
+          'codice',
+          'esperimenti digitali',
+          'ricerca sonora',
+        ],
       },
     },
   },
   {
     path: 'experimental',
-    loadComponent: () =>
-      import('./features/experimental/experimental').then((m) => m.Experimental),
+    loadComponent: () => import('./features/experimental/experimental').then((m) => m.Experimental),
     data: {
       seo: {
         title: 'Experimental | Polyrhythmic Glider',
@@ -42,14 +47,19 @@ export const routes: Routes = [
   },
   {
     path: 'game-of-life',
-    loadComponent: () =>
-      import('./features/game-of-life/game-of-life').then((m) => m.GameOfLife),
+    loadComponent: () => import('./features/game-of-life/game-of-life').then((m) => m.GameOfLife),
     data: {
       seo: {
         title: 'Game of Life | Polyrhythmic Glider',
         description:
           'Esperimento visivo dedicato al Game of Life di Conway con simulazione animata e background generativo.',
-        keywords: ['game of life', 'conway', 'cellular automaton', 'generative art', 'visual experiment'],
+        keywords: [
+          'game of life',
+          'conway',
+          'cellular automaton',
+          'generative art',
+          'visual experiment',
+        ],
       },
     },
   },
@@ -69,9 +79,7 @@ export const routes: Routes = [
   {
     path: 'partecipa',
     loadComponent: () =>
-      import('./features/participation/participation').then(
-        (m) => m.Participation
-      ),
+      import('./features/participation/participation').then((m) => m.Participation),
     data: {
       seo: {
         title: 'Partecipa | BYOS! an electronic synth jam',
@@ -102,8 +110,7 @@ export const routes: Routes = [
   },
   {
     path: 'blog/:slug',
-    loadComponent: () =>
-      import('./features/blog-post/blog-post').then((m) => m.BlogPost),
+    loadComponent: () => import('./features/blog-post/blog-post').then((m) => m.BlogPost),
     canActivate: [blogAccessGuard],
     data: {
       seo: {
@@ -149,9 +156,7 @@ export const routes: Routes = [
   {
     path: 'hacker-manifesto',
     loadComponent: () =>
-      import('./features/hacker-manifesto/hacker-manifesto').then(
-        (m) => m.HackerManifesto
-      ),
+      import('./features/hacker-manifesto/hacker-manifesto').then((m) => m.HackerManifesto),
     data: {
       seo: {
         title: 'The Hacker Manifesto | Polyrhythmic Glider',

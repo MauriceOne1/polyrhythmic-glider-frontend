@@ -12,12 +12,7 @@ import {
   untracked,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faPause,
-  faPlay,
-  faVolumeHigh,
-  faVolumeXmark,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPause, faPlay, faVolumeHigh, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
 import type { RadioMode } from '../../radio.models';
 
 @Component({
@@ -174,13 +169,19 @@ export class RadioPlayer implements AfterViewInit, OnDestroy {
   }
 
   private setupAudioGain(): void {
-    if (this.audioSourceNode || !this.audioElement?.nativeElement || typeof AudioContext === 'undefined') {
+    if (
+      this.audioSourceNode ||
+      !this.audioElement?.nativeElement ||
+      typeof AudioContext === 'undefined'
+    ) {
       return;
     }
 
     try {
       this.audioContext = new AudioContext();
-      this.audioSourceNode = this.audioContext.createMediaElementSource(this.audioElement.nativeElement);
+      this.audioSourceNode = this.audioContext.createMediaElementSource(
+        this.audioElement.nativeElement,
+      );
       this.audioGain = this.audioContext.createGain();
       this.audioSourceNode.connect(this.audioGain).connect(this.audioContext.destination);
     } catch {
@@ -233,7 +234,9 @@ export class RadioPlayer implements AfterViewInit, OnDestroy {
     }
 
     const minutes = Math.floor(value / 60);
-    const seconds = Math.floor(value % 60).toString().padStart(2, '0');
+    const seconds = Math.floor(value % 60)
+      .toString()
+      .padStart(2, '0');
     return `${minutes}:${seconds}`;
   }
 }

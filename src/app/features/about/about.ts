@@ -1,9 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SectionShell } from '../../shared/components/section-shell/section-shell';
-import {
-  ABOUT_MANIFESTO_CARDS,
-  ABOUT_PILLARS,
-} from '../../shared/utils/site-content';
+import { ABOUT_MANIFESTO_CARDS, ABOUT_PILLARS } from '../../shared/utils/site-content';
 
 @Component({
   selector: 'app-about',

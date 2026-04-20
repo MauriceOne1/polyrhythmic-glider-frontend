@@ -38,10 +38,7 @@
                 <span>{{ snippet.language }}</span>
               </figcaption>
               @if (snippet.kind === 'latex') {
-                <div
-                  class="latex-preview"
-                  [innerHTML]="snippet.content | latexPreview"
-                ></div>
+                <div class="latex-preview" [innerHTML]="snippet.content | latexPreview"></div>
               }
               <pre><code>{{ snippet.content }}</code></pre>
             </figure>

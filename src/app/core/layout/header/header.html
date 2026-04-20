@@ -1,20 +1,14 @@
 <header class="header-wrap">
   <div class="page-frame header">
     <div class="header-top">
-      <a class="brand" routerLink="/" (click)="navigateHome($event)">
-        Polyrhythmic Glider
-      </a>
+      <a class="brand" routerLink="/" (click)="navigateHome($event)"> Polyrhythmic Glider </a>
 
       <button
         class="menu-toggle"
         type="button"
         [attr.aria-expanded]="isMenuOpen()"
         aria-controls="primary-navigation"
-        [attr.aria-label]="
-          isMenuOpen()
-            ? 'Chiudi menu di navigazione'
-            : 'Apri menu di navigazione'
-        "
+        [attr.aria-label]="isMenuOpen() ? 'Chiudi menu di navigazione' : 'Apri menu di navigazione'"
         (click)="toggleMenu()"
       >
         <span class="menu-toggle-line" [class.is-open]="isMenuOpen()"></span>
@@ -39,21 +33,14 @@
             {{ item.label }}
           </a>
         } @else {
-          <a
-            class="nav-link"
-            routerLink="/"
-            [fragment]="item.fragment"
-            (click)="closeMenu()"
-          >
+          <a class="nav-link" routerLink="/" [fragment]="item.fragment" (click)="closeMenu()">
             {{ item.label }}
           </a>
         }
       }
 
       @if (isLoggedIn()) {
-        <button class="nav-link nav-action" type="button" (click)="logout()">
-          Logout
-        </button>
+        <button class="nav-link nav-action" type="button" (click)="logout()">Logout</button>
       }
     </nav>
   </div>

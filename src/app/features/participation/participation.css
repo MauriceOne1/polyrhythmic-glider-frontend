@@ -325,7 +325,9 @@
   color: inherit;
   text-align: left;
   cursor: pointer;
-  transition: border-color 180ms ease, background-color 180ms ease;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
 
 .participation-choice:hover,
@@ -364,7 +366,9 @@
   background: rgba(255, 255, 255, 0.05);
   color: rgba(247, 247, 251, 0.82);
   cursor: pointer;
-  transition: border-color 180ms ease, background-color 180ms ease;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
 
 .participation-toggle:hover,

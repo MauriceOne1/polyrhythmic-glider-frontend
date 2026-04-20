@@ -1,10 +1,5 @@
 ﻿import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -79,22 +74,20 @@ export class Participation {
   });
 
   constructor() {
-    this.form.controls.hasEffect.valueChanges
-      .pipe(takeUntilDestroyed())
-      .subscribe((value) => {
-        if (value === 'yes') {
-          this.form.controls.effectDetails.addValidators([Validators.required]);
-        } else {
-          this.form.controls.effectDetails.clearValidators();
-          this.form.controls.effectDetails.setValue('');
-          this.form.controls.effectDetails.markAsPristine();
-          this.form.controls.effectDetails.markAsUntouched();
-        }
+    this.form.controls.hasEffect.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      if (value === 'yes') {
+        this.form.controls.effectDetails.addValidators([Validators.required]);
+      } else {
+        this.form.controls.effectDetails.clearValidators();
+        this.form.controls.effectDetails.setValue('');
+        this.form.controls.effectDetails.markAsPristine();
+        this.form.controls.effectDetails.markAsUntouched();
+      }
 
-        this.form.controls.effectDetails.updateValueAndValidity({
-          emitEvent: false,
-        });
+      this.form.controls.effectDetails.updateValueAndValidity({
+        emitEvent: false,
       });
+    });
   }
 
   selectHasEffect(value: 'yes' | 'no'): void {
@@ -156,13 +149,13 @@ export class Participation {
 
       this.statusKind.set('success');
       this.statusMessage.set(
-        'Perfetto, risposta ricevuta. Ti ricontatteremo con i dettagli della jam.'
+        'Perfetto, risposta ricevuta. Ti ricontatteremo con i dettagli della jam.',
       );
       this.resetForm();
     } catch {
       this.statusKind.set('error');
       this.statusMessage.set(
-        'Invio non riuscito. Riprova tra un attimo oppure scrivi a info@polyglider.com.'
+        'Invio non riuscito. Riprova tra un attimo oppure scrivi a info@polyglider.com.',
       );
     } finally {
       this.isSubmitting.set(false);
