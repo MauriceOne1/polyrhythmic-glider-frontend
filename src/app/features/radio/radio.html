@@ -12,75 +12,17 @@
       <h1 id="radio-title">Polyradio test for Link Academy</h1>
     </div>
 
-    <div
-      class="status-strip"
-      aria-label="Stato canale"
-      style="
-        display: flex;
-        flex-wrap: wrap;
-        grid-column: 1 / -1;
-        gap: 8px;
-        justify-content: flex-start;
-      "
-    >
-      <div
-        class="signal-chip"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          color: #b6ff69;
-          font-size: 0.68rem;
-          font-weight: 900;
-          text-transform: uppercase;
-          white-space: nowrap;
-        "
-      >
-        <span
-          class="status-dot"
-          aria-hidden="true"
-          style="
-            display: inline-block;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: currentColor;
-          "
-        ></span>
+    <div class="status-strip" aria-label="Stato canale">
+      <div class="signal-chip">
+        <span class="status-dot" aria-hidden="true"></span>
         <fa-icon [icon]="onAirIcon" aria-hidden="true"></fa-icon>
         <span>On air</span>
       </div>
-      <span
-        class="ghost-chip"
-        aria-disabled="true"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          color: rgba(247, 247, 251, 0.72);
-          font-size: 0.68rem;
-          font-weight: 900;
-          text-transform: uppercase;
-          white-space: nowrap;
-        "
-      >
+      <span class="ghost-chip" aria-disabled="true">
         <fa-icon [icon]="registeredIcon" aria-hidden="true"></fa-icon>
         Registered
       </span>
-      <span
-        class="ghost-chip"
-        aria-disabled="true"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          color: rgba(247, 247, 251, 0.72);
-          font-size: 0.68rem;
-          font-weight: 900;
-          text-transform: uppercase;
-          white-space: nowrap;
-        "
-      >
+      <span class="ghost-chip" aria-disabled="true">
         <fa-icon [icon]="playlistIcon" aria-hidden="true"></fa-icon>
         Playlist
       </span>
@@ -145,10 +87,6 @@
               <dt>Album</dt>
               <dd>{{ currentTrack().album }}</dd>
             </div>
-            <div>
-              <dt>Playlist</dt>
-              <dd>{{ currentTrack().label }}</dd>
-            </div>
           </dl>
         }
       </button>
@@ -173,7 +111,7 @@
           <div class="track-stat">
             <dt>
               <fa-icon [icon]="keyIcon" aria-hidden="true"></fa-icon>
-              Tonalita
+              Key
             </dt>
             <dd>{{ currentTrack().key }}</dd>
           </div>
@@ -187,7 +125,7 @@
           <div class="track-stat">
             <dt>
               <fa-icon [icon]="clockIcon" aria-hidden="true"></fa-icon>
-              Durata
+              Time
             </dt>
             <dd>{{ currentTrack().duration }}</dd>
           </div>

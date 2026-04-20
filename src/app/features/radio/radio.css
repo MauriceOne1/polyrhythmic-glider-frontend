@@ -4,6 +4,19 @@
   height: 100dvh;
   min-height: 560px;
   overflow: hidden;
+  --title-fs: 2.45rem;
+  --chip-fs: 0.68rem;
+  --label-fs: 0.72rem;
+  --meta-fs: 0.66rem;
+  --body-fs: 0.92rem;
+  --now-fs: 1.48rem;
+  --program-title-fs: 0.88rem;
+  --program-status-fs: 0.5rem;
+}
+
+:host,
+:host * {
+  box-sizing: border-box;
 }
 
 .radio-console {
@@ -20,7 +33,21 @@
 .radio-topbar,
 .console-grid,
 .panel,
-.program-copy {
+.status-strip,
+.radio-topbar > div,
+.now-track-list div,
+.track-stat,
+.mode-card div,
+.mode-card button,
+.mobile-schedule-button,
+.stage-detail,
+.schedule-heading,
+.program-list li,
+.program-copy,
+.program-list time,
+.program-meta,
+.program-meta span,
+.program-status {
   min-width: 0;
 }
 
@@ -29,6 +56,43 @@
   align-items: center;
   justify-content: space-between;
   gap: 18px;
+}
+
+.status-strip {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.signal-chip,
+.ghost-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  font-size: var(--chip-fs);
+  font-weight: 900;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.signal-chip {
+  color: #b6ff69;
+}
+
+.ghost-chip {
+  color: rgba(247, 247, 251, 0.72);
+}
+
+.status-dot {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 h1,
@@ -49,12 +113,16 @@ p,
 }
 
 h1 {
-  font-size: 2.45rem;
+  font-size: var(--title-fs);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
 }
 
 h2 {
   margin-bottom: 10px;
   font-size: 1.35rem;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
 }
 
 .kicker {
@@ -121,8 +189,10 @@ h2 {
 .now-panel {
   display: grid;
   align-content: start;
-  grid-template-rows: auto minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 0.86fr);
+  grid-template-rows: auto minmax(132px, auto) minmax(184px, auto) minmax(96px, auto);
   gap: 12px;
+  overflow-y: auto;
+  padding: 20px;
 }
 
 .now-header,
@@ -146,11 +216,13 @@ h2 {
   align-content: center;
   gap: 10px;
   width: 100%;
-  min-height: 0;
-  padding: 16px;
+  min-height: 132px;
+  overflow: hidden;
+  padding: 18px;
   color: inherit;
   text-align: left;
   background: rgba(182, 255, 105, 0.09);
+  container-type: inline-size;
   cursor: pointer;
 }
 
@@ -162,9 +234,11 @@ h2 {
 
 .info-card-label {
   gap: 7px;
-  width: fit-content;
+  max-width: 100%;
   color: rgba(247, 247, 251, 0.72);
-  font-size: 0.72rem;
+  font-size: var(--label-fs);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .info-card-icon {
@@ -193,7 +267,7 @@ h2 {
 }
 
 .now-track-list dt {
-  font-size: 0.66rem;
+  font-size: var(--meta-fs);
 }
 
 .now-track-list dd,
@@ -207,24 +281,31 @@ h2 {
 
 .now-track-list dd,
 .track-stat dd {
-  font-size: 0.92rem;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-size: var(--body-fs);
 }
 
 .now-track-list div:first-child dd {
-  font-size: 1.48rem;
+  font-size: var(--now-fs);
+  -webkit-line-clamp: 2;
 }
 
 .track-card {
   grid-template-rows: auto minmax(0, 1fr);
   gap: 12px;
-  min-height: 0;
-  padding: 14px;
+  min-height: 184px;
+  overflow: hidden;
+  padding: 16px;
   background: rgba(255, 255, 255, 0.045);
+  container-type: inline-size;
 }
 
 .track-stat-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(86px, 100%), 1fr));
   gap: 8px;
   margin: 0;
 }
@@ -233,8 +314,9 @@ h2 {
   align-content: center;
   gap: 8px;
   min-width: 0;
-  min-height: 0;
-  padding: 10px 9px;
+  min-height: 64px;
+  overflow: hidden;
+  padding: 12px;
   border-color: rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.045);
 }
@@ -250,12 +332,15 @@ h2 {
   gap: 6px;
   color: rgba(247, 247, 251, 0.52);
   font-size: 0.62rem;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
 }
 
 .mode-card {
   align-content: center;
   gap: 10px;
   min-height: 0;
+  overflow: hidden;
   padding: 16px;
   background: rgba(157, 231, 255, 0.08);
 }
@@ -276,6 +361,8 @@ h2 {
   color: rgba(247, 247, 251, 0.78);
   background: rgba(255, 255, 255, 0.055);
   font-weight: 900;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
   cursor: pointer;
 }
 
@@ -287,11 +374,12 @@ h2 {
 .mode-card small {
   color: rgba(247, 247, 251, 0.58);
   font-size: 0.74rem;
+  overflow-wrap: anywhere;
 }
 
 .stage-panel {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr) 132px;
   gap: 12px;
   min-height: 0;
   overflow: hidden;
@@ -317,30 +405,83 @@ h2 {
 .audio-stage {
   display: grid;
   place-items: center;
+  height: 100%;
   min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
   text-align: center;
 }
 
-.audio-stage {
+.audio-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.video-stage {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
   overflow: hidden;
+  padding: 18px;
+  text-align: center;
+  background: rgba(5, 6, 7, 0.86);
+}
+
+.video-stage span,
+.video-stage strong,
+.video-stage small {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.video-stage span {
+  color: rgba(157, 231, 255, 0.78);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.video-stage strong {
+  color: #f7f7fb;
+  font-size: 1.2rem;
+}
+
+.video-stage small {
+  color: rgba(247, 247, 251, 0.64);
 }
 
 .stage-detail {
   z-index: 2;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  align-content: start;
   gap: 6px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
   padding: 14px;
   border-color: rgba(157, 231, 255, 0.24);
   background: rgba(9, 11, 18, 0.9);
+  container-type: inline-size;
 }
 
 .stage-card-label {
+  justify-self: start;
   gap: 6px;
   width: fit-content;
+  max-width: 100%;
   border-radius: 999px;
   padding: 4px 8px;
   color: #090b12;
   background: #9de7ff;
   font-size: 0.58rem;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
 }
 
 .stage-detail small,
@@ -349,10 +490,29 @@ h2 {
 }
 
 .stage-detail p,
+.stage-detail strong,
+.stage-detail small,
+.program-list strong,
 .program-list small {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
+}
+
+.stage-detail strong,
+.stage-detail small,
+.program-list strong,
+.program-list small {
+  overflow-wrap: anywhere;
+}
+
+.stage-detail strong {
+  -webkit-line-clamp: 2;
+}
+
+.stage-detail small,
+.program-list strong {
+  -webkit-line-clamp: 1;
 }
 
 .stage-detail p {
@@ -365,6 +525,7 @@ h2 {
   grid-template-rows: auto auto minmax(0, 1fr);
   gap: 12px;
   overflow: hidden;
+  padding: 20px;
 }
 
 .schedule-heading {
@@ -373,26 +534,32 @@ h2 {
 
 .program-list {
   display: grid;
-  grid-template-rows: repeat(8, minmax(0, 1fr));
-  gap: 8px;
+  grid-auto-rows: 72px;
+  gap: 7px;
   min-height: 0;
-  overflow: visible;
+  overflow-y: auto;
   padding: 0;
   list-style: none;
 }
 
+.program-list li {
+  overflow: hidden;
+}
+
 .program-item {
   display: grid;
-  grid-template-columns: 54px minmax(0, 1fr);
-  gap: 9px;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 8px;
   align-items: center;
   width: 100%;
   height: 100%;
   min-height: 0;
+  overflow: hidden;
   border-left-width: 4px;
-  padding: 8px 8px 8px 12px;
+  padding: 14px 14px 14px 16px;
   color: inherit;
   text-align: left;
+  container-type: inline-size;
   cursor: pointer;
 }
 
@@ -418,23 +585,32 @@ h2 {
   color: #9de7ff;
   font-size: 0.78rem;
   font-weight: 900;
+  overflow-wrap: anywhere;
 }
 
 .program-copy {
   gap: 4px;
+  overflow: hidden;
 }
 
 .program-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
   color: rgba(247, 247, 251, 0.48);
   font-size: 0.58rem;
+  overflow: hidden;
+}
+
+.program-meta span:not(.program-status) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .program-list strong {
-  font-size: 0.88rem;
+  font-size: var(--program-title-fs);
 }
 
 .program-list small {
@@ -444,11 +620,14 @@ h2 {
 
 .program-status {
   gap: 4px;
+  max-width: 100%;
   min-height: 18px;
   border-radius: 999px;
   padding: 2px 6px;
-  font-size: 0.5rem;
+  font-size: var(--program-status-fs);
   font-style: normal;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
 }
 
 .program-item.is-on-air .program-status {
@@ -466,9 +645,100 @@ h2 {
   background: rgba(247, 247, 251, 0.14);
 }
 
+@container (max-width: 210px) {
+  .info-card-label {
+    font-size: 0.62rem;
+  }
+
+  .now-track-list dt,
+  .track-stat dt {
+    font-size: 0.56rem;
+  }
+
+  .now-track-list dd,
+  .track-stat dd {
+    font-size: 0.82rem;
+  }
+
+  .now-track-list div:first-child dd {
+    font-size: 1.12rem;
+  }
+
+  .track-stat-grid {
+    gap: 6px;
+  }
+
+  .track-stat {
+    min-height: 58px;
+    padding: 10px;
+  }
+}
+
+@container (max-width: 180px) {
+  .info-card-label {
+    font-size: 0.58rem;
+  }
+
+  .now-track-list div:first-child dd {
+    font-size: 1rem;
+  }
+
+  .now-track-list dd,
+  .track-stat dd {
+    font-size: 0.76rem;
+  }
+
+  .track-stat-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@container (max-width: 250px) {
+  .stage-card-label {
+    font-size: 0.52rem;
+  }
+
+  .stage-detail strong {
+    font-size: 0.9rem;
+  }
+
+  .stage-detail small,
+  .stage-detail p {
+    font-size: 0.7rem;
+  }
+
+  .program-list time {
+    font-size: 0.66rem;
+  }
+
+  .program-meta {
+    font-size: 0.52rem;
+  }
+
+  .program-list strong {
+    font-size: 0.78rem;
+  }
+
+  .program-list small {
+    font-size: 0.64rem;
+  }
+
+  .program-status {
+    font-size: 0.46rem;
+  }
+}
+
 @media (max-width: 900px) {
   :host {
     min-height: 0;
+    --title-fs: 1.45rem;
+    --chip-fs: 0.62rem;
+    --label-fs: 0.58rem;
+    --meta-fs: 0.52rem;
+    --body-fs: 0.74rem;
+    --now-fs: 0.98rem;
+    --program-title-fs: 0.68rem;
+    --program-status-fs: 0.43rem;
   }
 
   .radio-console {
@@ -494,10 +764,6 @@ h2 {
     text-transform: uppercase;
   }
 
-  h1 {
-    font-size: 1.45rem;
-  }
-
   .kicker {
     margin-bottom: 3px;
     font-size: 0.62rem;
@@ -510,19 +776,23 @@ h2 {
     overflow-y: auto;
   }
 
-  .panel,
+  .panel {
+    padding: 12px;
+  }
+
   .song-now {
-    padding: 8px;
+    min-height: 104px;
+    padding: 12px;
   }
 
   .now-panel {
     grid-template-rows: auto auto;
     gap: 6px;
+    padding: 12px;
   }
 
   .info-card-label {
     gap: 5px;
-    font-size: 0.58rem;
   }
 
   .info-card-icon {
@@ -540,18 +810,6 @@ h2 {
   .mode-card .info-card-label,
   .mode-card small {
     display: none;
-  }
-
-  .now-track-list dt {
-    font-size: 0.52rem;
-  }
-
-  .now-track-list dd {
-    font-size: 0.74rem;
-  }
-
-  .now-track-list div:first-child dd {
-    font-size: 0.98rem;
   }
 
   .mode-card {
@@ -580,6 +838,7 @@ h2 {
     width: min(330px, calc(100% - 28px));
     grid-template-rows: auto auto minmax(0, 1fr);
     gap: 6px;
+    padding: 12px;
     transform: translateX(calc(100% + 16px));
     transition: transform 180ms ease;
   }
@@ -617,14 +876,15 @@ h2 {
   }
 
   .program-list {
-    gap: 4px;
+    grid-auto-rows: 60px;
+    gap: 5px;
   }
 
   .program-item {
     grid-template-columns: 38px minmax(0, 1fr);
     gap: 5px;
     border-left-width: 3px;
-    padding: 5px;
+    padding: 10px;
   }
 
   .program-list time {
@@ -639,11 +899,15 @@ h2 {
   .program-status {
     min-height: 15px;
     padding: 1px 4px;
-    font-size: 0.43rem;
   }
+}
 
-  .program-list strong {
-    font-size: 0.68rem;
+@media (max-width: 460px) {
+  :host {
+    --title-fs: 1.22rem;
+    --chip-fs: 0.58rem;
+    --now-fs: 0.9rem;
+    --body-fs: 0.68rem;
   }
 }
 
