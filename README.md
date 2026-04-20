@@ -50,3 +50,77 @@ podman build -t polyrhytmic-glider .
 ```bash
 podman run -p 4200:4200 polyrhytmic-glider
 ```
+
+## Conventions
+
+### Commit messages
+
+Usiamo **Conventional Commits** per mantenere una history leggibile e automatizzare versioning e release.
+
+Formato base:
+
+```text
+type(scope): message
+```
+
+Esempi:
+
+```text
+feat(radio): add audio player
+fix(player): resolve playback issue on mobile
+chore(deps): update dependencies
+```
+
+Tipi principali:
+
+- `feat` → nuova feature
+- `fix` → bugfix
+- `chore` → roba interna (deps, config, tooling)
+- `refactor` → refactor senza cambiare comportamento
+- `docs` → documentazione
+- `style` → formattazione (no logica)
+- `test` → test
+
+Standard ufficiale:
+<https://www.conventionalcommits.org/>
+
+Convenzione Angular (quella utilizzata nel progetto):
+<https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit>
+
+---
+
+### Formatting
+
+Il progetto usa **Prettier** come formatter di default.
+
+- viene eseguito automaticamente tramite Husky pre-commit
+- se il codice non è formattato, il commit viene bloccato
+
+Per formattare manualmente:
+
+```bash
+npm run format
+```
+
+oppure:
+
+```bash
+npx prettier --write .
+```
+
+---
+
+### Versioning
+
+Seguiamo **Semantic Versioning (semver)**:
+
+```text
+MAJOR.MINOR.PATCH
+```
+
+- `PATCH` → bugfix
+- `MINOR` → nuove feature
+- `MAJOR` → breaking changes
+
+Standard:
+<https://semver.org/>
