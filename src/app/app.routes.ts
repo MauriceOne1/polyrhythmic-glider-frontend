@@ -62,25 +62,6 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'art',
-    loadComponent: () => import('./features/art/art').then((m) => m.Art),
-    data: {
-      seo: {
-        title: 'Art | Polyrhythmic Glider',
-        description:
-          'Sezione artistica di Polyrhythmic Glider dedicata a mostra digitale, video, moving image e archivio curatoriale.',
-        keywords: [
-          'art',
-          'digital exhibition',
-          'mostra digitale',
-          'video art',
-          'moving image',
-          'polyrhythmic glider',
-        ],
-      },
-    },
-  },
-  {
     path: 'snake',
     loadComponent: () => import('./features/snake/snake').then((m) => m.Snake),
     data: {
