@@ -52,6 +52,10 @@
 .participation-byos-line {
   display: block;
   font-size: clamp(3.4rem, 17cqi, 6.8rem);
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: nowrap;
 }
 
 .participation-date-line {
