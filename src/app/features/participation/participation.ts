@@ -2,6 +2,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastService } from '../../core/toast/toast.service';
 
 interface ChoiceOption {
   readonly value: string;
@@ -54,6 +55,7 @@ export class Participation {
   readonly attendanceOptions = ATTENDANCE_OPTIONS;
 
   private readonly formBuilder = inject(FormBuilder);
+  private readonly toast = inject(ToastService);
 
   readonly isSubmitting = signal(false);
   readonly statusMessage = signal('');
@@ -147,10 +149,10 @@ export class Participation {
         throw new Error('Participation form submission failed');
       }
 
-      this.statusKind.set('success');
-      this.statusMessage.set(
-        'Perfetto, risposta ricevuta. Ti ricontatteremo con i dettagli della jam.',
-      );
+      this.toast.success({
+        title: 'Iscrizione completata.',
+        message: 'Risposta ricevuta. Ti ricontatteremo con i dettagli della jam.',
+      });
       this.resetForm();
     } catch {
       this.statusKind.set('error');

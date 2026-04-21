@@ -378,13 +378,8 @@
         </p>
       </div>
 
-      @if (statusMessage()) {
-        <p
-          class="participation-status"
-          [attr.role]="statusKind() === 'error' ? 'alert' : 'status'"
-          [class.is-success]="statusKind() === 'success'"
-          [class.is-error]="statusKind() === 'error'"
-        >
+      @if (statusKind() === 'error' && statusMessage()) {
+        <p class="participation-status" role="alert" [class.is-error]="statusKind() === 'error'">
           {{ statusMessage() }}
         </p>
       }
