@@ -1,7 +1,7 @@
 <header class="header-wrap">
   <div class="page-frame header">
     <div class="header-top">
-      <a class="brand" routerLink="/" (click)="navigateHome($event)">
+      <a class="brand" [routerLink]="homeRoute" (click)="navigateHome($event)">
         <span>polyrhythmic</span>
         <span>glider</span>
       </a>
@@ -27,7 +27,11 @@
       [class.is-open]="isMenuOpen()"
     >
       @for (item of navItems; track item.label) {
-        @if (item.href) {
+        @if (item.externalHref) {
+          <a class="nav-link" [href]="item.externalHref" (click)="closeMenu()">
+            {{ item.label }}
+          </a>
+        } @else if (item.href) {
           <a class="nav-link" [routerLink]="item.href" (click)="closeMenu()">
             {{ item.label }}
           </a>

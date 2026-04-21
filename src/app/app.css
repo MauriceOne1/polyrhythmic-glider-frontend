@@ -18,6 +18,10 @@
   width: min(var(--content-wide-max), calc(100% - (var(--page-gutter-compact) * 2)));
 }
 
+.app-shell.is-art-shell .main-content {
+  width: min(var(--content-wide-max), calc(100% - (var(--page-gutter-compact) * 2)));
+}
+
 .audio-controls {
   position: fixed;
   right: max(16px, env(safe-area-inset-right));

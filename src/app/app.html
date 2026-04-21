@@ -33,7 +33,7 @@
   </div>
 }
 
-<div class="app-shell" [class.is-radio-shell]="isRadioRoute()">
+<div class="app-shell" [class.is-radio-shell]="isRadioRoute()" [class.is-art-shell]="isArtRoute()">
   @if (!isRadioRoute()) {
     <app-header></app-header>
   }

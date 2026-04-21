@@ -9,6 +9,12 @@
   force = true
 
 [[redirects]]
+  from = "http://art.polyglider.com/*"
+  to = "https://art.polyglider.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

@@ -1,9 +1,36 @@
-import { Routes } from '@angular/router';
+import { Routes, UrlMatchResult, UrlSegment } from '@angular/router';
 import { blogAccessGuard } from './core/identity/blog-access.guard';
 import { identityGuard } from './core/identity/identity.guard';
 import { Home } from './features/home/home';
 
+function artHostRootMatcher(segments: UrlSegment[]): UrlMatchResult | null {
+  if (segments.length !== 0 || typeof window === 'undefined') {
+    return null;
+  }
+
+  return window.location.hostname === 'art.polyglider.com' ? { consumed: segments } : null;
+}
+
 export const routes: Routes = [
+  {
+    matcher: artHostRootMatcher,
+    loadComponent: () => import('./features/art/art').then((m) => m.Art),
+    data: {
+      seo: {
+        title: 'Art | Polyrhythmic Glider',
+        description:
+          'Sezione artistica di Polyrhythmic Glider dedicata a mostra digitale, video, moving image e archivio curatoriale.',
+        keywords: [
+          'art',
+          'digital exhibition',
+          'mostra digitale',
+          'video art',
+          'moving image',
+          'polyrhythmic glider',
+        ],
+      },
+    },
+  },
   {
     path: '',
     component: Home,
@@ -31,6 +58,25 @@ export const routes: Routes = [
         description:
           'Sandbox di live coding per pattern ritmici, sketch veloci e workflow da performance dentro Polyrhythmic Glider.',
         keywords: ['live coding', 'strudel', 'pattern ritmici', 'performance', 'experimental'],
+      },
+    },
+  },
+  {
+    path: 'art',
+    loadComponent: () => import('./features/art/art').then((m) => m.Art),
+    data: {
+      seo: {
+        title: 'Art | Polyrhythmic Glider',
+        description:
+          'Sezione artistica di Polyrhythmic Glider dedicata a mostra digitale, video, moving image e archivio curatoriale.',
+        keywords: [
+          'art',
+          'digital exhibition',
+          'mostra digitale',
+          'video art',
+          'moving image',
+          'polyrhythmic glider',
+        ],
       },
     },
   },
