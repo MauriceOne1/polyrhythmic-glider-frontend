@@ -5,7 +5,8 @@ import { NAV_ITEMS } from '../navigation/nav-items';
 
 interface ResourceLink {
   readonly label: string;
-  readonly path: string;
+  readonly path?: string;
+  readonly externalHref?: string;
   readonly eyebrow: string;
   readonly description: string;
 }
@@ -23,9 +24,9 @@ export class Footer {
   readonly resources: ResourceLink[] = [
     {
       label: 'Polyblog',
-      path: '/blog',
-      eyebrow: 'Appunti',
-      description: 'Bozze tecniche, formule, codice e frammenti di articoli.',
+      externalHref: 'https://blog.polyglider.com/',
+      eyebrow: 'Blog',
+      description: 'Articoli, appunti di ricerca, formule, codice e processi condivisi.',
     },
     {
       label: 'BYOS!',

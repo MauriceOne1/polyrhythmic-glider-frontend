@@ -15,6 +15,24 @@
   force = true
 
 [[redirects]]
+  from = "http://blog.polyglider.com/*"
+  to = "https://blog.polyglider.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog"
+  to = "https://blog.polyglider.com/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/*"
+  to = "https://blog.polyglider.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

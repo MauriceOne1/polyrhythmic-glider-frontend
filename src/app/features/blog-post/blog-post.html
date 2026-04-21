@@ -1,6 +1,6 @@
 @if (post(); as article) {
   <article class="blog-post-page" aria-labelledby="blog-post-title">
-    <a class="blog-back-link" routerLink="/blog">Polyblog</a>
+    <a class="blog-back-link" routerLink="/">Polyblog</a>
 
     <header class="blog-post-header readable-copy-card">
       <div class="blog-post-meta">
@@ -52,7 +52,7 @@
         <p class="blog-post-kicker">Continua a leggere</p>
         <div class="related-post-list">
           @for (related of relatedPosts(); track related.slug) {
-            <a [routerLink]="['/blog', related.slug]">
+            <a [routerLink]="['/', related.slug]">
               <span>{{ related.category }}</span>
               <strong>{{ related.title }}</strong>
               <small>{{ related.readingTime }}</small>
@@ -68,7 +68,7 @@
       <p class="blog-post-kicker">Polyblog</p>
       <h1 id="blog-post-title" class="display-font">Appunto non trovato</h1>
       <p>Questo appunto non e disponibile o deve ancora essere pubblicato.</p>
-      <a class="blog-back-link" routerLink="/blog">Torna al Polyblog</a>
+      <a class="blog-back-link" routerLink="/">Torna al Polyblog</a>
     </div>
   </section>
 }

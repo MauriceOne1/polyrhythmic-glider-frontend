@@ -298,7 +298,7 @@ $ ffmpeg -i breath-hat.wav -af "highpass=f=1800,acompressor" breath-hat-clean.wa
             label: 'URL',
             kind: 'terminal',
             language: 'bash',
-            content: `$ open /login?redirect=/blog/visualizzare-poliritmie-in-browser`,
+            content: `$ open https://blog.polyglider.com/visualizzare-poliritmie-in-browser`,
           },
         ],
       },
