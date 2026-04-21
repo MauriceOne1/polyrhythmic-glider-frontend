@@ -230,12 +230,16 @@ h1 {
     -0.05em 0 0 rgba(255, 64, 140, 0.65),
     0.05em 0 0 rgba(157, 231, 255, 0.72),
     0 0 18px rgba(182, 255, 105, 0.16);
-  animation: hero-line-shift 2.8s steps(2) infinite 420ms both;
+  animation:
+    hero-line-shift 2.8s steps(2) infinite 420ms both,
+    hero-line-signal 4.2s steps(2) infinite 740ms both;
 }
 
 .hero-title.is-terminal-closed .hero-title-line::before,
 .hero-title.is-terminal-closed .hero-title-line::after {
   opacity: 0.72;
+  clip-path: inset(0 0 0 0);
+  will-change: clip-path, transform, opacity;
   transition: opacity 700ms ease 260ms;
 }
 
@@ -245,6 +249,9 @@ h1 {
   text-shadow:
     -0.05em 0 0 rgba(255, 64, 140, 0.7),
     0.05em 0 0 rgba(157, 231, 255, 0.9);
+  animation:
+    hero-title-glitch-cyan 1.55s steps(2) infinite 520ms both,
+    hero-title-flicker 480ms steps(2) infinite 920ms both;
 }
 
 .hero-title.is-terminal-closed .hero-title-line::after {
@@ -253,6 +260,18 @@ h1 {
   text-shadow:
     -0.04em 0 0 rgba(255, 210, 64, 0.75),
     0.04em 0 0 rgba(182, 255, 105, 0.92);
+  animation:
+    hero-title-glitch-lime 1.95s steps(2) infinite 620ms reverse both,
+    hero-title-flicker 560ms steps(2) infinite 1s reverse both;
+}
+
+.hero-title.is-terminal-closed .hero-title-line:first-child {
+  animation-delay: 360ms, 680ms;
+}
+
+.hero-title.is-terminal-closed .hero-title-line:last-child {
+  animation-delay: 440ms, 880ms;
+  animation-direction: normal, reverse;
 }
 
 .hero-panel.is-terminal-closed {
@@ -345,57 +364,6 @@ h1 {
 .terminal-cursor {
   color: rgba(182, 255, 105, 0.82);
   animation: terminal-cursor-blink 1s steps(1) infinite;
-}
-
-@keyframes terminal-cursor-blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-
-  51%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes hero-title-pulse {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 28px rgba(157, 231, 255, 0.12)) hue-rotate(0deg) saturate(1);
-  }
-
-  17% {
-    filter: drop-shadow(-0.02em 0 rgba(255, 64, 140, 0.4))
-      drop-shadow(0.03em 0 rgba(157, 231, 255, 0.35)) hue-rotate(18deg) saturate(1.25);
-  }
-
-  48% {
-    filter: drop-shadow(0 0 34px rgba(182, 255, 105, 0.18)) hue-rotate(-22deg) saturate(1.4);
-  }
-
-  79% {
-    filter: drop-shadow(0 0 18px rgba(255, 210, 64, 0.14)) hue-rotate(34deg) saturate(1.2);
-  }
-}
-
-@keyframes hero-line-shift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-
-  18% {
-    transform: translate3d(-0.015em, 0.01em, 0);
-  }
-
-  48% {
-    transform: translate3d(0.02em, -0.01em, 0);
-  }
-
-  72% {
-    transform: translate3d(-0.01em, -0.015em, 0);
-  }
 }
 
 @media (min-width: 768px) {
