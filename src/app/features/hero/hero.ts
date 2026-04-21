@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { HERO_TERMINAL_COMMAND_GROUPS } from '../../shared/utils/site-content';
+import { HERO_TERMINAL_COMMAND_GROUPS } from '../home/home.content';
 
 @Component({
   selector: 'app-hero',

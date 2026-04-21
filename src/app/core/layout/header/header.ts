@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 import { IdentityService } from '../../identity/identity.service';
-import { NAV_ITEMS } from '../../../shared/utils/site-content';
+import { NAV_ITEMS } from '../navigation/nav-items';
 
 @Component({
   selector: 'app-header',

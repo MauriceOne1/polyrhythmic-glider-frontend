@@ -1,4 +1,4 @@
-import type { BlogPost } from '../models/content.models';
+import type { BlogPost } from '../../shared/models/content.models';
 
 export const BLOG_POSTS: BlogPost[] = [
   {

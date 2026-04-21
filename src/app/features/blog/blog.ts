@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { BlogPost } from '../../shared/models/content.models';
-import { BLOG_POSTS } from '../../shared/utils/blog-content';
+import { BLOG_POSTS } from './blog.content';
 
 type BlogSort = 'newest' | 'oldest' | 'readingTime' | 'title';
 
