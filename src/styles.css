@@ -299,6 +299,53 @@ app-root {
   }
 }
 
+.participation-byos-line {
+  position: relative;
+  isolation: isolate;
+  color: #f7f7fb;
+  text-shadow:
+    -0.04em 0 0 rgba(255, 92, 163, 0.28),
+    0.04em 0 0 rgba(157, 231, 255, 0.28),
+    0 0 28px rgba(182, 255, 105, 0.08);
+  animation:
+    hero-line-shift 2.8s steps(2) infinite 260ms both,
+    hero-line-signal 4.2s steps(2) infinite 620ms both;
+}
+
+.participation-byos-line::before,
+.participation-byos-line::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0.72;
+  mix-blend-mode: plus-lighter;
+  pointer-events: none;
+  clip-path: inset(0 0 0 0);
+  will-change: clip-path, transform, opacity;
+}
+
+.participation-byos-line::before {
+  color: rgba(157, 231, 255, 0.92);
+  transform: translate3d(-0.04em, 0, 0);
+  text-shadow:
+    -0.05em 0 0 rgba(255, 64, 140, 0.7),
+    0.05em 0 0 rgba(157, 231, 255, 0.9);
+  animation:
+    hero-title-glitch-cyan 1.55s steps(2) infinite 520ms both,
+    hero-title-flicker 480ms steps(2) infinite 920ms both;
+}
+
+.participation-byos-line::after {
+  color: rgba(182, 255, 105, 0.88);
+  transform: translate3d(0.04em, 0, 0);
+  text-shadow:
+    -0.04em 0 0 rgba(255, 210, 64, 0.75),
+    0.04em 0 0 rgba(182, 255, 105, 0.92);
+  animation:
+    hero-title-glitch-lime 1.95s steps(2) infinite 620ms reverse both,
+    hero-title-flicker 560ms steps(2) infinite 1s reverse both;
+}
+
 @keyframes cursor-blink {
   0%,
   50%,
