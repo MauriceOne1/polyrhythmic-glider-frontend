@@ -1,11 +1,12 @@
-﻿import { Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { blogAccessGuard } from './core/identity/blog-access.guard';
 import { identityGuard } from './core/identity/identity.guard';
+import { Home } from './features/home/home';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./features/home/home').then((m) => m.Home),
+    component: Home,
     data: {
       seo: {
         title: 'Polyrhythmic Glider | Musica, codice ed esperimenti digitali',
