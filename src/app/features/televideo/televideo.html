@@ -1,0 +1,9 @@
+<section class="televideo-shell" aria-label="Televideo">
+  <section class="screen-frame">
+    <div #screenHost [id]="hostId" class="screen-host" aria-label="Schermo televideo"></div>
+
+    @if (osdText()) {
+      <div class="osd" aria-live="polite">{{ osdText() }}</div>
+    }
+  </section>
+</section>

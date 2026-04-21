@@ -15,7 +15,7 @@
 }
 
 .app-shell.is-radio-shell .main-content {
-  width: min(var(--content-wide-max), calc(100% - (var(--page-gutter-compact) * 2)));
+  width: calc(100% - (var(--page-gutter-compact) * 2));
 }
 
 .audio-controls {

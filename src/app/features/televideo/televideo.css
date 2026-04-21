@@ -1,0 +1,91 @@
+:host {
+  display: block;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 28%),
+    linear-gradient(180deg, #011a7a 0%, #002bb8 100%);
+  --screen-ratio: 1.3333333333;
+}
+
+:host,
+:host * {
+  box-sizing: border-box;
+}
+
+.televideo-shell {
+  height: 100%;
+  padding: 0;
+}
+
+.screen-frame,
+.osd {
+  min-width: 0;
+}
+
+.osd {
+  padding: 4px 8px;
+  color: #001d84;
+  background: #ffe600;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.screen-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+}
+
+.screen-host {
+  display: grid;
+  place-items: stretch;
+  width: min(100vw, calc(100dvh * var(--screen-ratio)));
+  height: min(100dvh, calc(100vw / var(--screen-ratio)));
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05),
+      transparent 15%,
+      transparent 85%,
+      rgba(0, 0, 0, 0.2)
+    ),
+    linear-gradient(180deg, #0024a1 0%, #00176b 100%);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.screen-host > svg {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  max-height: none;
+}
+
+.osd {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+}
+
+@media (max-width: 760px) {
+  .screen-host {
+    width: min(100vw, calc(100dvh * var(--screen-ratio)));
+    height: min(100dvh, calc(100vw / var(--screen-ratio)));
+  }
+
+  .osd {
+    right: 8px;
+    bottom: 8px;
+  }
+}

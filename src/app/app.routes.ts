@@ -140,6 +140,19 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'televideo',
+    loadComponent: () => import('./features/televideo/televideo').then((m) => m.Televideo),
+    data: {
+      seo: {
+        title: 'Televideo | Polyrhythmic Glider',
+        description:
+          'Esempio minimale di pagina televideo in Angular costruita con Teletext for JS.',
+        keywords: ['televideo', 'teletext', 'angular', 'svg', 'polyrhythmic glider'],
+        robots: 'noindex,nofollow',
+      },
+    },
+  },
+  {
     path: 'toast',
     loadComponent: () => import('./features/toast/toast').then((m) => m.Toast),
     data: {
