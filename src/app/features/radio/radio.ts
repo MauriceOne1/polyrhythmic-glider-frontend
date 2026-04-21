@@ -28,8 +28,6 @@ type JsonRecord = Record<string, unknown>;
 })
 export class Radio implements OnInit, OnDestroy {
   readonly audioSource = 'https://srv467120.hstgr.cloud:8000/radio.mp3';
-  readonly fallbackArtworkUrl =
-    'https://www.linkacademyradio.com/wp-content/uploads/2022/07/LOGO_LINK_Academy_2_black_white.png';
   readonly videoSource: string | null = '/assets/video/rickroll.mp4';
   readonly onAirIcon = faTowerBroadcast;
   readonly playlistIcon = faListUl;
@@ -63,7 +61,7 @@ export class Radio implements OnInit, OnDestroy {
     key: 'N/D',
     mood: 'Electronic Music',
     bpm: null,
-    artworkUrl: this.fallbackArtworkUrl,
+    artworkUrl: null,
   });
 
   readonly playedTracks: readonly RadioTrack[] = [
@@ -297,7 +295,7 @@ export class Radio implements OnInit, OnDestroy {
       key: currentTrack.key,
       mood: this.readString(song, 'genre') ?? currentTrack.mood,
       bpm: currentTrack.bpm,
-      artworkUrl: this.readString(song, 'art') ?? this.fallbackArtworkUrl,
+      artworkUrl: this.readString(song, 'art'),
     };
   }
 

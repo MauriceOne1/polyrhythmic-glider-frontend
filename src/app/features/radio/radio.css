@@ -412,11 +412,46 @@ h2 {
   text-align: center;
 }
 
+.audio-stage-placeholder {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 18px;
+  background:
+    radial-gradient(circle at top, rgba(182, 255, 105, 0.18), transparent 56%), rgba(5, 6, 7, 0.86);
+}
+
 .audio-stage img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.audio-stage-placeholder span,
+.audio-stage-placeholder strong,
+.audio-stage-placeholder small {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.audio-stage-placeholder span {
+  color: rgba(157, 231, 255, 0.78);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.audio-stage-placeholder strong {
+  color: #f7f7fb;
+  font-size: 1.2rem;
+}
+
+.audio-stage-placeholder small {
+  color: rgba(247, 247, 251, 0.64);
 }
 
 .video-stage {
