@@ -1,1 +1,1 @@
-npm run format:check
+node scripts/precommit-format.mjs

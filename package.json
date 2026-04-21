@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "format": "prettier --write .",
+    "format:staged": "node scripts/precommit-format.mjs",
     "format:check": "prettier --check .",
     "prepare": "husky"
   },
