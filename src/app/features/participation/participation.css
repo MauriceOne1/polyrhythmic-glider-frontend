@@ -410,6 +410,19 @@
   gap: 14px;
 }
 
+.participation-submit-button {
+  display: grid;
+}
+
+.participation-submit-button-measure,
+.participation-submit-button-label {
+  grid-area: 1 / 1;
+}
+
+.participation-submit-button-measure {
+  visibility: hidden;
+}
+
 .participation-submit-note {
   margin: 0;
   font-size: 0.92rem;

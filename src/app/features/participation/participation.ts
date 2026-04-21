@@ -42,6 +42,8 @@ const DEFAULT_FORM_VALUE = {
   consent: false,
 };
 
+const MIN_SUBMIT_FEEDBACK_MS = 450;
+
 @Component({
   selector: 'app-participation',
   imports: [CommonModule, ReactiveFormsModule],
@@ -58,8 +60,6 @@ export class Participation {
   private readonly toast = inject(ToastService);
 
   readonly isSubmitting = signal(false);
-  readonly statusMessage = signal('');
-  readonly statusKind = signal<'idle' | 'success' | 'error'>('idle');
 
   readonly form = this.formBuilder.nonNullable.group({
     name: [DEFAULT_FORM_VALUE.name, [Validators.required]],
@@ -117,14 +117,14 @@ export class Participation {
 
     event.preventDefault();
     this.isSubmitting.set(true);
-    this.statusMessage.set('');
-    this.statusKind.set('idle');
 
     const formElement = event.target;
 
     if (!(formElement instanceof HTMLFormElement)) {
-      this.statusKind.set('error');
-      this.statusMessage.set('Invio non disponibile in questo momento.');
+      this.toast.danger({
+        title: 'Invio non disponibile.',
+        message: 'Riprova tra un attimo.',
+      });
       this.isSubmitting.set(false);
       return;
     }
@@ -139,11 +139,14 @@ export class Participation {
     });
 
     try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encodedFormData.toString(),
-      });
+      const [response] = await Promise.all([
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encodedFormData.toString(),
+        }),
+        this.waitForMinimumSubmitFeedback(),
+      ]);
 
       if (!response.ok) {
         throw new Error('Participation form submission failed');
@@ -155,10 +158,10 @@ export class Participation {
       });
       this.resetForm();
     } catch {
-      this.statusKind.set('error');
-      this.statusMessage.set(
-        'Invio non riuscito. Riprova tra un attimo oppure scrivi a info@polyglider.com.',
-      );
+      this.toast.danger({
+        title: 'Invio non riuscito.',
+        message: 'Riprova tra un attimo.',
+      });
     } finally {
       this.isSubmitting.set(false);
     }
@@ -168,5 +171,11 @@ export class Participation {
     this.form.reset(DEFAULT_FORM_VALUE);
     this.form.markAsPristine();
     this.form.markAsUntouched();
+  }
+
+  private waitForMinimumSubmitFeedback(): Promise<void> {
+    return new Promise((resolve) => {
+      window.setTimeout(resolve, MIN_SUBMIT_FEEDBACK_MS);
+    });
   }
 }
