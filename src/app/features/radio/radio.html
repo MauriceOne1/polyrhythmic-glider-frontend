@@ -180,10 +180,15 @@
         </div>
       } @else if (mode() === 'audio') {
         <div class="audio-stage">
-          <img
-            [src]="currentTrack().artworkUrl ?? fallbackArtworkUrl"
-            [alt]="'Artwork ' + currentTrack().title"
-          />
+          @if (currentTrack().artworkUrl; as artworkUrl) {
+            <img [src]="artworkUrl" [alt]="'Artwork ' + currentTrack().title" />
+          } @else {
+            <div class="audio-stage-placeholder">
+              <span>Audio live</span>
+              <strong>{{ currentTrack().title }}</strong>
+              <small>Nessun artwork disponibile dal feed.</small>
+            </div>
+          }
         </div>
       }
 

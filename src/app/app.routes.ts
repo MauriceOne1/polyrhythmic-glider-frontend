@@ -1,11 +1,39 @@
-﻿import { Routes } from '@angular/router';
+import { Routes, UrlMatchResult, UrlSegment } from '@angular/router';
 import { blogAccessGuard } from './core/identity/blog-access.guard';
 import { identityGuard } from './core/identity/identity.guard';
+import { Home } from './features/home/home';
+
+function artHostRootMatcher(segments: UrlSegment[]): UrlMatchResult | null {
+  if (segments.length !== 0 || typeof window === 'undefined') {
+    return null;
+  }
+
+  return window.location.hostname === 'art.polyglider.com' ? { consumed: segments } : null;
+}
 
 export const routes: Routes = [
   {
+    matcher: artHostRootMatcher,
+    loadComponent: () => import('./features/art/art').then((m) => m.Art),
+    data: {
+      seo: {
+        title: 'Art | Polyrhythmic Glider',
+        description:
+          'Sezione artistica di Polyrhythmic Glider dedicata a mostra digitale, video, moving image e archivio curatoriale.',
+        keywords: [
+          'art',
+          'digital exhibition',
+          'mostra digitale',
+          'video art',
+          'moving image',
+          'polyrhythmic glider',
+        ],
+      },
+    },
+  },
+  {
     path: '',
-    loadComponent: () => import('./features/home/home').then((m) => m.Home),
+    component: Home,
     data: {
       seo: {
         title: 'Polyrhythmic Glider | Musica, codice ed esperimenti digitali',

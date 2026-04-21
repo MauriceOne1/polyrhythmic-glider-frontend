@@ -1,0 +1,126 @@
+<section class="art-hero">
+  <div class="readable-copy-card art-copy">
+    <div class="art-eyebrow">art.polyglider.com</div>
+    <h1 class="display-font art-title">Mostra digitale, video e archivio editoriale.</h1>
+    <p class="art-description">
+      Una sezione dedicata a opere, video, testi e materiali di documentazione, costruita per
+      presentare un progetto artistico in modo chiaro, ordinato e coerente con il linguaggio visivo
+      di Polyrhythmic Glider.
+    </p>
+
+    <div class="art-actions">
+      <a class="button-primary" href="https://polyglider.com/#contact">Proponi un progetto</a>
+      <a class="button-secondary" href="https://polyglider.com/">Vai al sito principale</a>
+    </div>
+
+    <div class="art-pill-row" aria-label="Caratteristiche della sezione artistica">
+      <span class="pill-tag">digital exhibition</span>
+      <span class="pill-tag">video showcase</span>
+      <span class="pill-tag">curatorial notes</span>
+      <span class="pill-tag">open archive</span>
+    </div>
+  </div>
+
+  <aside class="glass-panel art-stage" aria-label="Anteprima della sala video">
+    <div class="art-stage-header">
+      <div class="art-stage-lights" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="art-stage-label">Digital room / ready for video</div>
+    </div>
+
+    <div class="art-stage-screen">
+      <div class="art-stage-scanlines" aria-hidden="true"></div>
+      <div class="art-stage-orbit art-stage-orbit-a" aria-hidden="true"></div>
+      <div class="art-stage-orbit art-stage-orbit-b" aria-hidden="true"></div>
+      <div class="art-stage-copy">
+        <div class="art-stage-kicker">Featured slot</div>
+        <h2 class="art-stage-title">Qui puoi inserire il lavoro principale in evidenza.</h2>
+        <p class="art-stage-description">
+          La struttura e gia pronta per ospitare un video, un immagine hero oppure una scheda
+          introduttiva con testo, crediti e informazioni essenziali.
+        </p>
+      </div>
+    </div>
+
+    <div class="art-metric-grid">
+      @for (metric of metrics; track metric.label) {
+        <article
+          class="art-metric-card"
+          [class.is-cyan]="metric.accent === 'cyan'"
+          [class.is-lime]="metric.accent === 'lime'"
+          [class.is-amber]="metric.accent === 'amber'"
+        >
+          <div class="art-metric-value">{{ metric.value }}</div>
+          <div class="art-metric-label">{{ metric.label }}</div>
+        </article>
+      }
+    </div>
+  </aside>
+</section>
+
+<app-section-shell
+  kicker="Mostra"
+  wideHeader
+  title="Una griglia curatoriale per opere, testi e release visuali."
+  description="La pagina e organizzata con una struttura semplice: un blocco introduttivo, una zona mostra, una sezione video e uno spazio finale per note e informazioni."
+>
+  <div class="art-exhibit-grid">
+    @for (exhibit of exhibits; track exhibit.title) {
+      <article class="art-exhibit-card">
+        <div class="art-card-eyebrow">{{ exhibit.eyebrow }}</div>
+        <h3 class="art-card-title">{{ exhibit.title }}</h3>
+        <p class="art-card-description">{{ exhibit.description }}</p>
+        <div class="art-card-meta">{{ exhibit.medium }}</div>
+      </article>
+    }
+  </div>
+</app-section-shell>
+
+<app-section-shell
+  kicker="Video"
+  wideHeader
+  title="Programma video e mostra digitale nello stesso flusso."
+  description="Questa parte e pensata per presentare lavori in sequenza, documentazione video e contenuti di accompagnamento con una gerarchia chiara."
+>
+  <div class="art-program-grid">
+    @for (entry of program; track entry.title) {
+      <article class="art-program-card">
+        <div class="art-program-slot">{{ entry.slot }}</div>
+        <h3 class="art-program-title">{{ entry.title }}</h3>
+        <p class="art-program-description">{{ entry.description }}</p>
+        <div class="art-program-format">{{ entry.format }}</div>
+      </article>
+    }
+  </div>
+</app-section-shell>
+
+<app-section-shell
+  kicker="Formato"
+  wideHeader
+  title="Pronta sia come sottodominio artistico stabile sia come landing temporanea."
+  description="Puoi usare la stessa base per una presenza continuativa oppure per un progetto temporaneo, aggiornando contenuti, media e testi."
+>
+  <div class="art-format-grid">
+    @for (format of formats; track format.title) {
+      <article class="soft-card art-format-card">
+        <h3 class="art-format-title">{{ format.title }}</h3>
+        <p class="art-format-description">{{ format.description }}</p>
+        <div class="art-format-note">{{ format.note }}</div>
+      </article>
+    }
+  </div>
+
+  <div class="readable-copy-card art-note-card">
+    <div class="art-note-kicker">Gia predisposta</div>
+    <h3 class="art-note-title">Placeholder content</h3>
+    <ul class="art-note-list">
+      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+      <li>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</li>
+      <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco</li>
+      <li>Duis aute irure dolor in reprehenderit in voluptate velit esse</li>
+    </ul>
+  </div>
+</app-section-shell>

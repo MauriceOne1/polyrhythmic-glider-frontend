@@ -1,12 +1,6 @@
 ﻿import { faGithub, faInstagram, faSoundcloud } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import type { ContactChannel, FeatureCard, NavItem } from '../models/content.models';
-
-export const NAV_ITEMS: NavItem[] = [
-  { label: 'Home', fragment: 'hero' },
-  { label: 'About', fragment: 'about' },
-  { label: 'Contact', fragment: 'contact' },
-];
+import type { ContactChannel, FeatureCard } from '../../shared/models/content.models';
 
 export const HERO_TAGS = ['shared-process', 'living-archive', 'open-systems', 'sound-research'];
 

@@ -42,11 +42,13 @@ export class SeoService {
   }
 
   private buildCanonicalUrl(routePath: string): string {
+    const siteOrigin = this.document.location?.origin ?? SITE_URL;
+
     if (!routePath || routePath === '/') {
-      return `${SITE_URL}/`;
+      return `${siteOrigin}/`;
     }
 
-    return `${SITE_URL}${routePath}`;
+    return `${siteOrigin}${routePath}`;
   }
 
   private setHtmlLang(lang: string): void {

@@ -17,6 +17,8 @@ import type { SeoData } from './shared/models/seo.models';
   styleUrl: './app.css',
 })
 export class App {
+  private readonly isArtHost =
+    typeof window !== 'undefined' && window.location.hostname === 'art.polyglider.com';
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly identityService = inject(IdentityService);
@@ -32,6 +34,9 @@ export class App {
 
   readonly isGameOfLifeRoute = computed(() => this.currentUrl().startsWith('/game-of-life'));
   readonly isRadioRoute = computed(() => this.currentUrl().startsWith('/radio'));
+  readonly isArtRoute = computed(
+    () => this.currentUrl().startsWith('/art') || (this.isArtHost && this.currentUrl() === '/'),
+  );
 
   formatVolumeValue(volume: number | string): string {
     const normalizedVolume = Math.min(1, Math.max(0, Number(volume) / 0.2));

@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 import { IdentityService } from '../../identity/identity.service';
-import { NAV_ITEMS } from '../../../shared/utils/site-content';
+import { ART_NAV_ITEMS, NAV_ITEMS } from '../navigation/nav-items';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +21,8 @@ import { NAV_ITEMS } from '../../../shared/utils/site-content';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  readonly navItems = NAV_ITEMS;
+  readonly homeRoute = '/';
+  readonly navItems = this.resolveNavItems();
   readonly isMenuOpen = signal(false);
   readonly identity = inject(IdentityService);
   readonly user = this.identity.currentUser;
@@ -58,7 +59,7 @@ export class Header {
     event?.preventDefault();
     this.closeMenu();
 
-    this.router.navigateByUrl('/').then(() => {
+    this.router.navigateByUrl(this.homeRoute).then(() => {
       this.viewportScroller.scrollToPosition([0, 0]);
     });
   }
@@ -66,5 +67,13 @@ export class Header {
   logout(): Promise<void> {
     this.closeMenu();
     return this.identity.logout();
+  }
+
+  private resolveNavItems() {
+    if (typeof window !== 'undefined' && window.location.hostname === 'art.polyglider.com') {
+      return ART_NAV_ITEMS;
+    }
+
+    return NAV_ITEMS;
   }
 }

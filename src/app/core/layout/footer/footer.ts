@@ -1,7 +1,7 @@
 import { ViewportScroller } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { NAV_ITEMS } from '../../../shared/utils/site-content';
+import { NAV_ITEMS } from '../navigation/nav-items';
 
 interface ResourceLink {
   readonly label: string;

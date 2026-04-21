@@ -47,8 +47,7 @@ Package manager: npm
 - Build: `npm run build`
 - Run tests: `npm test`
 - Run lint: `npm run lint`
-- Format files: `npm run format`
-- Check formatting: `npm run format:check`
+- Do not run Prettier manually. Formatting is handled by a git hook.
 
 ## Before finishing
 
@@ -58,7 +57,7 @@ Always verify:
 - there are no obvious TypeScript errors
 - imports are clean
 - no dead code or debug logs remain
-- formatting passes with `npm run format:check`
+- do not spend time running Prettier or formatting checks manually, because a hook already handles formatting
 
 ## Output expectations
 

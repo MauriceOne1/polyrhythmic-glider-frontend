@@ -4,6 +4,7 @@ export interface NavItem {
   label: string;
   fragment?: string;
   href?: string;
+  externalHref?: string;
 }
 
 export interface FeatureCard {
