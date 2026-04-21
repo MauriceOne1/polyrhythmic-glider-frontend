@@ -370,24 +370,22 @@
       }
 
       <div class="participation-submit-row">
-        <button class="button-primary" type="submit" [disabled]="isSubmitting()">
-          {{ isSubmitting() ? 'Invio in corso...' : 'Invia risposta' }}
+        <button
+          class="button-primary participation-submit-button"
+          type="submit"
+          [disabled]="isSubmitting()"
+        >
+          <span class="participation-submit-button-measure" aria-hidden="true"
+            >Invio in corso...</span
+          >
+          <span class="participation-submit-button-label">
+            {{ isSubmitting() ? 'Invio in corso...' : 'Invia risposta' }}
+          </span>
         </button>
         <p class="participation-submit-note">
           Ti ricontatteremo con tutti i dettagli utili per la serata.
         </p>
       </div>
-
-      @if (statusMessage()) {
-        <p
-          class="participation-status"
-          [attr.role]="statusKind() === 'error' ? 'alert' : 'status'"
-          [class.is-success]="statusKind() === 'success'"
-          [class.is-error]="statusKind() === 'error'"
-        >
-          {{ statusMessage() }}
-        </p>
-      }
     </form>
   </section>
 </section>

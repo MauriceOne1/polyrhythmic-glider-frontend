@@ -1,5 +1,4 @@
 import { Routes, UrlMatchResult, UrlSegment } from '@angular/router';
-import { blogAccessGuard } from './core/identity/blog-access.guard';
 import { identityGuard } from './core/identity/identity.guard';
 import { Home } from './features/home/home';
 
@@ -9,6 +8,31 @@ function artHostRootMatcher(segments: UrlSegment[]): UrlMatchResult | null {
   }
 
   return window.location.hostname === 'art.polyglider.com' ? { consumed: segments } : null;
+}
+
+function blogHostRootMatcher(segments: UrlSegment[]): UrlMatchResult | null {
+  if (segments.length !== 0 || typeof window === 'undefined') {
+    return null;
+  }
+
+  return window.location.hostname === 'blog.polyglider.com' ? { consumed: segments } : null;
+}
+
+function blogHostPostMatcher(segments: UrlSegment[]): UrlMatchResult | null {
+  if (segments.length !== 1 || typeof window === 'undefined') {
+    return null;
+  }
+
+  if (window.location.hostname !== 'blog.polyglider.com') {
+    return null;
+  }
+
+  return {
+    consumed: segments,
+    posParams: {
+      slug: segments[0],
+    },
+  };
 }
 
 export const routes: Routes = [
@@ -27,6 +51,42 @@ export const routes: Routes = [
           'video art',
           'moving image',
           'polyrhythmic glider',
+        ],
+      },
+    },
+  },
+  {
+    matcher: blogHostRootMatcher,
+    loadComponent: () => import('./features/blog/blog').then((m) => m.Blog),
+    data: {
+      seo: {
+        title: 'Polyblog | Polyrhythmic Glider',
+        description:
+          'Polyblog raccoglie appunti di Polyrhythmic Glider su ricerca sonora, documentazione, sistemi aperti e processi condivisi.',
+        keywords: [
+          'polyblog',
+          'polyrhythmic glider',
+          'ricerca sonora',
+          'documentazione',
+          'sistemi aperti',
+        ],
+      },
+    },
+  },
+  {
+    matcher: blogHostPostMatcher,
+    loadComponent: () => import('./features/blog-post/blog-post').then((m) => m.BlogPost),
+    data: {
+      seo: {
+        title: 'Polyblog | Polyrhythmic Glider',
+        description:
+          'Appunto del Polyblog di Polyrhythmic Glider su ricerca sonora, documentazione e processi condivisi.',
+        keywords: [
+          'polyblog',
+          'polyrhythmic glider',
+          'processo',
+          'documentazione',
+          'ricerca sonora',
         ],
       },
     },
@@ -114,44 +174,6 @@ export const routes: Routes = [
         description:
           'Landing page dedicata alla synth jam BYOS! con form di partecipazione per raccogliere presenza, setup e intenzioni musicali.',
         keywords: ['byos', 'synth jam', 'electronic jam', 'partecipazione', 'polyrhythmic glider'],
-      },
-    },
-  },
-  {
-    path: 'blog',
-    loadComponent: () => import('./features/blog/blog').then((m) => m.Blog),
-    canActivate: [blogAccessGuard],
-    data: {
-      seo: {
-        title: 'Polyblog | Polyrhythmic Glider',
-        description:
-          'Polyblog raccoglie appunti di Polyrhythmic Glider su ricerca sonora, documentazione, sistemi aperti e processi condivisi.',
-        keywords: [
-          'polyblog',
-          'polyrhythmic glider',
-          'ricerca sonora',
-          'documentazione',
-          'sistemi aperti',
-        ],
-      },
-    },
-  },
-  {
-    path: 'blog/:slug',
-    loadComponent: () => import('./features/blog-post/blog-post').then((m) => m.BlogPost),
-    canActivate: [blogAccessGuard],
-    data: {
-      seo: {
-        title: 'Polyblog | Polyrhythmic Glider',
-        description:
-          'Appunto del Polyblog di Polyrhythmic Glider su ricerca sonora, documentazione e processi condivisi.',
-        keywords: [
-          'polyblog',
-          'polyrhythmic glider',
-          'processo',
-          'documentazione',
-          'ricerca sonora',
-        ],
       },
     },
   },

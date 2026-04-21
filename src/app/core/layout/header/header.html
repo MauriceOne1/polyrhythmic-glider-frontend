@@ -6,6 +6,50 @@
         <span>glider</span>
       </a>
 
+      @if (isLoggedIn()) {
+        <div class="user-menu">
+          <button
+            class="user-menu-toggle"
+            type="button"
+            [attr.aria-expanded]="isUserMenuOpen()"
+            aria-controls="user-navigation"
+            [attr.aria-label]="isUserMenuOpen() ? 'Chiudi menu utente' : 'Apri menu utente'"
+            (click)="toggleUserMenu()"
+          >
+            <span class="user-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path
+                  d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.87 0-7 2.24-7 5v1h14v-1c0-2.76-3.13-5-7-5Z"
+                />
+              </svg>
+            </span>
+          </button>
+
+          <div
+            id="user-navigation"
+            class="user-menu-panel"
+            [class.is-open]="isUserMenuOpen()"
+            aria-label="Link riservati"
+          >
+            @for (item of userMenuItems; track item.label) {
+              <a
+                class="user-menu-link"
+                [href]="item.href"
+                target="_blank"
+                rel="noreferrer"
+                (click)="closeUserMenu()"
+              >
+                {{ item.label }}
+              </a>
+            }
+
+            <button class="user-menu-link user-menu-action" type="button" (click)="logout()">
+              Logout
+            </button>
+          </div>
+        </div>
+      }
+
       <button
         class="menu-toggle"
         type="button"
@@ -28,11 +72,11 @@
     >
       @for (item of navItems; track item.label) {
         @if (item.externalHref) {
-          <a class="nav-link" [href]="item.externalHref" (click)="closeMenu()">
+          <a class="nav-link" [href]="item.externalHref" (click)="closeAllMenus()">
             {{ item.label }}
           </a>
         } @else if (item.href) {
-          <a class="nav-link" [routerLink]="item.href" (click)="closeMenu()">
+          <a class="nav-link" [routerLink]="item.href" (click)="closeAllMenus()">
             {{ item.label }}
           </a>
         } @else if (item.fragment === 'hero') {
@@ -40,14 +84,10 @@
             {{ item.label }}
           </a>
         } @else {
-          <a class="nav-link" routerLink="/" [fragment]="item.fragment" (click)="closeMenu()">
+          <a class="nav-link" routerLink="/" [fragment]="item.fragment" (click)="closeAllMenus()">
             {{ item.label }}
           </a>
         }
-      }
-
-      @if (isLoggedIn()) {
-        <button class="nav-link nav-action" type="button" (click)="logout()">Logout</button>
       }
     </nav>
   </div>

@@ -10,7 +10,7 @@
     </div>
 
     @if (featuredPost(); as featured) {
-      <a class="featured-post" [routerLink]="['/blog', featured.slug]">
+      <a class="featured-post" [routerLink]="['/', featured.slug]">
         <span class="featured-post-overlay" aria-hidden="true"></span>
         <span class="featured-post-content">
           <span class="featured-label">In evidenza</span>
@@ -84,7 +84,7 @@
           </div>
 
           <h2>
-            <a [routerLink]="['/blog', post.slug]">{{ post.title }}</a>
+            <a [routerLink]="['/', post.slug]">{{ post.title }}</a>
           </h2>
 
           <p>{{ post.excerpt }}</p>
@@ -95,7 +95,7 @@
                 <span>{{ tag }}</span>
               }
             </div>
-            <a class="blog-read-link" [routerLink]="['/blog', post.slug]"> Leggi </a>
+            <a class="blog-read-link" [routerLink]="['/', post.slug]"> Leggi </a>
           </div>
         </article>
       }
