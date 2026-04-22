@@ -48,6 +48,7 @@ export const routes: Routes = [
   {
     matcher: artHostRootMatcher,
     loadComponent: () => import('./features/art/art').then((m) => m.Art),
+    canActivate: [identityGuard],
     data: {
       seo: {
         title: 'Art | Polyrhythmic Glider',
@@ -67,6 +68,7 @@ export const routes: Routes = [
   {
     matcher: blogHostRootMatcher,
     loadComponent: () => import('./features/blog/blog').then((m) => m.Blog),
+    canActivate: [identityGuard],
     data: {
       seo: {
         title: 'Blog | Polyrhythmic Glider',
@@ -85,6 +87,7 @@ export const routes: Routes = [
   {
     matcher: blogHostPostMatcher,
     loadComponent: () => import('./features/blog-post/blog-post').then((m) => m.BlogPost),
+    canActivate: [identityGuard],
     data: {
       seo: {
         title: 'Blog | Polyrhythmic Glider',
@@ -103,6 +106,7 @@ export const routes: Routes = [
   {
     matcher: shopHostRootMatcher,
     loadComponent: () => import('./features/shop/shop').then((m) => m.Shop),
+    canActivate: [identityGuard],
     data: {
       seo: {
         title: 'Shop | Polyrhythmic Glider',
