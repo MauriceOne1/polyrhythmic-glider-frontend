@@ -97,6 +97,14 @@ app-root {
   margin: 0 auto;
 }
 
+.app-shell.is-shop-shell .main-content,
+.main-content.shop-main-content {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding-inline: clamp(0.75rem, 1.6vw, 1.5rem);
+}
+
 .typing-active::after {
   content: '_';
   margin-left: 4px;

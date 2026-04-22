@@ -69,7 +69,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/blog/blog').then((m) => m.Blog),
     data: {
       seo: {
-        title: 'Polyblog | Polyrhythmic Glider',
+        title: 'Blog | Polyrhythmic Glider',
         description:
           'Polyblog raccoglie appunti di Polyrhythmic Glider su ricerca sonora, documentazione, sistemi aperti e processi condivisi.',
         keywords: [
@@ -87,7 +87,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/blog-post/blog-post').then((m) => m.BlogPost),
     data: {
       seo: {
-        title: 'Polyblog | Polyrhythmic Glider',
+        title: 'Blog | Polyrhythmic Glider',
         description:
           'Appunto del Polyblog di Polyrhythmic Glider su ricerca sonora, documentazione e processi condivisi.',
         keywords: [
