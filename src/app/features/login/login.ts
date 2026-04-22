@@ -244,7 +244,7 @@ export class Login implements OnDestroy {
       return;
     }
 
-    await this.router.navigateByUrl(target);
+    await this.router.navigateByUrl(this.normalizeRouterTarget(target));
   }
 
   private isExternalTarget(target: string): boolean {
@@ -258,6 +258,28 @@ export class Login implements OnDestroy {
     } catch {
       return false;
     }
+  }
+
+  private normalizeRouterTarget(target: string): string {
+    if (!target) {
+      return '/';
+    }
+
+    if (typeof window === 'undefined') {
+      return target;
+    }
+
+    try {
+      const url = new URL(target, window.location.origin);
+
+      if (url.origin === window.location.origin) {
+        return `${url.pathname}${url.search}${url.hash}` || '/';
+      }
+    } catch {
+      return target;
+    }
+
+    return target;
   }
 
   private showRouteNotice(): void {

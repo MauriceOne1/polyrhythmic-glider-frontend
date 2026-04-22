@@ -287,7 +287,7 @@ export class IdentityService {
       return;
     }
 
-    await this.router.navigateByUrl(target || '/');
+    await this.router.navigateByUrl(this.normalizeRouterTarget(target));
   }
 
   private redirectToTarget(target: string): void {
@@ -323,6 +323,28 @@ export class IdentityService {
     } catch {
       return false;
     }
+  }
+
+  private normalizeRouterTarget(target: string): string {
+    if (!target) {
+      return '/';
+    }
+
+    if (typeof window === 'undefined') {
+      return target;
+    }
+
+    try {
+      const url = new URL(target, window.location.origin);
+
+      if (url.origin === window.location.origin) {
+        return `${url.pathname}${url.search}${url.hash}` || '/';
+      }
+    } catch {
+      return target;
+    }
+
+    return target;
   }
 
   private canUseLocalDevAuth(): boolean {
