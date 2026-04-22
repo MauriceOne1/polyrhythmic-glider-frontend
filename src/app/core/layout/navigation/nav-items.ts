@@ -17,3 +17,9 @@ export const BLOG_NAV_ITEMS: NavItem[] = [
   { label: 'Main site', externalHref: 'https://polyglider.com/' },
   { label: 'Contact', externalHref: 'https://polyglider.com/#contact' },
 ];
+
+export const SHOP_NAV_ITEMS: NavItem[] = [
+  { label: 'Shop', href: '/' },
+  { label: 'Main site', externalHref: 'https://polyglider.com/' },
+  { label: 'Contact', externalHref: 'https://polyglider.com/#contact' },
+];

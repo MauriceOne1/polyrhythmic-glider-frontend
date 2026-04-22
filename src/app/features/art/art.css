@@ -1,6 +1,25 @@
 :host {
   display: block;
-  padding: 28px 0 72px;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-block: 28px 72px;
+  padding-inline: clamp(1rem, 2.2vw, 2.25rem);
+  overflow-x: clip;
+}
+
+:host ::ng-deep .section-shell {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+:host ::ng-deep .section-kicker {
+  display: none;
+}
+
+:host ::ng-deep .section-body {
+  width: 100%;
 }
 
 .art-hero {

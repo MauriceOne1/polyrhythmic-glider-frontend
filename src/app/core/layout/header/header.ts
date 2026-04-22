@@ -11,7 +11,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 import { IdentityService } from '../../identity/identity.service';
-import { ART_NAV_ITEMS, BLOG_NAV_ITEMS, NAV_ITEMS } from '../navigation/nav-items';
+import { ART_NAV_ITEMS, BLOG_NAV_ITEMS, NAV_ITEMS, SHOP_NAV_ITEMS } from '../navigation/nav-items';
+import { getEffectiveHostname } from '../../../shared/utils/host.utils';
 
 @Component({
   selector: 'app-header',
@@ -100,12 +101,18 @@ export class Header {
   }
 
   private resolveNavItems() {
-    if (typeof window !== 'undefined' && window.location.hostname === 'art.polyglider.com') {
+    const hostname = getEffectiveHostname();
+
+    if (hostname === 'art.polyglider.com') {
       return ART_NAV_ITEMS;
     }
 
-    if (typeof window !== 'undefined' && window.location.hostname === 'blog.polyglider.com') {
+    if (hostname === 'blog.polyglider.com') {
       return BLOG_NAV_ITEMS;
+    }
+
+    if (hostname === 'shop.polyglider.com') {
+      return SHOP_NAV_ITEMS;
     }
 
     return NAV_ITEMS;

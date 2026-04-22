@@ -1,0 +1,363 @@
+<section class="shop-shell">
+  <section class="shop-hero">
+    <div class="shop-copy">
+      <div class="shop-eyebrow">shop.polyglider.com</div>
+      <h1 class="display-font shop-title">Polyglider Objects, Apparel, Print.</h1>
+      <p class="shop-description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua.
+      </p>
+
+      <div class="shop-actions">
+        <a class="button-primary" href="#catalogue">Browse catalogue</a>
+        <a class="button-secondary" href="https://polyglider.com/#contact">Contact support</a>
+      </div>
+
+      <div class="shop-pill-row" aria-label="Tag dello storefront">
+        <span class="pill-tag">responsive layout</span>
+        <span class="pill-tag">dummyjson feed</span>
+        <span class="pill-tag">category filter</span>
+        <span class="pill-tag">live images</span>
+      </div>
+    </div>
+
+    @if (isLoading()) {
+      <div class="shop-hero-aside">
+        <article class="shop-hero-panel shop-hero-panel-large shop-skeleton-panel">
+          <ngx-skeleton-loader
+            class="shop-skeleton-block shop-skeleton-hero-media"
+            appearance="custom-content"
+            [theme]="{ height: '100%', width: '100%' }"
+          />
+          <div class="shop-hero-panel-body">
+            <ngx-skeleton-loader count="1" [theme]="{ height: '12px', width: '110px' }" />
+            <ngx-skeleton-loader count="1" [theme]="{ height: '42px', width: '85%' }" />
+            <ngx-skeleton-loader count="2" [theme]="{ height: '14px' }" />
+          </div>
+        </article>
+
+        <div class="shop-hero-mini-grid">
+          @for (item of [1, 2]; track item) {
+            <article class="shop-hero-panel shop-hero-panel-mini">
+              <ngx-skeleton-loader count="1" [theme]="{ height: '12px', width: '90px' }" />
+              <ngx-skeleton-loader count="1" [theme]="{ height: '22px', width: '70%' }" />
+              <ngx-skeleton-loader count="2" [theme]="{ height: '12px' }" />
+            </article>
+          }
+        </div>
+      </div>
+    } @else if (heroPrimaryProduct(); as primaryProduct) {
+      <div class="shop-hero-aside">
+        <article class="shop-hero-panel shop-hero-panel-large">
+          <div class="shop-hero-visual">
+            <img
+              class="shop-hero-image"
+              [src]="primaryProduct.imageUrl"
+              [alt]="primaryProduct.imageAlt"
+            />
+          </div>
+          <div class="shop-hero-panel-body">
+            <div class="shop-hero-panel-kicker">Latest selection</div>
+            <h2 class="shop-hero-panel-title">{{ primaryProduct.title }}</h2>
+            <p class="shop-hero-panel-copy">{{ primaryProduct.description }}</p>
+          </div>
+        </article>
+
+        <div class="shop-hero-mini-grid">
+          <article class="shop-hero-panel shop-hero-panel-mini">
+            <div class="shop-hero-mini-header">
+              <span class="shop-hero-panel-kicker">{{ primaryProduct.categoryLabel }}</span>
+              <span class="shop-hero-panel-price">{{
+                formatPrice(primaryProduct.priceCents)
+              }}</span>
+            </div>
+            <h3 class="shop-hero-mini-title">{{ primaryProduct.title }}</h3>
+            <p class="shop-hero-mini-copy">{{ primaryProduct.description }}</p>
+          </article>
+
+          @if (heroSecondaryProduct(); as secondaryProduct) {
+            <article class="shop-hero-panel shop-hero-panel-mini">
+              <div class="shop-hero-mini-header">
+                <span class="shop-hero-panel-kicker">{{ secondaryProduct.categoryLabel }}</span>
+                <span class="shop-hero-panel-price">
+                  {{ formatPrice(secondaryProduct.priceCents) }}
+                </span>
+              </div>
+              <h3 class="shop-hero-mini-title">{{ secondaryProduct.title }}</h3>
+              <p class="shop-hero-mini-copy">{{ secondaryProduct.description }}</p>
+            </article>
+          }
+        </div>
+      </div>
+    }
+  </section>
+
+  <section class="shop-catalogue">
+    <div class="shop-filter-row">
+      @for (category of categories(); track category.id) {
+        <button
+          class="shop-filter-chip"
+          type="button"
+          [class.is-active]="selectedCategory() === category.id"
+          (click)="setCategory(category.id)"
+        >
+          <span>{{ category.label }}</span>
+          <span class="shop-filter-count">{{ categoryCount(category.id) }}</span>
+        </button>
+      }
+    </div>
+
+    <div id="catalogue" class="shop-grid-shell">
+      <div class="shop-catalogue-main">
+        @if (isLoading()) {
+          <div class="shop-product-grid">
+            @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track item) {
+              <article class="shop-product-card shop-product-card-skeleton">
+                <ngx-skeleton-loader
+                  class="shop-skeleton-block"
+                  appearance="custom-content"
+                  [theme]="{ height: '100%', width: '100%' }"
+                />
+
+                <div class="shop-product-body">
+                  <div class="shop-product-meta">
+                    <ngx-skeleton-loader count="1" [theme]="{ height: '12px', width: '88px' }" />
+                    <ngx-skeleton-loader count="1" [theme]="{ height: '14px', width: '62px' }" />
+                  </div>
+
+                  <ngx-skeleton-loader count="1" [theme]="{ height: '24px', width: '72%' }" />
+                  <ngx-skeleton-loader count="2" [theme]="{ height: '12px' }" />
+
+                  <div class="shop-skeleton-tag-row">
+                    @for (tag of [1, 2, 3]; track tag) {
+                      <ngx-skeleton-loader count="1" [theme]="{ height: '28px', width: '78px' }" />
+                    }
+                  </div>
+
+                  <ngx-skeleton-loader count="1" [theme]="{ height: '44px' }" />
+                </div>
+              </article>
+            }
+          </div>
+        } @else if (hasLoadedProducts()) {
+          <div class="shop-product-grid">
+            @for (product of paginatedProducts(); track product.id) {
+              <article
+                class="shop-product-card"
+                [class.is-cyan]="product.accent === 'cyan'"
+                [class.is-lime]="product.accent === 'lime'"
+                [class.is-amber]="product.accent === 'amber'"
+              >
+                <div class="shop-product-image-shell">
+                  <img
+                    class="shop-product-image"
+                    [src]="product.imageUrl"
+                    [alt]="product.imageAlt"
+                  />
+                  <div class="shop-product-overlay">
+                    <span class="shop-product-badge">{{ product.badge }}</span>
+                    <span class="shop-product-sku">{{ product.sku }}</span>
+                  </div>
+                </div>
+
+                <div class="shop-product-body">
+                  <div class="shop-product-meta">
+                    <span class="shop-product-status">{{ product.status }}</span>
+                    <span class="shop-product-price">{{ formatPrice(product.priceCents) }}</span>
+                  </div>
+
+                  <h3 class="shop-product-title">{{ product.title }}</h3>
+                  <p class="shop-product-description">{{ product.description }}</p>
+
+                  <div class="shop-product-tags">
+                    @for (tag of product.tags; track tag) {
+                      <span class="shop-product-tag">{{ tag }}</span>
+                    }
+                  </div>
+
+                  <div class="shop-product-footer">
+                    <button
+                      class="button-primary shop-card-cta"
+                      type="button"
+                      [disabled]="product.status === 'Sold out'"
+                      (click)="addToCart(product.id)"
+                    >
+                      {{ product.status === 'Sold out' ? 'Sold out' : 'Add to cart' }}
+                    </button>
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+
+          <div class="shop-pagination">
+            <div class="shop-pagination-summary">
+              Showing {{ pageStart() }}-{{ pageEnd() }} of {{ filteredProducts().length }}
+            </div>
+
+            <div class="shop-pagination-controls">
+              <button
+                class="button-secondary shop-page-button"
+                type="button"
+                [disabled]="visiblePage() === 1"
+                (click)="previousPage()"
+              >
+                Previous
+              </button>
+
+              <div class="shop-page-number-row">
+                @for (page of pageNumbers(); track page) {
+                  <button
+                    class="shop-page-number"
+                    type="button"
+                    [class.is-active]="visiblePage() === page"
+                    (click)="goToPage(page)"
+                  >
+                    {{ page }}
+                  </button>
+                }
+              </div>
+
+              <button
+                class="button-secondary shop-page-button"
+                type="button"
+                [disabled]="visiblePage() === totalPages()"
+                (click)="nextPage()"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        } @else {
+          <div class="shop-empty-state soft-card">
+            <h3 class="shop-empty-title">No products available right now.</h3>
+            <p class="shop-empty-copy">
+              DummyJSON did not return items for this view. Try reloading the page.
+            </p>
+          </div>
+        }
+      </div>
+
+      <aside class="shop-cart glass-panel" aria-label="Carrello finto">
+        <div class="shop-cart-header">
+          <div>
+            <div class="shop-cart-kicker">Cart</div>
+            <h3 class="shop-cart-title">Your bag</h3>
+          </div>
+          <div class="shop-cart-count">{{ cartCount() }}</div>
+        </div>
+
+        @if (isLoading()) {
+          <div class="shop-cart-items">
+            @for (item of [1, 2, 3]; track item) {
+              <article class="shop-cart-item shop-cart-item-skeleton">
+                <ngx-skeleton-loader
+                  class="shop-skeleton-block"
+                  appearance="custom-content"
+                  [theme]="{ height: '92px', width: '76px' }"
+                />
+
+                <div class="shop-cart-item-body">
+                  <ngx-skeleton-loader count="1" [theme]="{ height: '16px', width: '75%' }" />
+                  <ngx-skeleton-loader count="1" [theme]="{ height: '12px', width: '55%' }" />
+                  <ngx-skeleton-loader count="1" [theme]="{ height: '38px', width: '100%' }" />
+                </div>
+              </article>
+            }
+          </div>
+        } @else if (cartEntries().length) {
+          <div class="shop-cart-items">
+            @for (entry of cartEntries(); track entry.product.id) {
+              <article class="shop-cart-item">
+                <img
+                  class="shop-cart-item-image"
+                  [src]="entry.product.imageUrl"
+                  [alt]="entry.product.imageAlt"
+                />
+
+                <div class="shop-cart-item-body">
+                  <div class="shop-cart-item-top">
+                    <div>
+                      <h4 class="shop-cart-item-title">{{ entry.product.title }}</h4>
+                      <p class="shop-cart-item-meta">
+                        {{ entry.product.sku }} - {{ entry.product.status }}
+                      </p>
+                    </div>
+                    <button
+                      class="shop-cart-remove"
+                      type="button"
+                      (click)="remove(entry.product.id)"
+                    >
+                      Remove
+                    </button>
+                  </div>
+
+                  <div class="shop-cart-item-bottom">
+                    <div class="shop-cart-quantity">
+                      <button type="button" (click)="decrement(entry.product.id)">-</button>
+                      <span>{{ entry.quantity }}</span>
+                      <button type="button" (click)="increment(entry.product.id)">+</button>
+                    </div>
+                    <div class="shop-cart-item-price">
+                      {{ formatPrice(entry.product.priceCents * entry.quantity) }}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+
+          <div class="shop-cart-summary">
+            <div class="shop-cart-summary-row">
+              <span>Subtotal</span>
+              <strong>{{ formatPrice(subtotalCents()) }}</strong>
+            </div>
+            <div class="shop-cart-summary-row">
+              <span>Shipping</span>
+              <strong>{{ formatPrice(shippingCents()) }}</strong>
+            </div>
+            <div class="shop-cart-summary-row is-total">
+              <span>Total</span>
+              <strong>{{ formatPrice(totalCents()) }}</strong>
+            </div>
+          </div>
+
+          <div class="shop-cart-actions">
+            <button class="button-primary shop-cart-cta" type="button">Proceed to checkout</button>
+            <button class="button-secondary shop-cart-cta" type="button">Save for later</button>
+          </div>
+        } @else {
+          <div class="shop-cart-empty">
+            <p>Your bag is empty.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+        }
+      </aside>
+    </div>
+  </section>
+
+  <section class="shop-support-zone">
+    <div class="shop-info-grid">
+      @for (card of infoCards; track card.title) {
+        <article class="soft-card shop-info-card">
+          <h3 class="shop-info-title">{{ card.title }}</h3>
+          <p class="shop-info-description">{{ card.description }}</p>
+          <div class="shop-info-note">{{ card.note }}</div>
+        </article>
+      }
+    </div>
+
+    <div class="shop-support readable-copy-card">
+      <div class="shop-note-kicker">Store notice</div>
+      <h3 class="shop-note-title">Need help with an order?</h3>
+      <p class="shop-note-copy">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+      </p>
+      <div class="shop-note-actions">
+        <a class="button-secondary" href="https://polyglider.com/#contact">Contact support</a>
+        <a class="button-secondary" href="https://polyglider.com/">Back to main site</a>
+      </div>
+    </div>
+  </section>
+</section>

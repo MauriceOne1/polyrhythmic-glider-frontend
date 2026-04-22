@@ -1,13 +1,14 @@
 import { Routes, UrlMatchResult, UrlSegment } from '@angular/router';
 import { identityGuard } from './core/identity/identity.guard';
 import { Home } from './features/home/home';
+import { getEffectiveHostname } from './shared/utils/host.utils';
 
 function artHostRootMatcher(segments: UrlSegment[]): UrlMatchResult | null {
   if (segments.length !== 0 || typeof window === 'undefined') {
     return null;
   }
 
-  return window.location.hostname === 'art.polyglider.com' ? { consumed: segments } : null;
+  return getEffectiveHostname() === 'art.polyglider.com' ? { consumed: segments } : null;
 }
 
 function blogHostRootMatcher(segments: UrlSegment[]): UrlMatchResult | null {
@@ -15,7 +16,7 @@ function blogHostRootMatcher(segments: UrlSegment[]): UrlMatchResult | null {
     return null;
   }
 
-  return window.location.hostname === 'blog.polyglider.com' ? { consumed: segments } : null;
+  return getEffectiveHostname() === 'blog.polyglider.com' ? { consumed: segments } : null;
 }
 
 function blogHostPostMatcher(segments: UrlSegment[]): UrlMatchResult | null {
@@ -23,7 +24,7 @@ function blogHostPostMatcher(segments: UrlSegment[]): UrlMatchResult | null {
     return null;
   }
 
-  if (window.location.hostname !== 'blog.polyglider.com') {
+  if (getEffectiveHostname() !== 'blog.polyglider.com') {
     return null;
   }
 
@@ -33,6 +34,14 @@ function blogHostPostMatcher(segments: UrlSegment[]): UrlMatchResult | null {
       slug: segments[0],
     },
   };
+}
+
+function shopHostRootMatcher(segments: UrlSegment[]): UrlMatchResult | null {
+  if (segments.length !== 0 || typeof window === 'undefined') {
+    return null;
+  }
+
+  return getEffectiveHostname() === 'shop.polyglider.com' ? { consumed: segments } : null;
 }
 
 export const routes: Routes = [
@@ -60,7 +69,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/blog/blog').then((m) => m.Blog),
     data: {
       seo: {
-        title: 'Polyblog | Polyrhythmic Glider',
+        title: 'Blog | Polyrhythmic Glider',
         description:
           'Polyblog raccoglie appunti di Polyrhythmic Glider su ricerca sonora, documentazione, sistemi aperti e processi condivisi.',
         keywords: [
@@ -78,7 +87,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/blog-post/blog-post').then((m) => m.BlogPost),
     data: {
       seo: {
-        title: 'Polyblog | Polyrhythmic Glider',
+        title: 'Blog | Polyrhythmic Glider',
         description:
           'Appunto del Polyblog di Polyrhythmic Glider su ricerca sonora, documentazione e processi condivisi.',
         keywords: [
@@ -87,6 +96,25 @@ export const routes: Routes = [
           'processo',
           'documentazione',
           'ricerca sonora',
+        ],
+      },
+    },
+  },
+  {
+    matcher: shopHostRootMatcher,
+    loadComponent: () => import('./features/shop/shop').then((m) => m.Shop),
+    data: {
+      seo: {
+        title: 'Shop | Polyrhythmic Glider',
+        description:
+          'Shop editoriale di Polyrhythmic Glider: mockup storefront per drop, capsule, oggetti e release narrative.',
+        keywords: [
+          'shop',
+          'polyrhythmic glider',
+          'editorial commerce',
+          'drops',
+          'capsule',
+          'mock storefront',
         ],
       },
     },

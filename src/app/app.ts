@@ -9,6 +9,7 @@ import { IdentityService } from './core/identity/identity.service';
 import { SeoService } from './core/seo/seo.service';
 import { ToastHost } from './core/toast/toast-host';
 import type { SeoData } from './shared/models/seo.models';
+import { getEffectiveHostname } from './shared/utils/host.utils';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +18,9 @@ import type { SeoData } from './shared/models/seo.models';
   styleUrl: './app.css',
 })
 export class App {
-  private readonly isArtHost =
-    typeof window !== 'undefined' && window.location.hostname === 'art.polyglider.com';
+  private readonly effectiveHostname = getEffectiveHostname();
+  private readonly isArtHost = this.effectiveHostname === 'art.polyglider.com';
+  private readonly isShopHost = this.effectiveHostname === 'shop.polyglider.com';
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly identityService = inject(IdentityService);
@@ -36,6 +38,9 @@ export class App {
   readonly isRadioRoute = computed(() => this.currentUrl().startsWith('/radio'));
   readonly isArtRoute = computed(
     () => this.currentUrl().startsWith('/art') || (this.isArtHost && this.currentUrl() === '/'),
+  );
+  readonly isShopRoute = computed(
+    () => this.currentUrl().startsWith('/shop') || (this.isShopHost && this.currentUrl() === '/'),
   );
 
   formatVolumeValue(volume: number | string): string {
