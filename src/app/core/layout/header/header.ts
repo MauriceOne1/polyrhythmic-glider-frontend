@@ -12,7 +12,7 @@ import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 import { IdentityService } from '../../identity/identity.service';
 import { ART_NAV_ITEMS, BLOG_NAV_ITEMS, NAV_ITEMS, SHOP_NAV_ITEMS } from '../navigation/nav-items';
-import { getEffectiveHostname } from '../../../shared/utils/host.utils';
+import { getEffectiveHostname, getSubdomainSiteUrl } from '../../../shared/utils/host.utils';
 
 @Component({
   selector: 'app-header',
@@ -25,9 +25,9 @@ export class Header {
   readonly homeRoute = '/';
   readonly navItems = this.resolveNavItems();
   readonly userMenuItems = [
-    { label: 'Art', href: 'https://art.polyglider.com' },
-    { label: 'Shop', href: 'https://shop.polyglider.com' },
-    { label: 'Blog', href: 'https://blog.polyglider.com' },
+    { label: 'Art', href: getSubdomainSiteUrl('art.polyglider.com') },
+    { label: 'Shop', href: getSubdomainSiteUrl('shop.polyglider.com') },
+    { label: 'Blog', href: getSubdomainSiteUrl('blog.polyglider.com') },
   ];
   readonly isMenuOpen = signal(false);
   readonly isUserMenuOpen = signal(false);
