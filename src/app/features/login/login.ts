@@ -203,7 +203,7 @@ export class Login implements OnDestroy {
       return;
     }
 
-    await this.router.navigateByUrl(this.redirectTo || '/');
+    await this.navigateToRedirectTarget(this.redirectTo || '/');
   }
 
   private async navigateAfterCallback(): Promise<void> {
@@ -213,7 +213,7 @@ export class Login implements OnDestroy {
       return;
     }
 
-    await this.router.navigateByUrl(this.redirectTo || '/');
+    await this.navigateToRedirectTarget(this.redirectTo || '/');
   }
 
   private setStatus(kind: StatusKind, message: string): void {
@@ -235,6 +235,28 @@ export class Login implements OnDestroy {
       this.setStatus('idle', '');
     } finally {
       this.isSubmitting.set(false);
+    }
+  }
+
+  private async navigateToRedirectTarget(target: string): Promise<void> {
+    if (this.isExternalTarget(target)) {
+      window.location.assign(target);
+      return;
+    }
+
+    await this.router.navigateByUrl(target);
+  }
+
+  private isExternalTarget(target: string): boolean {
+    if (typeof window === 'undefined' || !target) {
+      return false;
+    }
+
+    try {
+      const url = new URL(target, window.location.origin);
+      return url.origin !== window.location.origin;
+    } catch {
+      return false;
     }
   }
 

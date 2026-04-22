@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { IdentityService } from './identity.service';
+import { getCurrentAbsoluteUrl } from '../../shared/utils/host.utils';
 
 export const identityGuard: CanActivateFn = async (_route, state) => {
   const identity = inject(IdentityService);
@@ -12,6 +13,6 @@ export const identityGuard: CanActivateFn = async (_route, state) => {
   }
 
   return router.createUrlTree(['/login'], {
-    queryParams: { redirectTo: state.url || '/admin' },
+    queryParams: { redirectTo: getCurrentAbsoluteUrl() || state.url || '/admin' },
   });
 };

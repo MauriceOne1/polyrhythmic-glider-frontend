@@ -12,6 +12,7 @@ import {
   type CallbackResult,
 } from '@netlify/identity';
 import type { IdentityUser } from '../../shared/models/identity.models';
+import { getMainSiteUrl } from '../../shared/utils/host.utils';
 
 @Injectable({ providedIn: 'root' })
 export class IdentityService {
@@ -111,12 +112,13 @@ export class IdentityService {
 
   async logout(): Promise<void> {
     this.authError.set('');
+    const target = getMainSiteUrl('/');
 
     if (this.isUsingLocalDevSession()) {
       this.clearLocalDevSession();
       this.currentUser.set(null);
       this.callbackResult.set(null);
-      await this.router.navigateByUrl('/');
+      this.redirectToTarget(target);
       return;
     }
 
@@ -127,7 +129,7 @@ export class IdentityService {
     } finally {
       this.currentUser.set(null);
       this.callbackResult.set(null);
-      await this.router.navigateByUrl('/');
+      this.redirectToTarget(target);
     }
   }
 
@@ -241,7 +243,7 @@ export class IdentityService {
     this.postLoginRedirect = '/';
     this.recoveryToken = null;
     this.callbackResult.set(null);
-    await this.router.navigateByUrl(target);
+    await this.navigateToTarget(target);
   }
 
   private hasIdentityHash(): boolean {
@@ -277,6 +279,50 @@ export class IdentityService {
 
   private documentTitle(): string {
     return typeof document === 'undefined' ? '' : document.title;
+  }
+
+  private async navigateToTarget(target: string): Promise<void> {
+    if (this.isExternalTarget(target)) {
+      window.location.replace(target);
+      return;
+    }
+
+    await this.router.navigateByUrl(target || '/');
+  }
+
+  private redirectToTarget(target: string): void {
+    if (typeof window === 'undefined') {
+      void this.router.navigateByUrl(target || '/');
+      return;
+    }
+
+    const resolvedTarget = this.resolveAbsoluteTarget(target || '/');
+    window.location.replace(resolvedTarget);
+  }
+
+  private resolveAbsoluteTarget(target: string): string {
+    if (typeof window === 'undefined') {
+      return target;
+    }
+
+    try {
+      return new URL(target, window.location.origin).toString();
+    } catch {
+      return target;
+    }
+  }
+
+  private isExternalTarget(target: string): boolean {
+    if (typeof window === 'undefined' || !target) {
+      return false;
+    }
+
+    try {
+      const url = new URL(target, window.location.origin);
+      return url.origin !== window.location.origin;
+    } catch {
+      return false;
+    }
   }
 
   private canUseLocalDevAuth(): boolean {
