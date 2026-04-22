@@ -1,0 +1,44 @@
+<section class="status-page" aria-labelledby="error-state-title">
+  <div class="status-shell readable-copy-card">
+    <div class="status-title-card" aria-hidden="true">
+      <p class="status-title-eyebrow">{{ eyebrow() }}</p>
+      <h1 id="error-state-title" class="status-heading">
+        <span class="status-heading-code">{{ code() }}</span>
+        <span class="status-heading-label">{{ title() }}</span>
+      </h1>
+    </div>
+
+    @if (activeMessage(); as message) {
+      <section class="status-message-box" aria-label="Messaggio di stato">
+        @if (hasMultipleMessages()) {
+          <div class="status-message-controls" aria-label="Cambia messaggio">
+            <button class="status-message-control" type="button" (click)="showPreviousMessage()">
+              &lt;
+            </button>
+            <button class="status-message-control" type="button" (click)="showNextMessage()">
+              &gt;
+            </button>
+          </div>
+        }
+
+        <p class="status-message-eyebrow">system.note</p>
+        <p class="status-copy">{{ message.text }}</p>
+        @if (activeMessageAccent()) {
+          <p class="status-copy-accent">{{ activeMessageAccent() }}</p>
+        }
+      </section>
+    }
+
+    <div class="status-actions" aria-label="Azioni suggerite">
+      <a class="status-link primary" [routerLink]="primaryAction().href">
+        {{ primaryAction().label }}
+      </a>
+
+      @if (secondaryAction(); as action) {
+        <a class="status-link" [routerLink]="action.href">
+          {{ action.label }}
+        </a>
+      }
+    </div>
+  </div>
+</section>

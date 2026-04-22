@@ -261,4 +261,40 @@ export const routes: Routes = [
       },
     },
   },
+  {
+    path: '403',
+    loadComponent: () => import('./features/forbidden/forbidden').then((m) => m.Forbidden),
+    data: {
+      seo: {
+        title: '403 | Polyrhythmic Glider',
+        description: 'Pagina di accesso negato per aree riservate di Polyrhythmic Glider.',
+        keywords: ['403', 'forbidden', 'access denied', 'polyrhythmic glider'],
+        robots: 'noindex,nofollow',
+      },
+    },
+  },
+  {
+    path: '404',
+    loadComponent: () => import('./features/not-found/not-found').then((m) => m.NotFound),
+    data: {
+      seo: {
+        title: '404 | Polyrhythmic Glider',
+        description: 'Pagina non trovata su Polyrhythmic Glider.',
+        keywords: ['404', 'not found', 'polyrhythmic glider'],
+        robots: 'noindex,nofollow',
+      },
+    },
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./features/not-found/not-found').then((m) => m.NotFound),
+    data: {
+      seo: {
+        title: '404 | Polyrhythmic Glider',
+        description: 'Pagina non trovata su Polyrhythmic Glider.',
+        keywords: ['404', 'not found', 'polyrhythmic glider'],
+        robots: 'noindex,nofollow',
+      },
+    },
+  },
 ];
