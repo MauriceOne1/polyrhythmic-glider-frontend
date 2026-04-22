@@ -45,7 +45,7 @@ export class Footer {
       label: 'Cookie policy',
       path: '/cookie-policy',
       eyebrow: 'Legal',
-      description: 'Informativa essenziale su cookie tecnici, analytics privacy-friendly e login.',
+      description: 'Informativa essenziale su cookie tecnici e analytics privacy-friendly.',
     },
   ];
 
