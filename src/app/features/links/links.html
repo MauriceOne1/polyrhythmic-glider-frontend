@@ -18,7 +18,7 @@
           [href]="link.href"
           [attr.target]="link.href.startsWith('http') ? '_blank' : null"
           [attr.rel]="link.href.startsWith('http') ? 'noopener noreferrer' : null"
-          (click)="trackLinkClick(link)"
+          (click)="registerLinkEvent(link)"
         >
           <span class="link-copy">
             <span class="link-label">{{ link.label }}</span>
