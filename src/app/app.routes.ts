@@ -48,6 +48,7 @@ export const routes: Routes = [
   {
     matcher: artHostRootMatcher,
     loadComponent: () => import('./features/art/art').then((m) => m.Art),
+    canActivate: [identityGuard],
     data: {
       seo: {
         title: 'Art | Polyrhythmic Glider',
@@ -67,6 +68,7 @@ export const routes: Routes = [
   {
     matcher: blogHostRootMatcher,
     loadComponent: () => import('./features/blog/blog').then((m) => m.Blog),
+    canActivate: [identityGuard],
     data: {
       seo: {
         title: 'Blog | Polyrhythmic Glider',
@@ -85,6 +87,7 @@ export const routes: Routes = [
   {
     matcher: blogHostPostMatcher,
     loadComponent: () => import('./features/blog-post/blog-post').then((m) => m.BlogPost),
+    canActivate: [identityGuard],
     data: {
       seo: {
         title: 'Blog | Polyrhythmic Glider',
@@ -103,6 +106,7 @@ export const routes: Routes = [
   {
     matcher: shopHostRootMatcher,
     loadComponent: () => import('./features/shop/shop').then((m) => m.Shop),
+    canActivate: [identityGuard],
     data: {
       seo: {
         title: 'Shop | Polyrhythmic Glider',
@@ -206,6 +210,23 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'links',
+    loadComponent: () => import('./features/links/links').then((m) => m.Links),
+    data: {
+      seo: {
+        title: 'Links | Polyrhythmic Glider',
+        description:
+          'Pagina essenziale con i link principali di Polyrhythmic Glider: sito, evento BYOS e Instagram.',
+        keywords: ['links', 'polyrhythmic glider', 'byos', 'instagram'],
+      },
+    },
+  },
+  {
+    path: 'l',
+    redirectTo: 'links',
+    pathMatch: 'full',
+  },
+  {
     path: 'radio',
     loadComponent: () => import('./features/radio/radio').then((m) => m.Radio),
     data: {
@@ -214,6 +235,25 @@ export const routes: Routes = [
         description: 'Canale radio sperimentale con player audio live e prova locale video.',
         keywords: ['radio', 'live stream', 'audio', 'video', 'polyrhythmic glider'],
         robots: 'noindex,nofollow',
+      },
+    },
+  },
+  {
+    path: 'cookie-policy',
+    loadComponent: () =>
+      import('./features/cookie-policy/cookie-policy').then((m) => m.CookiePolicy),
+    data: {
+      seo: {
+        title: 'Cookie Policy | Polyrhythmic Glider',
+        description:
+          'Informativa cookie di Polyrhythmic Glider: solo cookie tecnici necessari, Netlify Identity per l&apos;autenticazione e analytics privacy-friendly senza profilazione.',
+        keywords: [
+          'cookie policy',
+          'privacy',
+          'simple analytics',
+          'netlify identity',
+          'cookie tecnici',
+        ],
       },
     },
   },
@@ -253,6 +293,42 @@ export const routes: Routes = [
         title: 'Admin | Polyrhythmic Glider',
         description: 'Area amministrativa privata accessibile solo dopo autenticazione.',
         keywords: ['admin', 'private area', 'authentication'],
+        robots: 'noindex,nofollow',
+      },
+    },
+  },
+  {
+    path: '403',
+    loadComponent: () => import('./features/forbidden/forbidden').then((m) => m.Forbidden),
+    data: {
+      seo: {
+        title: '403 | Polyrhythmic Glider',
+        description: 'Pagina di accesso negato per aree riservate di Polyrhythmic Glider.',
+        keywords: ['403', 'forbidden', 'access denied', 'polyrhythmic glider'],
+        robots: 'noindex,nofollow',
+      },
+    },
+  },
+  {
+    path: '404',
+    loadComponent: () => import('./features/not-found/not-found').then((m) => m.NotFound),
+    data: {
+      seo: {
+        title: '404 | Polyrhythmic Glider',
+        description: 'Pagina non trovata su Polyrhythmic Glider.',
+        keywords: ['404', 'not found', 'polyrhythmic glider'],
+        robots: 'noindex,nofollow',
+      },
+    },
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./features/not-found/not-found').then((m) => m.NotFound),
+    data: {
+      seo: {
+        title: '404 | Polyrhythmic Glider',
+        description: 'Pagina non trovata su Polyrhythmic Glider.',
+        keywords: ['404', 'not found', 'polyrhythmic glider'],
         robots: 'noindex,nofollow',
       },
     },

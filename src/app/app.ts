@@ -3,6 +3,7 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
 import { Background } from './core/layout/background/background';
+import { CookieNotice } from './core/layout/cookie-notice/cookie-notice';
 import { GameOfLifeBackground } from './core/layout/game-of-life-background/game-of-life-background';
 import { Header } from './core/layout/header/header';
 import { IdentityService } from './core/identity/identity.service';
@@ -13,7 +14,7 @@ import { getEffectiveHostname } from './shared/utils/host.utils';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Background, GameOfLifeBackground, ToastHost],
+  imports: [RouterOutlet, Header, Background, GameOfLifeBackground, CookieNotice, ToastHost],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -36,6 +37,7 @@ export class App {
 
   readonly isGameOfLifeRoute = computed(() => this.currentUrl().startsWith('/game-of-life'));
   readonly isRadioRoute = computed(() => this.currentUrl().startsWith('/radio'));
+  readonly isLinksRoute = computed(() => this.currentUrl().startsWith('/links'));
   readonly isArtRoute = computed(
     () => this.currentUrl().startsWith('/art') || (this.isArtHost && this.currentUrl() === '/'),
   );

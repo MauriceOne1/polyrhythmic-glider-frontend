@@ -23,12 +23,6 @@ export class Footer {
   readonly navItems = NAV_ITEMS;
   readonly resources: ResourceLink[] = [
     {
-      label: 'Polyblog',
-      externalHref: 'https://blog.polyglider.com/',
-      eyebrow: 'Blog',
-      description: 'Articoli, appunti di ricerca, formule, codice e processi condivisi.',
-    },
-    {
       label: 'BYOS!',
       path: '/partecipa',
       eyebrow: 'Jam',
@@ -46,6 +40,12 @@ export class Footer {
       path: '/game-of-life',
       eyebrow: 'Simulazione',
       description: 'Esperimento visuale con automa cellulare e background generativo dedicato.',
+    },
+    {
+      label: 'Cookie policy',
+      path: '/cookie-policy',
+      eyebrow: 'Legal',
+      description: 'Informativa essenziale su cookie tecnici, analytics privacy-friendly e login.',
     },
   ];
 

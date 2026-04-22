@@ -110,6 +110,18 @@
         </button>
       </form>
 
+      @if (identity.isLocalDevAuthEnabled) {
+        <div class="login-dev-panel" aria-label="Accesso locale di sviluppo">
+          <p class="login-dev-copy">
+            Ambiente locale rilevato. Puoi entrare con un account fake solo per sviluppo.
+          </p>
+
+          <button class="login-action secondary" type="button" (click)="submitLocalDevLogin()">
+            Entra come dev locale
+          </button>
+        </div>
+      }
+
       <div class="login-switches" aria-label="Azioni account">
         <button class="login-link" type="button" (click)="setMode('forgot')">
           Password dimenticata

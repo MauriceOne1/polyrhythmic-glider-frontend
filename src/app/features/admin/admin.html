@@ -1,7 +1,34 @@
 <section class="admin-page">
   <div class="admin-shell">
-    <h1 class="admin-title">
-      resca ne combineremo delle belle, pagina post login :D auth integratah :DDDD
-    </h1>
+    <p class="admin-eyebrow">Area riservata</p>
+    <h1 class="admin-title">Admin dashboard</h1>
+    <p class="admin-copy">
+      Accesso confermato. Qui possiamo agganciare strumenti editoriali, gestione contenuti e
+      workflow interni senza esporli sul sito pubblico.
+    </p>
+
+    <div class="admin-grid">
+      <article class="admin-card">
+        <p class="admin-label">Dettagli sessione</p>
+        <dl class="admin-details">
+          <div class="admin-detail">
+            <dt>Ruolo</dt>
+            <dd>Authenticated user</dd>
+          </div>
+          <div class="admin-detail">
+            <dt>Creato il</dt>
+            <dd>{{ createdAt() }}</dd>
+          </div>
+          <div class="admin-detail">
+            <dt>Ultimo accesso</dt>
+            <dd>{{ lastLoginAt() }}</dd>
+          </div>
+          <div class="admin-detail">
+            <dt>User id</dt>
+            <dd>{{ user()?.id || 'Non disponibile' }}</dd>
+          </div>
+        </dl>
+      </article>
+    </div>
   </div>
 </section>

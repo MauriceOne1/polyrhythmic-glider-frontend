@@ -1,0 +1,191 @@
+:host {
+  display: block;
+  min-height: calc(100vh - 88px);
+}
+
+.status-page {
+  min-height: inherit;
+  display: grid;
+  place-items: center;
+  padding: 48px 0 72px;
+}
+
+.status-shell {
+  width: min(760px, 100%);
+  display: grid;
+  gap: 18px;
+}
+
+.status-title-card {
+  --status-accent: rgba(217, 255, 142, 0.95);
+  --status-accent-soft: rgba(217, 255, 142, 0.065);
+  --status-border: rgba(217, 255, 142, 0.3);
+  --status-stripe: rgba(217, 255, 142, 0.035);
+  display: grid;
+  gap: 10px;
+  padding: 18px 20px;
+  border: 1px solid var(--status-border);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, var(--status-accent-soft), transparent),
+    repeating-linear-gradient(
+      0deg,
+      var(--status-stripe) 0,
+      var(--status-stripe) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    rgba(3, 7, 10, 0.94);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(18px) saturate(145%);
+}
+
+.status-title-eyebrow {
+  margin: 0;
+  color: var(--status-accent);
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.status-heading {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.55rem 1rem;
+  color: #fff;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: clamp(1.7rem, 6.2cqi, 3.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.status-heading-code {
+  color: rgba(217, 255, 142, 0.95);
+}
+
+.status-heading-label {
+  color: #ffffff;
+}
+
+.status-message-box {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-height: 132px;
+  padding: 14px 16px;
+  border: 1px solid rgba(157, 231, 255, 0.18);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(157, 231, 255, 0.05), transparent), rgba(8, 12, 18, 0.72);
+}
+
+.status-message-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.status-message-control {
+  width: 26px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(157, 231, 255, 0.58);
+  cursor: pointer;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.status-message-control:hover,
+.status-message-control:focus-visible {
+  color: rgba(235, 247, 251, 0.82);
+}
+
+.status-message-eyebrow {
+  margin: 0;
+  color: rgba(157, 231, 255, 0.82);
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding-right: 72px;
+}
+
+.status-copy {
+  margin: 0;
+  max-width: 38rem;
+  min-height: calc(1.7em * 3);
+  color: rgba(247, 247, 251, 0.76);
+  line-height: 1.7;
+}
+
+.status-copy-accent {
+  margin: 2px 0 0;
+  color: rgba(235, 247, 251, 0.84);
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.status-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #f7f7fb;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.status-link:hover,
+.status-link:focus-visible {
+  border-color: rgba(157, 231, 255, 0.38);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.status-link.primary {
+  border-color: #d9ff8e;
+  background: #d9ff8e;
+  color: #090b12;
+}
+
+@media (max-width: 640px) {
+  .status-page {
+    padding: 32px 0 56px;
+  }
+
+  .status-actions {
+    flex-direction: column;
+  }
+
+  .status-link {
+    width: 100%;
+  }
+}

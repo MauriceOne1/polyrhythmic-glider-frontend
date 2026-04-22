@@ -1,0 +1,18 @@
+@if (isVisible()) {
+  <aside
+    class="cookie-notice"
+    aria-label="Informativa cookie"
+    [style.--cookie-notice-duration.ms]="autoDismissMs"
+  >
+    <div class="cookie-notice-copy">
+      <p class="cookie-notice-title">Informativa cookie</p>
+      <p class="cookie-notice-text">
+        Usiamo solo cookie tecnici necessari e strumenti analytics
+        <strong>privacy-friendly</strong> senza profilazione.
+      </p>
+      <a class="cookie-notice-link" routerLink="/cookie-policy">Leggi la cookie policy</a>
+    </div>
+
+    <span class="cookie-notice-progress" aria-hidden="true"></span>
+  </aside>
+}

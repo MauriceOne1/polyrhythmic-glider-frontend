@@ -22,11 +22,20 @@
   width: min(var(--content-wide-max), calc(100% - (var(--page-gutter-compact) * 2)));
 }
 
+.app-shell.is-links-shell .main-content {
+  width: min(100%, calc(100% - (var(--page-gutter) * 2)));
+  max-width: 36rem;
+}
+
 .main-content.shop-main-content {
   width: 100%;
   max-width: none;
   margin: 0;
   padding-inline: clamp(0.75rem, 1.6vw, 1.5rem);
+}
+
+.main-content.links-main-content {
+  min-height: 100dvh;
 }
 
 .audio-controls {

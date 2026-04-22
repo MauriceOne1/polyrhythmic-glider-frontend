@@ -1,6 +1,6 @@
 @if (isGameOfLifeRoute()) {
   <app-game-of-life-background></app-game-of-life-background>
-} @else if (!isRadioRoute()) {
+} @else if (!isRadioRoute() && !isLinksRoute()) {
   <app-background #bg></app-background>
 
   <div class="audio-controls" role="group" aria-labelledby="audio-controls-title">
@@ -38,8 +38,9 @@
   [class.is-radio-shell]="isRadioRoute()"
   [class.is-art-shell]="isArtRoute()"
   [class.is-shop-shell]="isShopRoute()"
+  [class.is-links-shell]="isLinksRoute()"
 >
-  @if (!isRadioRoute()) {
+  @if (!isRadioRoute() && !isLinksRoute()) {
     <app-header></app-header>
   }
 
@@ -47,10 +48,12 @@
     id="main-content"
     class="main-content"
     [class.shop-main-content]="isShopRoute()"
+    [class.links-main-content]="isLinksRoute()"
     tabindex="-1"
   >
     <router-outlet></router-outlet>
   </main>
 </div>
 
+<app-cookie-notice></app-cookie-notice>
 <app-toast-host></app-toast-host>

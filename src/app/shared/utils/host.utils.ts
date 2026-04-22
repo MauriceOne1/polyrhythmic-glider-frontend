@@ -30,3 +30,39 @@ export function getEffectiveHostname(): string {
 
   return currentHostname;
 }
+
+export function getCurrentAbsoluteUrl(): string {
+  if (typeof window === 'undefined') {
+    return '/';
+  }
+
+  return window.location.href;
+}
+
+export function getMainSiteUrl(path = '/'): string {
+  if (typeof window === 'undefined') {
+    return path;
+  }
+
+  if (isLocalDevelopmentHost(window.location.hostname)) {
+    return `${window.location.origin}${path}`;
+  }
+
+  return `https://polyglider.com${path}`;
+}
+
+export function getSubdomainSiteUrl(
+  hostname: 'art.polyglider.com' | 'blog.polyglider.com' | 'shop.polyglider.com',
+  path = '/',
+): string {
+  if (typeof window === 'undefined') {
+    return path;
+  }
+
+  if (isLocalDevelopmentHost(window.location.hostname)) {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    return `${window.location.origin}${normalizedPath}?local-host=${hostname}`;
+  }
+
+  return `https://${hostname}${path}`;
+}

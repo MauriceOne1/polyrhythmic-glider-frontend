@@ -1,0 +1,104 @@
+:host {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  left: max(1rem, env(safe-area-inset-left));
+  z-index: 40;
+  pointer-events: none;
+}
+
+.cookie-notice {
+  position: relative;
+  overflow: hidden;
+  width: min(100%, 28rem);
+  margin-left: auto;
+  padding: 0.8rem 0.9rem 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.1rem;
+  background:
+    linear-gradient(135deg, rgba(17, 21, 32, 0.9), rgba(22, 27, 41, 0.94)), rgba(9, 11, 18, 0.92);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(22px) saturate(150%);
+  pointer-events: auto;
+}
+
+.cookie-notice-copy {
+  min-width: 0;
+}
+
+.cookie-notice-title {
+  margin: 0 0 0.2rem;
+  font-size: 0.7rem;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(247, 247, 251, 0.48);
+}
+
+.cookie-notice-text {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: rgba(247, 247, 251, 0.78);
+}
+
+.cookie-notice-link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.84rem;
+  color: #d9ff8e;
+  text-decoration: none;
+}
+
+.cookie-notice-link:hover,
+.cookie-notice-link:focus-visible {
+  text-decoration: underline;
+}
+
+.cookie-notice-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #9de7ff, #d9ff8e);
+  animation: cookie-notice-progress var(--cookie-notice-duration, 9000ms) linear forwards;
+}
+
+@keyframes cookie-notice-progress {
+  from {
+    transform: scaleX(1);
+    opacity: 0.95;
+  }
+
+  to {
+    transform: scaleX(0);
+    opacity: 0.5;
+  }
+}
+
+@media (min-width: 641px) {
+  :host {
+    left: 50%;
+    right: auto;
+    bottom: calc(max(16px, env(safe-area-inset-bottom)) + 5.5rem);
+    width: min(100% - 2rem, 28rem);
+    transform: translateX(-50%);
+  }
+
+  .cookie-notice {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  :host {
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 4.75rem);
+  }
+
+  .cookie-notice {
+    width: 100%;
+  }
+}
