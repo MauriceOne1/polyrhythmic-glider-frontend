@@ -107,6 +107,26 @@
   color: #090b12;
 }
 
+.login-action.secondary {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.login-dev-panel {
+  width: min(460px, 100%);
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px dashed rgba(217, 255, 142, 0.38);
+  border-radius: 12px;
+  background: rgba(217, 255, 142, 0.06);
+}
+
+.login-dev-copy {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
 .login-switches {
   display: flex;
   flex-wrap: wrap;

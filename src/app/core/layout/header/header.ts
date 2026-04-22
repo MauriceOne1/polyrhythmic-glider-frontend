@@ -34,6 +34,9 @@ export class Header {
   readonly identity = inject(IdentityService);
   readonly user = this.identity.currentUser;
   readonly isLoggedIn = computed(() => this.user() !== null);
+  readonly displayName = computed(() => this.resolveDisplayName());
+  readonly avatarUrl = computed(() => this.resolveAvatarUrl());
+  readonly initials = computed(() => this.resolveInitials());
 
   private readonly router = inject(Router);
   private readonly viewportScroller = inject(ViewportScroller);
@@ -98,6 +101,56 @@ export class Header {
   logout(): Promise<void> {
     this.closeAllMenus();
     return this.identity.logout();
+  }
+
+  private resolveDisplayName(): string {
+    const user = this.user();
+    const metadata = user?.userMetadata;
+
+    if (!metadata || typeof metadata !== 'object') {
+      return user?.name || user?.email || 'Utente autenticato';
+    }
+
+    const fullName = this.readMetadataValue(metadata, ['full_name', 'name', 'display_name']);
+    return fullName || user?.name || user?.email || 'Utente autenticato';
+  }
+
+  private resolveAvatarUrl(): string | null {
+    const user = this.user();
+    const metadata = user?.userMetadata;
+
+    if (!metadata || typeof metadata !== 'object') {
+      return user?.pictureUrl || null;
+    }
+
+    return this.readMetadataValue(metadata, ['avatar_url', 'picture']) || user?.pictureUrl || null;
+  }
+
+  private resolveInitials(): string {
+    const source = this.displayName();
+    const parts = source
+      .split(/\s+/)
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .slice(0, 2);
+
+    if (parts.length === 0) {
+      return 'PG';
+    }
+
+    return parts.map((part) => part[0]?.toUpperCase() || '').join('');
+  }
+
+  private readMetadataValue(metadata: object, keys: string[]): string {
+    for (const key of keys) {
+      const value = Reflect.get(metadata, key);
+
+      if (typeof value === 'string' && value.trim().length > 0) {
+        return value.trim();
+      }
+    }
+
+    return '';
   }
 
   private resolveNavItems() {

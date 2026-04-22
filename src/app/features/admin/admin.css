@@ -1,20 +1,118 @@
 .admin-page {
   min-height: calc(100vh - 120px);
-  display: grid;
-  place-items: center;
-  padding: 48px 0;
+  padding: 48px 0 72px;
   container-type: inline-size;
 }
 
 .admin-shell {
   width: min(1100px, 100%);
+  display: grid;
+  gap: 18px;
+}
+
+.admin-eyebrow,
+.admin-title,
+.admin-copy {
+  margin: 0;
+}
+
+.admin-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.7;
 }
 
 .admin-title {
-  margin: 0;
-  font-size: clamp(3rem, 12cqi, 7.5rem);
-  line-height: 0.94;
+  font-size: clamp(2.8rem, 10cqi, 5.8rem);
+  line-height: 0.92;
   letter-spacing: -0.05em;
   text-transform: uppercase;
   text-wrap: balance;
+}
+
+.admin-copy {
+  max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.7;
+  opacity: 0.82;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.admin-card {
+  grid-column: span 6;
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03)),
+    rgba(9, 11, 18, 0.56);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(18px) saturate(135%);
+}
+
+.admin-label {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.68;
+}
+
+.admin-details {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.admin-detail {
+  display: grid;
+  gap: 4px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-detail:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.admin-detail dt {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+}
+
+.admin-detail dd {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .admin-card {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-page {
+    padding: 32px 0 56px;
+  }
+
+  .admin-card {
+    padding: 20px;
+    border-radius: 24px;
+  }
 }

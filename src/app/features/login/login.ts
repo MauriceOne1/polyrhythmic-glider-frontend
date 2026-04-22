@@ -221,6 +221,23 @@ export class Login implements OnDestroy {
     this.statusMessage.set(message);
   }
 
+  async submitLocalDevLogin(): Promise<void> {
+    if (this.isSubmitting() || !this.identity.isLocalDevAuthEnabled) {
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.setStatus('idle', '');
+
+    try {
+      await this.identity.loginWithLocalDevAccount();
+    } catch {
+      this.setStatus('idle', '');
+    } finally {
+      this.isSubmitting.set(false);
+    }
+  }
+
   private showRouteNotice(): void {
     if (this.route.snapshot.queryParamMap.get('notice') !== 'polyblog-construction') {
       return;

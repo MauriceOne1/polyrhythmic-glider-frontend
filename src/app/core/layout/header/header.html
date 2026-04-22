@@ -6,50 +6,6 @@
         <span>glider</span>
       </a>
 
-      @if (isLoggedIn()) {
-        <div class="user-menu">
-          <button
-            class="user-menu-toggle"
-            type="button"
-            [attr.aria-expanded]="isUserMenuOpen()"
-            aria-controls="user-navigation"
-            [attr.aria-label]="isUserMenuOpen() ? 'Chiudi menu utente' : 'Apri menu utente'"
-            (click)="toggleUserMenu()"
-          >
-            <span class="user-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path
-                  d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.87 0-7 2.24-7 5v1h14v-1c0-2.76-3.13-5-7-5Z"
-                />
-              </svg>
-            </span>
-          </button>
-
-          <div
-            id="user-navigation"
-            class="user-menu-panel"
-            [class.is-open]="isUserMenuOpen()"
-            aria-label="Link riservati"
-          >
-            @for (item of userMenuItems; track item.label) {
-              <a
-                class="user-menu-link"
-                [href]="item.href"
-                target="_blank"
-                rel="noreferrer"
-                (click)="closeUserMenu()"
-              >
-                {{ item.label }}
-              </a>
-            }
-
-            <button class="user-menu-link user-menu-action" type="button" (click)="logout()">
-              Logout
-            </button>
-          </div>
-        </div>
-      }
-
       <button
         class="menu-toggle"
         type="button"
@@ -88,6 +44,82 @@
             {{ item.label }}
           </a>
         }
+      }
+
+      @if (isLoggedIn()) {
+        <div class="user-menu user-menu-nav">
+          <button
+            class="nav-link nav-user-trigger"
+            type="button"
+            [attr.aria-expanded]="isUserMenuOpen()"
+            aria-controls="user-navigation"
+            [attr.aria-label]="isUserMenuOpen() ? 'Chiudi menu utente' : 'Apri menu utente'"
+            (click)="toggleUserMenu()"
+          >
+            <span class="nav-user-summary">
+              <span class="nav-user-avatar" aria-hidden="true">
+                @if (avatarUrl(); as avatar) {
+                  <img
+                    class="nav-user-avatar-image"
+                    [src]="avatar"
+                    [alt]="'Avatar di ' + displayName()"
+                  />
+                } @else {
+                  <span class="nav-user-avatar-fallback">{{ initials() }}</span>
+                }
+              </span>
+              <span class="nav-user-name">{{ displayName() }}</span>
+            </span>
+            <span class="nav-user-caret" aria-hidden="true"></span>
+          </button>
+
+          <div
+            id="user-navigation"
+            class="user-menu-panel"
+            [class.is-open]="isUserMenuOpen()"
+            aria-label="Link riservati"
+          >
+            <a class="user-menu-profile" routerLink="/admin" (click)="closeUserMenu()">
+              <div class="user-menu-avatar-wrap">
+                @if (avatarUrl(); as avatar) {
+                  <img
+                    class="user-menu-avatar"
+                    [src]="avatar"
+                    [alt]="'Avatar di ' + displayName()"
+                  />
+                } @else {
+                  <div class="user-menu-avatar user-menu-avatar-fallback" aria-hidden="true">
+                    {{ initials() }}
+                  </div>
+                }
+              </div>
+
+              <div class="user-menu-profile-copy">
+                <p class="user-menu-profile-label">Profilo</p>
+                <p class="user-menu-profile-name">{{ displayName() }}</p>
+                <p class="user-menu-profile-email">
+                  {{ user()?.email || 'Email non disponibile' }}
+                </p>
+              </div>
+            </a>
+
+            @for (item of userMenuItems; track item.label) {
+              <a
+                class="user-menu-link"
+                [href]="item.href"
+                target="_blank"
+                rel="noreferrer"
+                (click)="closeUserMenu()"
+              >
+                {{ item.label }}
+              </a>
+            }
+
+            <button class="user-menu-link user-menu-action" type="button" (click)="logout()">
+              Logout
+            </button>
+          </div>
+        </div>
       }
     </nav>
   </div>

@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, isDevMode, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   acceptInvite,
@@ -20,11 +20,13 @@ export class IdentityService {
   readonly isProcessingCallback = signal(false);
   readonly callbackResult = signal<CallbackResult | null>(null);
   readonly authError = signal('');
+  readonly isLocalDevAuthEnabled = this.canUseLocalDevAuth();
 
   private readonly router = inject(Router);
   private initPromise: Promise<void> | null = null;
   private postLoginRedirect = '/';
   private recoveryToken: string | null = null;
+  private readonly devSessionStorageKey = 'polyglider.dev-auth-session';
 
   init(): void {
     void this.ensureInitialized();
@@ -109,6 +111,15 @@ export class IdentityService {
 
   async logout(): Promise<void> {
     this.authError.set('');
+
+    if (this.isUsingLocalDevSession()) {
+      this.clearLocalDevSession();
+      this.currentUser.set(null);
+      this.callbackResult.set(null);
+      await this.router.navigateByUrl('/');
+      return;
+    }
+
     this.ensureSecureIdentityOrigin();
 
     try {
@@ -128,6 +139,11 @@ export class IdentityService {
 
     if (this.initPromise) {
       return this.initPromise;
+    }
+
+    if (this.restoreLocalDevSession()) {
+      this.isReady.set(true);
+      return Promise.resolve();
     }
 
     if (!this.hasSecureIdentityOrigin()) {
@@ -182,10 +198,24 @@ export class IdentityService {
     this.isProcessingCallback.set(false);
     this.isReady.set(true);
 
-    if (this.hasIdentityHash()) {
+    if (this.hasIdentityHash() && !this.isLocalDevAuthEnabled) {
       this.authError.set(this.secureIdentityMessage());
       this.clearHash();
     }
+  }
+
+  async loginWithLocalDevAccount(): Promise<void> {
+    if (!this.isLocalDevAuthEnabled) {
+      const message = 'Accesso fake disponibile solo in locale durante lo sviluppo.';
+      this.authError.set(message);
+      throw new Error(message);
+    }
+
+    const user = this.createLocalDevUser();
+    this.authError.set('');
+    this.persistLocalDevSession(user);
+    this.currentUser.set(user);
+    await this.navigateAfterLogin();
   }
 
   private ensureSecureIdentityOrigin(): void {
@@ -247,6 +277,84 @@ export class IdentityService {
 
   private documentTitle(): string {
     return typeof document === 'undefined' ? '' : document.title;
+  }
+
+  private canUseLocalDevAuth(): boolean {
+    if (!isDevMode() || typeof window === 'undefined') {
+      return false;
+    }
+
+    return ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
+  }
+
+  private createLocalDevUser(): IdentityUser {
+    const now = new Date().toISOString();
+
+    return {
+      id: 'dev-local-user',
+      email: 'dev@localhost.polyglider',
+      createdAt: now,
+      lastSignInAt: now,
+      name: 'Local Dev Admin',
+      pictureUrl: '',
+      userMetadata: {
+        full_name: 'Local Dev Admin',
+      },
+      appMetadata: {
+        provider: 'email',
+        roles: ['admin'],
+      },
+      role: 'admin',
+      roles: ['admin'],
+      provider: 'email',
+    };
+  }
+
+  private persistLocalDevSession(user: IdentityUser): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.sessionStorage.setItem(this.devSessionStorageKey, JSON.stringify(user));
+  }
+
+  private restoreLocalDevSession(): boolean {
+    if (!this.isLocalDevAuthEnabled || typeof window === 'undefined') {
+      return false;
+    }
+
+    const rawSession = window.sessionStorage.getItem(this.devSessionStorageKey);
+
+    if (!rawSession) {
+      return false;
+    }
+
+    try {
+      const parsedSession = JSON.parse(rawSession) as IdentityUser;
+      this.currentUser.set(parsedSession);
+      this.callbackResult.set(null);
+      this.isProcessingCallback.set(false);
+      return true;
+    } catch {
+      this.clearLocalDevSession();
+      return false;
+    }
+  }
+
+  private isUsingLocalDevSession(): boolean {
+    if (!this.isLocalDevAuthEnabled || typeof window === 'undefined') {
+      return false;
+    }
+
+    return window.sessionStorage.getItem(this.devSessionStorageKey) !== null;
+  }
+
+  private clearLocalDevSession(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.sessionStorage.removeItem(this.devSessionStorageKey);
   }
 
   private setAuthError(error: unknown, fallback: string): void {
