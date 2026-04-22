@@ -1,0 +1,105 @@
+:host {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  left: max(1rem, env(safe-area-inset-left));
+  z-index: 40;
+  pointer-events: none;
+}
+
+.cookie-notice {
+  width: min(100%, 32rem);
+  margin-left: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.25rem;
+  background:
+    linear-gradient(135deg, rgba(17, 21, 32, 0.9), rgba(22, 27, 41, 0.94)), rgba(9, 11, 18, 0.92);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(22px) saturate(150%);
+  pointer-events: auto;
+}
+
+.cookie-notice-copy {
+  min-width: 0;
+}
+
+.cookie-notice-title {
+  margin: 0 0 0.2rem;
+  font-size: 0.7rem;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(247, 247, 251, 0.48);
+}
+
+.cookie-notice-text {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(247, 247, 251, 0.78);
+}
+
+.cookie-notice-link {
+  display: inline-block;
+  margin-top: 0.45rem;
+  color: #d9ff8e;
+  text-decoration: none;
+}
+
+.cookie-notice-link:hover,
+.cookie-notice-link:focus-visible {
+  text-decoration: underline;
+}
+
+.cookie-notice-dismiss {
+  min-height: 2.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.cookie-notice-dismiss:hover,
+.cookie-notice-dismiss:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(217, 255, 142, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (min-width: 641px) {
+  :host {
+    left: 50%;
+    right: auto;
+    bottom: calc(max(16px, env(safe-area-inset-bottom)) + 5.5rem);
+    width: min(100% - 2rem, 32rem);
+    transform: translateX(-50%);
+  }
+
+  .cookie-notice {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .cookie-notice {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cookie-notice-dismiss {
+    width: 100%;
+  }
+}

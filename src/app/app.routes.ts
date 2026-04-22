@@ -222,6 +222,25 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'cookie-policy',
+    loadComponent: () =>
+      import('./features/cookie-policy/cookie-policy').then((m) => m.CookiePolicy),
+    data: {
+      seo: {
+        title: 'Cookie Policy | Polyrhythmic Glider',
+        description:
+          'Informativa cookie di Polyrhythmic Glider: solo cookie tecnici necessari, Netlify Identity per l&apos;autenticazione e analytics privacy-friendly senza profilazione.',
+        keywords: [
+          'cookie policy',
+          'privacy',
+          'simple analytics',
+          'netlify identity',
+          'cookie tecnici',
+        ],
+      },
+    },
+  },
+  {
     path: 'toast',
     loadComponent: () => import('./features/toast/toast').then((m) => m.Toast),
     data: {

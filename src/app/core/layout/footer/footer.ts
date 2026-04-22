@@ -47,6 +47,12 @@ export class Footer {
       eyebrow: 'Simulazione',
       description: 'Esperimento visuale con automa cellulare e background generativo dedicato.',
     },
+    {
+      label: 'Cookie policy',
+      path: '/cookie-policy',
+      eyebrow: 'Legal',
+      description: 'Informativa essenziale su cookie tecnici, analytics privacy-friendly e login.',
+    },
   ];
 
   private readonly router = inject(Router);

@@ -1,0 +1,16 @@
+@if (isVisible()) {
+  <aside class="cookie-notice" aria-label="Informativa cookie">
+    <div class="cookie-notice-copy">
+      <p class="cookie-notice-title">Informativa cookie</p>
+      <p class="cookie-notice-text">
+        Usiamo solo cookie tecnici necessari e strumenti analytics
+        <strong>privacy-friendly</strong> senza profilazione.
+      </p>
+      <a class="cookie-notice-link" routerLink="/cookie-policy">Leggi la cookie policy</a>
+    </div>
+
+    <button class="cookie-notice-dismiss" type="button" (click)="dismiss()" aria-label="Chiudi">
+      Chiudi
+    </button>
+  </aside>
+}
