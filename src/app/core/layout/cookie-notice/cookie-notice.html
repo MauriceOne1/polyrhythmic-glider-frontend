@@ -1,5 +1,9 @@
 @if (isVisible()) {
-  <aside class="cookie-notice" aria-label="Informativa cookie">
+  <aside
+    class="cookie-notice"
+    aria-label="Informativa cookie"
+    [style.--cookie-notice-duration.ms]="autoDismissMs"
+  >
     <div class="cookie-notice-copy">
       <p class="cookie-notice-title">Informativa cookie</p>
       <p class="cookie-notice-text">
@@ -9,8 +13,6 @@
       <a class="cookie-notice-link" routerLink="/cookie-policy">Leggi la cookie policy</a>
     </div>
 
-    <button class="cookie-notice-dismiss" type="button" (click)="dismiss()" aria-label="Chiudi">
-      Chiudi
-    </button>
+    <span class="cookie-notice-progress" aria-hidden="true"></span>
   </aside>
 }

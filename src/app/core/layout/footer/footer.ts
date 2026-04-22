@@ -23,12 +23,6 @@ export class Footer {
   readonly navItems = NAV_ITEMS;
   readonly resources: ResourceLink[] = [
     {
-      label: 'Polyblog',
-      externalHref: 'https://blog.polyglider.com/',
-      eyebrow: 'Blog',
-      description: 'Articoli, appunti di ricerca, formule, codice e processi condivisi.',
-    },
-    {
       label: 'BYOS!',
       path: '/partecipa',
       eyebrow: 'Jam',
