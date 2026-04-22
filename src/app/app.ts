@@ -37,6 +37,7 @@ export class App {
 
   readonly isGameOfLifeRoute = computed(() => this.currentUrl().startsWith('/game-of-life'));
   readonly isRadioRoute = computed(() => this.currentUrl().startsWith('/radio'));
+  readonly isLinksRoute = computed(() => this.currentUrl().startsWith('/links'));
   readonly isArtRoute = computed(
     () => this.currentUrl().startsWith('/art') || (this.isArtHost && this.currentUrl() === '/'),
   );

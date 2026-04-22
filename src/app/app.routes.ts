@@ -210,6 +210,23 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'links',
+    loadComponent: () => import('./features/links/links').then((m) => m.Links),
+    data: {
+      seo: {
+        title: 'Links | Polyrhythmic Glider',
+        description:
+          'Pagina essenziale con i link principali di Polyrhythmic Glider: sito, evento BYOS e Instagram.',
+        keywords: ['links', 'polyrhythmic glider', 'byos', 'instagram'],
+      },
+    },
+  },
+  {
+    path: 'l',
+    redirectTo: 'links',
+    pathMatch: 'full',
+  },
+  {
     path: 'radio',
     loadComponent: () => import('./features/radio/radio').then((m) => m.Radio),
     data: {

@@ -1,0 +1,34 @@
+<section class="links-page">
+  <div class="links-card">
+    <div class="brand-lockup">
+      <div class="brand-mark" aria-hidden="true">
+        <span>PG</span>
+      </div>
+      <p class="brand-kicker">Polyrhythmic Glider</p>
+      <h1 class="brand-title display-font">{{ title }}</h1>
+      <p class="brand-bio">
+        {{ bio }}
+      </p>
+    </div>
+
+    <nav class="links-list" aria-label="Link principali Polyglider">
+      @for (link of links; track link.id) {
+        <a
+          class="link-button"
+          [href]="link.href"
+          [attr.target]="link.href.startsWith('http') ? '_blank' : null"
+          [attr.rel]="link.href.startsWith('http') ? 'noopener noreferrer' : null"
+          (click)="trackLinkClick(link)"
+        >
+          <span class="link-copy">
+            <span class="link-label">{{ link.label }}</span>
+            <span class="link-note">{{ link.note }}</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">
+            <span class="link-arrow-line"></span>
+          </span>
+        </a>
+      }
+    </nav>
+  </div>
+</section>
