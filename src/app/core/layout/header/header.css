@@ -2,13 +2,19 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: var(--page-background);
-  backdrop-filter: none;
+  background: rgba(11, 13, 18, 0.58);
+  backdrop-filter: blur(10px);
 }
 
 .header-wrap::after {
-  content: none;
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -24px;
+  left: 0;
+  height: 24px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(11, 13, 18, 0.22), transparent);
 }
 
 .header {
