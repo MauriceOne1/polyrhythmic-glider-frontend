@@ -15,8 +15,12 @@
   --page-gutter: clamp(1rem, 3vw, 2rem);
   --page-gutter-compact: clamp(0.875rem, 2.5vw, 1.75rem);
   --section-block-space: clamp(3rem, 7vw, 5rem);
-  --card-radius: clamp(1.125rem, 2.4vw, 1.75rem);
+  --card-radius: 14px;
   --card-padding: clamp(1.125rem, 2.5vw, 1.75rem);
+  --page-background: #0b0d12;
+  --surface: #12151b;
+  --surface-raised: #171a21;
+  --surface-hover: #1c2028;
 }
 
 html {
@@ -25,11 +29,7 @@ html {
   scroll-padding-top: 96px;
   -webkit-text-size-adjust: 100%;
   color-scheme: dark;
-  background-color: #090b12;
-  background:
-    radial-gradient(circle at top, rgba(157, 231, 255, 0.1), transparent 35%),
-    radial-gradient(circle at 80% 20%, rgba(182, 255, 105, 0.1), transparent 20%),
-    linear-gradient(180deg, #090b12 0%, #111520 100%);
+  background: var(--page-background);
 }
 
 body {
@@ -40,7 +40,7 @@ body {
   position: relative;
   overflow-x: hidden;
   overflow-wrap: break-word;
-  background-color: #090b12;
+  background: var(--page-background);
   color: #f7f7fb;
   font-family: Aptos, 'Segoe UI', sans-serif;
 }
@@ -74,10 +74,7 @@ body::before {
   left: calc(env(safe-area-inset-left, 0px) * -1);
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(circle at top, rgba(157, 231, 255, 0.1), transparent 35%),
-    radial-gradient(circle at 80% 20%, rgba(182, 255, 105, 0.1), transparent 20%),
-    linear-gradient(180deg, #090b12 0%, #111520 100%);
+  background: var(--page-background);
 }
 
 app-root {
@@ -444,61 +441,88 @@ app-root {
   }
 
   .glass-panel {
-    @apply rounded-[28px] border border-white/12 bg-white/7 shadow-[0_20px_80px_rgba(0,0,0,0.16)];
+    @apply border border-white/12;
     min-width: 0;
     border-radius: var(--card-radius);
-    backdrop-filter: blur(24px) saturate(145%);
+    background: var(--surface);
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .readable-copy-card {
-    @apply rounded-[28px] border border-white/12 bg-white/8 px-5 py-5 shadow-[0_18px_70px_rgba(0,0,0,0.16)] md:px-7 md:py-6;
+    @apply border border-white/12 px-5 py-5 md:px-7 md:py-6;
     min-width: 0;
     border-radius: var(--card-radius);
     padding: var(--card-padding);
-    backdrop-filter: blur(24px) saturate(140%);
+    background: var(--surface);
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .readable-copy-card-compact {
-    @apply rounded-[28px] border border-white/12 bg-white/7 px-5 py-5 shadow-[0_16px_48px_rgba(0,0,0,0.14)] md:px-6;
+    @apply border border-white/12 px-5 py-5 md:px-6;
     min-width: 0;
     border-radius: var(--card-radius);
     padding: var(--card-padding);
-    backdrop-filter: blur(20px) saturate(135%);
+    background: var(--surface);
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .soft-card {
-    @apply rounded-[28px] border border-white/12 bg-white/6 p-5 shadow-[0_14px_40px_rgba(0,0,0,0.12)] transition duration-200 hover:border-white/20 hover:bg-white/10 md:p-6;
+    @apply border border-white/12 p-5 transition duration-200 hover:border-white/20 md:p-6;
     min-width: 0;
     border-radius: var(--card-radius);
     padding: var(--card-padding);
-    backdrop-filter: blur(22px) saturate(135%);
+    background: var(--surface);
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .soft-card p {
     text-wrap: pretty;
   }
 
+  .soft-card:hover {
+    background: var(--surface-hover);
+  }
+
   .contact-channel-card {
-    @apply min-h-[192px] rounded-[28px] border border-white/12 bg-white/7 p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] transition duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/11 md:min-h-[216px] md:p-7;
+    @apply min-h-[192px] border border-white/12 p-6 transition duration-200 hover:-translate-y-0.5 hover:border-white/20 md:min-h-[216px] md:p-7;
     min-width: 0;
     border-radius: var(--card-radius);
     padding: var(--card-padding);
-    backdrop-filter: blur(22px) saturate(140%);
+    background: var(--surface);
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .contact-channel-card:hover {
+    background: var(--surface-hover);
   }
 
   .button-primary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-white px-5 py-3 font-semibold text-ink-950 transition hover:-translate-y-px hover:bg-signal-300 disabled:cursor-not-allowed disabled:opacity-70;
+    @apply inline-flex min-h-12 items-center justify-center bg-white px-5 py-3 font-semibold text-ink-950 transition hover:-translate-y-px hover:bg-signal-300 disabled:cursor-not-allowed disabled:opacity-70;
+    border-radius: 8px;
   }
 
   .button-secondary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-white/10 bg-white/6 px-5 py-3 font-semibold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-70;
+    @apply inline-flex min-h-12 items-center justify-center border border-white/10 px-5 py-3 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-70;
+    border-radius: 8px;
+    background: var(--surface-raised);
+  }
+
+  .button-secondary:hover {
+    background: var(--surface-hover);
   }
 
   .pill-tag {
-    @apply rounded-full border border-white/12 bg-white/6 px-3 py-2 text-xs uppercase tracking-[0.16em] text-white/65;
+    @apply border border-white/12 px-3 py-2 text-xs uppercase tracking-[0.16em] text-white/65;
     min-width: 0;
     overflow-wrap: anywhere;
-    backdrop-filter: blur(14px) saturate(135%);
+    border-radius: 6px;
+    background: var(--surface-raised);
+    backdrop-filter: none;
   }
 
   .field-shell {
@@ -510,9 +534,11 @@ app-root {
   }
 
   .field-input {
-    @apply rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-white outline-none transition placeholder:text-white/28 focus:border-frost-300/40 focus:bg-white/10;
+    @apply border border-white/12 px-4 py-3 text-white outline-none transition placeholder:text-white/28 focus:border-frost-300/40;
     min-width: 0;
-    backdrop-filter: blur(14px) saturate(135%);
+    border-radius: 8px;
+    background-color: var(--surface-raised);
+    backdrop-filter: none;
   }
 
   select.field-input {
@@ -535,17 +561,32 @@ app-root {
   }
 
   .field-dropdown-trigger {
-    @apply flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-white/12 bg-white/6 px-4 py-3 text-left text-white outline-none transition hover:bg-white/9 focus:border-frost-300/40 focus:bg-white/10;
-    backdrop-filter: blur(14px) saturate(135%);
+    @apply flex min-h-12 w-full items-center justify-between gap-3 border border-white/12 px-4 py-3 text-left text-white outline-none transition focus:border-frost-300/40;
+    border-radius: 8px;
+    background: var(--surface-raised);
+    backdrop-filter: none;
+  }
+
+  .field-dropdown-trigger:hover,
+  .field-dropdown-trigger:focus-visible {
+    background: var(--surface-hover);
   }
 
   .field-dropdown-panel {
-    @apply absolute left-0 right-0 top-[calc(100%+0.6rem)] z-20 rounded-[28px] border border-white/12 bg-ink-900/96 p-2 shadow-[0_22px_60px_rgba(0,0,0,0.28)];
-    backdrop-filter: blur(22px) saturate(150%);
+    @apply absolute left-0 right-0 top-[calc(100%+0.6rem)] z-20 border border-white/12 p-2;
+    border-radius: 10px;
+    background: var(--surface-raised);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    backdrop-filter: none;
   }
 
   .field-dropdown-option {
-    @apply flex min-h-11 w-full items-center rounded-full px-4 py-3 text-left text-sm text-white/78 transition hover:bg-white/8 hover:text-white;
+    @apply flex min-h-11 w-full items-center px-4 py-3 text-left text-sm text-white/78 transition hover:text-white;
+    border-radius: 6px;
+  }
+
+  .field-dropdown-option:hover {
+    background: var(--surface-hover);
   }
 
   .field-dropdown-option.is-selected {
@@ -578,7 +619,7 @@ app-root {
     --page-gutter: 1rem;
     --page-gutter-compact: 0.875rem;
     --section-block-space: 2.5rem;
-    --card-radius: 1.125rem;
+    --card-radius: 12px;
     --card-padding: 1rem;
   }
 }

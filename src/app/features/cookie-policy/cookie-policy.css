@@ -7,24 +7,14 @@
   overflow: hidden;
   padding: clamp(1.4rem, 3vw, 2rem);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 30px;
-  background:
-    radial-gradient(circle at top right, rgba(157, 231, 255, 0.14), transparent 34%),
-    radial-gradient(circle at left bottom, rgba(182, 255, 105, 0.12), transparent 30%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.05);
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.16);
-  backdrop-filter: blur(24px) saturate(145%);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .policy-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.34), transparent 70%);
-  opacity: 0.8;
+  content: none;
 }
 
 .policy-lead {
@@ -51,36 +41,27 @@
   overflow: hidden;
   padding: 1.25rem 1.2rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.14);
-  backdrop-filter: blur(20px) saturate(140%);
+  border-top-color: var(--policy-accent, rgba(157, 231, 255, 0.45));
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .policy-point::after {
-  content: '';
-  position: absolute;
-  top: -2.5rem;
-  right: -2rem;
-  width: 7rem;
-  height: 7rem;
-  border-radius: 999px;
-  background: var(--policy-accent, rgba(157, 231, 255, 0.14));
-  filter: blur(24px);
-  opacity: 0.9;
-  pointer-events: none;
+  content: none;
 }
 
 .policy-point.is-lime {
-  --policy-accent: rgba(182, 255, 105, 0.16);
+  --policy-accent: rgba(182, 255, 105, 0.48);
 }
 
 .policy-point.is-cyan {
-  --policy-accent: rgba(157, 231, 255, 0.16);
+  --policy-accent: rgba(157, 231, 255, 0.52);
 }
 
 .policy-point.is-amber {
-  --policy-accent: rgba(255, 210, 92, 0.15);
+  --policy-accent: rgba(255, 210, 92, 0.48);
 }
 
 .policy-point-label {

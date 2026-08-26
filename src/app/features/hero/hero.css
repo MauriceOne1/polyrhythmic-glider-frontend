@@ -310,8 +310,7 @@ h1 {
   gap: 12px;
   overflow-x: hidden;
   overflow-y: hidden;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 35%), rgba(7, 10, 15, 0.88);
+  background: #0b0e13;
   font-family: Consolas, 'Courier New', monospace;
   scrollbar-width: none;
   -ms-overflow-style: none;
